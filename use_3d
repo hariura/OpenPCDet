@@ -1,0 +1,18 @@
+$git clone https://github.com/open-mmlab/OpenPCDet.git
+
+$python setup.py develop
+
+# move weigth file
+move to  tools/checkpoint_epoch_60.pth
+
+# file replace
+tools/cfgs/custom_models/pv_rcnn.yaml
+tools/cfgs/dataset_configs/custom_dataset.yaml
+
+# copy 
+tools/cfgs/dataset_configs folder to OpenPCDet
+
+# change directory
+cd OpenPCDet/tools
+
+python test.py --cfg_file '/home/jh/Desktop/test2/OpenPCDet/tools/cfgs/custom_models/pv_rcnn.yaml'  --batch_size 1 --ckpt '/home/jh/Desktop/test2/OpenPCDet/tools/checkpoint_epoch_60.pth'
