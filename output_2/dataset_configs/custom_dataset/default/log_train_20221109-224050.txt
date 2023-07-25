@@ -1,0 +1,56 @@
+2022-11-09 22:40:50,218   INFO  **********************Start logging**********************
+2022-11-09 22:40:50,218   INFO  CUDA_VISIBLE_DEVICES=ALL
+2022-11-09 22:40:50,218   INFO  cfg_file         cfgs/dataset_configs/custom_dataset.yaml
+2022-11-09 22:40:50,218   INFO  batch_size       4
+2022-11-09 22:40:50,218   INFO  epochs           60
+2022-11-09 22:40:50,218   INFO  workers          4
+2022-11-09 22:40:50,218   INFO  extra_tag        default
+2022-11-09 22:40:50,218   INFO  ckpt             None
+2022-11-09 22:40:50,218   INFO  pretrained_model None
+2022-11-09 22:40:50,218   INFO  launcher         none
+2022-11-09 22:40:50,218   INFO  tcp_port         18888
+2022-11-09 22:40:50,218   INFO  sync_bn          False
+2022-11-09 22:40:50,218   INFO  fix_random_seed  False
+2022-11-09 22:40:50,218   INFO  ckpt_save_interval 1
+2022-11-09 22:40:50,218   INFO  local_rank       0
+2022-11-09 22:40:50,218   INFO  max_ckpt_save_num 30
+2022-11-09 22:40:50,218   INFO  merge_all_iters_to_one_epoch False
+2022-11-09 22:40:50,218   INFO  set_cfgs         None
+2022-11-09 22:40:50,218   INFO  max_waiting_mins 0
+2022-11-09 22:40:50,218   INFO  start_epoch      0
+2022-11-09 22:40:50,218   INFO  num_epochs_to_eval 0
+2022-11-09 22:40:50,218   INFO  save_to_file     False
+2022-11-09 22:40:50,218   INFO  use_tqdm_to_record False
+2022-11-09 22:40:50,218   INFO  logger_iter_interval 50
+2022-11-09 22:40:50,218   INFO  ckpt_save_time_interval 300
+2022-11-09 22:40:50,218   INFO  wo_gpu_stat      False
+2022-11-09 22:40:50,218   INFO  cfg.ROOT_DIR: /home/jh/Desktop/3d/OpenPCDet
+2022-11-09 22:40:50,218   INFO  cfg.LOCAL_RANK: 0
+2022-11-09 22:40:50,218   INFO  cfg.DATASET: CustomDataset
+2022-11-09 22:40:50,218   INFO  cfg.DATA_PATH: ../data/custom
+2022-11-09 22:40:50,218   INFO  cfg.POINT_CLOUD_RANGE: [-75.2, -75.2, -2, 75.2, 75.2, 4]
+2022-11-09 22:40:50,218   INFO  
+cfg.MAP_CLASS_TO_KITTI = edict()
+2022-11-09 22:40:50,218   INFO  cfg.MAP_CLASS_TO_KITTI.Car: Car
+2022-11-09 22:40:50,219   INFO  cfg.MAP_CLASS_TO_KITTI.Pedestrian: Pedestrian
+2022-11-09 22:40:50,219   INFO  cfg.MAP_CLASS_TO_KITTI.Truck: Cyclist
+2022-11-09 22:40:50,219   INFO  
+cfg.DATA_SPLIT = edict()
+2022-11-09 22:40:50,219   INFO  cfg.DATA_SPLIT.train: train
+2022-11-09 22:40:50,219   INFO  cfg.DATA_SPLIT.test: val
+2022-11-09 22:40:50,219   INFO  
+cfg.INFO_PATH = edict()
+2022-11-09 22:40:50,219   INFO  cfg.INFO_PATH.train: ['custom_infos_train.pkl']
+2022-11-09 22:40:50,219   INFO  cfg.INFO_PATH.test: ['custom_infos_val.pkl']
+2022-11-09 22:40:50,219   INFO  
+cfg.POINT_FEATURE_ENCODING = edict()
+2022-11-09 22:40:50,219   INFO  cfg.POINT_FEATURE_ENCODING.encoding_type: absolute_coordinates_encoding
+2022-11-09 22:40:50,219   INFO  cfg.POINT_FEATURE_ENCODING.used_feature_list: ['x', 'y', 'z', 'intensity']
+2022-11-09 22:40:50,219   INFO  cfg.POINT_FEATURE_ENCODING.src_feature_list: ['x', 'y', 'z', 'intensity']
+2022-11-09 22:40:50,219   INFO  
+cfg.DATA_AUGMENTOR = edict()
+2022-11-09 22:40:50,219   INFO  cfg.DATA_AUGMENTOR.DISABLE_AUG_LIST: ['placeholder']
+2022-11-09 22:40:50,219   INFO  cfg.DATA_AUGMENTOR.AUG_CONFIG_LIST: [{'NAME': 'gt_sampling', 'USE_ROAD_PLANE': False, 'DB_INFO_PATH': ['custom_dbinfos_train.pkl'], 'PREPARE': {'filter_by_min_points': ['Car:5', 'Pedestrian:5', 'Truck:5']}, 'SAMPLE_GROUPS': ['Car:20', 'Pedestrian:15', 'Truck:15'], 'NUM_POINT_FEATURES': 4, 'DATABASE_WITH_FAKELIDAR': False, 'REMOVE_EXTRA_WIDTH': [0.0, 0.0, 0.0], 'LIMIT_WHOLE_SCENE': True}, {'NAME': 'random_world_flip', 'ALONG_AXIS_LIST': ['x', 'y']}, {'NAME': 'random_world_rotation', 'WORLD_ROT_ANGLE': [-0.78539816, 0.78539816]}, {'NAME': 'random_world_scaling', 'WORLD_SCALE_RANGE': [0.95, 1.05]}]
+2022-11-09 22:40:50,219   INFO  cfg.DATA_PROCESSOR: [{'NAME': 'mask_points_and_boxes_outside_range', 'REMOVE_OUTSIDE_BOXES': True}, {'NAME': 'shuffle_points', 'SHUFFLE_ENABLED': {'train': True, 'test': False}}, {'NAME': 'transform_points_to_voxels', 'VOXEL_SIZE': [0.1, 0.1, 0.15], 'MAX_POINTS_PER_VOXEL': 5, 'MAX_NUMBER_OF_VOXELS': {'train': 150000, 'test': 150000}}]
+2022-11-09 22:40:50,219   INFO  cfg.TAG: custom_dataset
+2022-11-09 22:40:50,219   INFO  cfg.EXP_GROUP_PATH: dataset_configs

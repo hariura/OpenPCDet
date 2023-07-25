@@ -1,0 +1,1386 @@
+2022-11-09 23:29:55,605   INFO  **********************Start logging**********************
+2022-11-09 23:29:55,605   INFO  CUDA_VISIBLE_DEVICES=ALL
+2022-11-09 23:29:55,605   INFO  cfg_file         /home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn.yaml
+2022-11-09 23:29:55,605   INFO  batch_size       4
+2022-11-09 23:29:55,605   INFO  epochs           60
+2022-11-09 23:29:55,605   INFO  workers          4
+2022-11-09 23:29:55,605   INFO  extra_tag        default
+2022-11-09 23:29:55,605   INFO  ckpt             None
+2022-11-09 23:29:55,605   INFO  pretrained_model None
+2022-11-09 23:29:55,605   INFO  launcher         none
+2022-11-09 23:29:55,605   INFO  tcp_port         18888
+2022-11-09 23:29:55,605   INFO  sync_bn          False
+2022-11-09 23:29:55,605   INFO  fix_random_seed  False
+2022-11-09 23:29:55,605   INFO  ckpt_save_interval 1
+2022-11-09 23:29:55,605   INFO  local_rank       0
+2022-11-09 23:29:55,605   INFO  max_ckpt_save_num 30
+2022-11-09 23:29:55,605   INFO  merge_all_iters_to_one_epoch False
+2022-11-09 23:29:55,605   INFO  set_cfgs         None
+2022-11-09 23:29:55,605   INFO  max_waiting_mins 0
+2022-11-09 23:29:55,605   INFO  start_epoch      0
+2022-11-09 23:29:55,605   INFO  num_epochs_to_eval 0
+2022-11-09 23:29:55,605   INFO  save_to_file     False
+2022-11-09 23:29:55,605   INFO  use_tqdm_to_record False
+2022-11-09 23:29:55,605   INFO  logger_iter_interval 50
+2022-11-09 23:29:55,605   INFO  ckpt_save_time_interval 300
+2022-11-09 23:29:55,605   INFO  wo_gpu_stat      False
+2022-11-09 23:29:55,606   INFO  cfg.ROOT_DIR: /home/jh/Desktop/3d/OpenPCDet
+2022-11-09 23:29:55,606   INFO  cfg.LOCAL_RANK: 0
+2022-11-09 23:29:55,606   INFO  cfg.CLASS_NAMES: ['Car', 'Pedestrian', 'Truck']
+2022-11-09 23:29:55,606   INFO  
+cfg.DATA_CONFIG = edict()
+2022-11-09 23:29:55,606   INFO  cfg.DATA_CONFIG.DATASET: CustomDataset
+2022-11-09 23:29:55,606   INFO  cfg.DATA_CONFIG.DATA_PATH: ../data/custom
+2022-11-09 23:29:55,606   INFO  cfg.DATA_CONFIG.CLASS_NAMES: ['Car', 'Pedestrian', 'Truck']
+2022-11-09 23:29:55,606   INFO  cfg.DATA_CONFIG.POINT_CLOUD_RANGE: [-75.2, -75.2, -2, 75.2, 75.2, 4]
+2022-11-09 23:29:55,606   INFO  
+cfg.DATA_CONFIG.MAP_CLASS_TO_KITTI = edict()
+2022-11-09 23:29:55,606   INFO  cfg.DATA_CONFIG.MAP_CLASS_TO_KITTI.Car: Car
+2022-11-09 23:29:55,606   INFO  cfg.DATA_CONFIG.MAP_CLASS_TO_KITTI.Pedestrian: Pedestrian
+2022-11-09 23:29:55,606   INFO  cfg.DATA_CONFIG.MAP_CLASS_TO_KITTI.Truck: Cyclist
+2022-11-09 23:29:55,606   INFO  
+cfg.DATA_CONFIG.DATA_SPLIT = edict()
+2022-11-09 23:29:55,606   INFO  cfg.DATA_CONFIG.DATA_SPLIT.train: train
+2022-11-09 23:29:55,606   INFO  cfg.DATA_CONFIG.DATA_SPLIT.test: val
+2022-11-09 23:29:55,606   INFO  
+cfg.DATA_CONFIG.INFO_PATH = edict()
+2022-11-09 23:29:55,606   INFO  cfg.DATA_CONFIG.INFO_PATH.train: ['custom_infos_train.pkl']
+2022-11-09 23:29:55,606   INFO  cfg.DATA_CONFIG.INFO_PATH.test: ['custom_infos_val.pkl']
+2022-11-09 23:29:55,606   INFO  
+cfg.DATA_CONFIG.POINT_FEATURE_ENCODING = edict()
+2022-11-09 23:29:55,606   INFO  cfg.DATA_CONFIG.POINT_FEATURE_ENCODING.encoding_type: absolute_coordinates_encoding
+2022-11-09 23:29:55,606   INFO  cfg.DATA_CONFIG.POINT_FEATURE_ENCODING.used_feature_list: ['x', 'y', 'z', 'intensity']
+2022-11-09 23:29:55,606   INFO  cfg.DATA_CONFIG.POINT_FEATURE_ENCODING.src_feature_list: ['x', 'y', 'z', 'intensity']
+2022-11-09 23:29:55,606   INFO  
+cfg.DATA_CONFIG.DATA_AUGMENTOR = edict()
+2022-11-09 23:29:55,606   INFO  cfg.DATA_CONFIG.DATA_AUGMENTOR.DISABLE_AUG_LIST: ['placeholder']
+2022-11-09 23:29:55,606   INFO  cfg.DATA_CONFIG.DATA_AUGMENTOR.AUG_CONFIG_LIST: [{'NAME': 'gt_sampling', 'USE_ROAD_PLANE': False, 'DB_INFO_PATH': ['custom_dbinfos_train.pkl'], 'PREPARE': {'filter_by_min_points': ['Car:5', 'Pedestrian:5', 'Truck:5']}, 'SAMPLE_GROUPS': ['Car:20', 'Pedestrian:15', 'Truck:15'], 'NUM_POINT_FEATURES': 4, 'DATABASE_WITH_FAKELIDAR': False, 'REMOVE_EXTRA_WIDTH': [0.0, 0.0, 0.0], 'LIMIT_WHOLE_SCENE': True}, {'NAME': 'random_world_flip', 'ALONG_AXIS_LIST': ['x', 'y']}, {'NAME': 'random_world_rotation', 'WORLD_ROT_ANGLE': [-0.78539816, 0.78539816]}, {'NAME': 'random_world_scaling', 'WORLD_SCALE_RANGE': [0.95, 1.05]}]
+2022-11-09 23:29:55,606   INFO  cfg.DATA_CONFIG.DATA_PROCESSOR: [{'NAME': 'mask_points_and_boxes_outside_range', 'REMOVE_OUTSIDE_BOXES': True}, {'NAME': 'shuffle_points', 'SHUFFLE_ENABLED': {'train': True, 'test': False}}, {'NAME': 'transform_points_to_voxels', 'VOXEL_SIZE': [0.1, 0.1, 0.15], 'MAX_POINTS_PER_VOXEL': 5, 'MAX_NUMBER_OF_VOXELS': {'train': 150000, 'test': 150000}}]
+2022-11-09 23:29:55,606   INFO  cfg.DATA_CONFIG._BASE_CONFIG_: ../dataset_configs/custom_dataset.yaml
+2022-11-09 23:29:55,606   INFO  
+cfg.MODEL = edict()
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.NAME: PVRCNN
+2022-11-09 23:29:55,606   INFO  
+cfg.MODEL.VFE = edict()
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.VFE.NAME: MeanVFE
+2022-11-09 23:29:55,606   INFO  
+cfg.MODEL.BACKBONE_3D = edict()
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.BACKBONE_3D.NAME: VoxelBackBone8x
+2022-11-09 23:29:55,606   INFO  
+cfg.MODEL.MAP_TO_BEV = edict()
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.MAP_TO_BEV.NAME: HeightCompression
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.MAP_TO_BEV.NUM_BEV_FEATURES: 256
+2022-11-09 23:29:55,606   INFO  
+cfg.MODEL.BACKBONE_2D = edict()
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.BACKBONE_2D.NAME: BaseBEVBackbone
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.BACKBONE_2D.LAYER_NUMS: [5, 5]
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.BACKBONE_2D.LAYER_STRIDES: [1, 2]
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.BACKBONE_2D.NUM_FILTERS: [128, 256]
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.BACKBONE_2D.UPSAMPLE_STRIDES: [1, 2]
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.BACKBONE_2D.NUM_UPSAMPLE_FILTERS: [256, 256]
+2022-11-09 23:29:55,606   INFO  
+cfg.MODEL.DENSE_HEAD = edict()
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.DENSE_HEAD.NAME: AnchorHeadSingle
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.DENSE_HEAD.CLASS_AGNOSTIC: False
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.DENSE_HEAD.USE_DIRECTION_CLASSIFIER: True
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.DENSE_HEAD.DIR_OFFSET: 0.78539
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.DENSE_HEAD.DIR_LIMIT_OFFSET: 0.0
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.DENSE_HEAD.NUM_DIR_BINS: 2
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.DENSE_HEAD.ANCHOR_GENERATOR_CONFIG: [{'class_name': 'Vehicle', 'anchor_sizes': [[3.9, 1.6, 1.56]], 'anchor_rotations': [0, 1.57], 'anchor_bottom_heights': [0], 'align_center': False, 'feature_map_stride': 8, 'matched_threshold': 0.55, 'unmatched_threshold': 0.4}, {'class_name': 'Pedestrian', 'anchor_sizes': [[0.8, 0.6, 1.73]], 'anchor_rotations': [0, 1.57], 'anchor_bottom_heights': [0], 'align_center': False, 'feature_map_stride': 8, 'matched_threshold': 0.5, 'unmatched_threshold': 0.35}, {'class_name': 'Cyclist', 'anchor_sizes': [[1.76, 0.6, 1.73]], 'anchor_rotations': [0, 1.57], 'anchor_bottom_heights': [0], 'align_center': False, 'feature_map_stride': 8, 'matched_threshold': 0.5, 'unmatched_threshold': 0.35}]
+2022-11-09 23:29:55,606   INFO  
+cfg.MODEL.DENSE_HEAD.TARGET_ASSIGNER_CONFIG = edict()
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.DENSE_HEAD.TARGET_ASSIGNER_CONFIG.NAME: AxisAlignedTargetAssigner
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.DENSE_HEAD.TARGET_ASSIGNER_CONFIG.POS_FRACTION: -1.0
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.DENSE_HEAD.TARGET_ASSIGNER_CONFIG.SAMPLE_SIZE: 512
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.DENSE_HEAD.TARGET_ASSIGNER_CONFIG.NORM_BY_NUM_EXAMPLES: False
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.DENSE_HEAD.TARGET_ASSIGNER_CONFIG.MATCH_HEIGHT: False
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.DENSE_HEAD.TARGET_ASSIGNER_CONFIG.BOX_CODER: ResidualCoder
+2022-11-09 23:29:55,606   INFO  
+cfg.MODEL.DENSE_HEAD.LOSS_CONFIG = edict()
+2022-11-09 23:29:55,606   INFO  
+cfg.MODEL.DENSE_HEAD.LOSS_CONFIG.LOSS_WEIGHTS = edict()
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.DENSE_HEAD.LOSS_CONFIG.LOSS_WEIGHTS.cls_weight: 1.0
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.DENSE_HEAD.LOSS_CONFIG.LOSS_WEIGHTS.loc_weight: 2.0
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.DENSE_HEAD.LOSS_CONFIG.LOSS_WEIGHTS.dir_weight: 0.2
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.DENSE_HEAD.LOSS_CONFIG.LOSS_WEIGHTS.code_weights: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+2022-11-09 23:29:55,606   INFO  
+cfg.MODEL.PFE = edict()
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.PFE.NAME: VoxelSetAbstraction
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.PFE.POINT_SOURCE: raw_points
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.PFE.NUM_KEYPOINTS: 4096
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.PFE.NUM_OUTPUT_FEATURES: 128
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.PFE.SAMPLE_METHOD: FPS
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.PFE.FEATURES_SOURCE: ['bev', 'x_conv3', 'x_conv4', 'raw_points']
+2022-11-09 23:29:55,606   INFO  
+cfg.MODEL.PFE.SA_LAYER = edict()
+2022-11-09 23:29:55,606   INFO  
+cfg.MODEL.PFE.SA_LAYER.raw_points = edict()
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.PFE.SA_LAYER.raw_points.MLPS: [[16, 16], [16, 16]]
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.PFE.SA_LAYER.raw_points.POOL_RADIUS: [0.4, 0.8]
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.PFE.SA_LAYER.raw_points.NSAMPLE: [16, 16]
+2022-11-09 23:29:55,606   INFO  
+cfg.MODEL.PFE.SA_LAYER.x_conv1 = edict()
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.PFE.SA_LAYER.x_conv1.DOWNSAMPLE_FACTOR: 1
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.PFE.SA_LAYER.x_conv1.MLPS: [[16, 16], [16, 16]]
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.PFE.SA_LAYER.x_conv1.POOL_RADIUS: [0.4, 0.8]
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.PFE.SA_LAYER.x_conv1.NSAMPLE: [16, 16]
+2022-11-09 23:29:55,606   INFO  
+cfg.MODEL.PFE.SA_LAYER.x_conv2 = edict()
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.PFE.SA_LAYER.x_conv2.DOWNSAMPLE_FACTOR: 2
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.PFE.SA_LAYER.x_conv2.MLPS: [[32, 32], [32, 32]]
+2022-11-09 23:29:55,606   INFO  cfg.MODEL.PFE.SA_LAYER.x_conv2.POOL_RADIUS: [0.8, 1.2]
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.PFE.SA_LAYER.x_conv2.NSAMPLE: [16, 32]
+2022-11-09 23:29:55,607   INFO  
+cfg.MODEL.PFE.SA_LAYER.x_conv3 = edict()
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.PFE.SA_LAYER.x_conv3.DOWNSAMPLE_FACTOR: 4
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.PFE.SA_LAYER.x_conv3.MLPS: [[64, 64], [64, 64]]
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.PFE.SA_LAYER.x_conv3.POOL_RADIUS: [1.2, 2.4]
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.PFE.SA_LAYER.x_conv3.NSAMPLE: [16, 32]
+2022-11-09 23:29:55,607   INFO  
+cfg.MODEL.PFE.SA_LAYER.x_conv4 = edict()
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.PFE.SA_LAYER.x_conv4.DOWNSAMPLE_FACTOR: 8
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.PFE.SA_LAYER.x_conv4.MLPS: [[64, 64], [64, 64]]
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.PFE.SA_LAYER.x_conv4.POOL_RADIUS: [2.4, 4.8]
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.PFE.SA_LAYER.x_conv4.NSAMPLE: [16, 32]
+2022-11-09 23:29:55,607   INFO  
+cfg.MODEL.POINT_HEAD = edict()
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.POINT_HEAD.NAME: PointHeadSimple
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.POINT_HEAD.CLS_FC: [256, 256]
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.POINT_HEAD.CLASS_AGNOSTIC: True
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.POINT_HEAD.USE_POINT_FEATURES_BEFORE_FUSION: True
+2022-11-09 23:29:55,607   INFO  
+cfg.MODEL.POINT_HEAD.TARGET_CONFIG = edict()
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.POINT_HEAD.TARGET_CONFIG.GT_EXTRA_WIDTH: [0.2, 0.2, 0.2]
+2022-11-09 23:29:55,607   INFO  
+cfg.MODEL.POINT_HEAD.LOSS_CONFIG = edict()
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.POINT_HEAD.LOSS_CONFIG.LOSS_REG: smooth-l1
+2022-11-09 23:29:55,607   INFO  
+cfg.MODEL.POINT_HEAD.LOSS_CONFIG.LOSS_WEIGHTS = edict()
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.POINT_HEAD.LOSS_CONFIG.LOSS_WEIGHTS.point_cls_weight: 1.0
+2022-11-09 23:29:55,607   INFO  
+cfg.MODEL.ROI_HEAD = edict()
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.ROI_HEAD.NAME: PVRCNNHead
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.ROI_HEAD.CLASS_AGNOSTIC: True
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.ROI_HEAD.SHARED_FC: [256, 256]
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.ROI_HEAD.CLS_FC: [256, 256]
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.ROI_HEAD.REG_FC: [256, 256]
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.ROI_HEAD.DP_RATIO: 0.3
+2022-11-09 23:29:55,607   INFO  
+cfg.MODEL.ROI_HEAD.NMS_CONFIG = edict()
+2022-11-09 23:29:55,607   INFO  
+cfg.MODEL.ROI_HEAD.NMS_CONFIG.TRAIN = edict()
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.ROI_HEAD.NMS_CONFIG.TRAIN.NMS_TYPE: nms_gpu
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.ROI_HEAD.NMS_CONFIG.TRAIN.MULTI_CLASSES_NMS: False
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.ROI_HEAD.NMS_CONFIG.TRAIN.NMS_PRE_MAXSIZE: 9000
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.ROI_HEAD.NMS_CONFIG.TRAIN.NMS_POST_MAXSIZE: 512
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.ROI_HEAD.NMS_CONFIG.TRAIN.NMS_THRESH: 0.8
+2022-11-09 23:29:55,607   INFO  
+cfg.MODEL.ROI_HEAD.NMS_CONFIG.TEST = edict()
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.ROI_HEAD.NMS_CONFIG.TEST.NMS_TYPE: nms_gpu
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.ROI_HEAD.NMS_CONFIG.TEST.MULTI_CLASSES_NMS: False
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.ROI_HEAD.NMS_CONFIG.TEST.NMS_PRE_MAXSIZE: 4096
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.ROI_HEAD.NMS_CONFIG.TEST.NMS_POST_MAXSIZE: 300
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.ROI_HEAD.NMS_CONFIG.TEST.NMS_THRESH: 0.85
+2022-11-09 23:29:55,607   INFO  
+cfg.MODEL.ROI_HEAD.ROI_GRID_POOL = edict()
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.ROI_HEAD.ROI_GRID_POOL.GRID_SIZE: 6
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.ROI_HEAD.ROI_GRID_POOL.MLPS: [[64, 64], [64, 64]]
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.ROI_HEAD.ROI_GRID_POOL.POOL_RADIUS: [0.8, 1.6]
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.ROI_HEAD.ROI_GRID_POOL.NSAMPLE: [16, 16]
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.ROI_HEAD.ROI_GRID_POOL.POOL_METHOD: max_pool
+2022-11-09 23:29:55,607   INFO  
+cfg.MODEL.ROI_HEAD.TARGET_CONFIG = edict()
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.ROI_HEAD.TARGET_CONFIG.BOX_CODER: ResidualCoder
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.ROI_HEAD.TARGET_CONFIG.ROI_PER_IMAGE: 128
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.ROI_HEAD.TARGET_CONFIG.FG_RATIO: 0.5
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.ROI_HEAD.TARGET_CONFIG.SAMPLE_ROI_BY_EACH_CLASS: True
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.ROI_HEAD.TARGET_CONFIG.CLS_SCORE_TYPE: roi_iou
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.ROI_HEAD.TARGET_CONFIG.CLS_FG_THRESH: 0.75
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.ROI_HEAD.TARGET_CONFIG.CLS_BG_THRESH: 0.25
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.ROI_HEAD.TARGET_CONFIG.CLS_BG_THRESH_LO: 0.1
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.ROI_HEAD.TARGET_CONFIG.HARD_BG_RATIO: 0.8
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.ROI_HEAD.TARGET_CONFIG.REG_FG_THRESH: 0.55
+2022-11-09 23:29:55,607   INFO  
+cfg.MODEL.ROI_HEAD.LOSS_CONFIG = edict()
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.ROI_HEAD.LOSS_CONFIG.CLS_LOSS: BinaryCrossEntropy
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.ROI_HEAD.LOSS_CONFIG.REG_LOSS: smooth-l1
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.ROI_HEAD.LOSS_CONFIG.CORNER_LOSS_REGULARIZATION: True
+2022-11-09 23:29:55,607   INFO  
+cfg.MODEL.ROI_HEAD.LOSS_CONFIG.LOSS_WEIGHTS = edict()
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.ROI_HEAD.LOSS_CONFIG.LOSS_WEIGHTS.rcnn_cls_weight: 1.0
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.ROI_HEAD.LOSS_CONFIG.LOSS_WEIGHTS.rcnn_reg_weight: 1.0
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.ROI_HEAD.LOSS_CONFIG.LOSS_WEIGHTS.rcnn_corner_weight: 1.0
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.ROI_HEAD.LOSS_CONFIG.LOSS_WEIGHTS.code_weights: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+2022-11-09 23:29:55,607   INFO  
+cfg.MODEL.POST_PROCESSING = edict()
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.POST_PROCESSING.RECALL_THRESH_LIST: [0.3, 0.5, 0.7]
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.POST_PROCESSING.SCORE_THRESH: 0.1
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.POST_PROCESSING.OUTPUT_RAW_SCORE: False
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.POST_PROCESSING.EVAL_METRIC: kitti
+2022-11-09 23:29:55,607   INFO  
+cfg.MODEL.POST_PROCESSING.NMS_CONFIG = edict()
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.POST_PROCESSING.NMS_CONFIG.MULTI_CLASSES_NMS: False
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.POST_PROCESSING.NMS_CONFIG.NMS_TYPE: nms_gpu
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.POST_PROCESSING.NMS_CONFIG.NMS_THRESH: 0.1
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.POST_PROCESSING.NMS_CONFIG.NMS_PRE_MAXSIZE: 4096
+2022-11-09 23:29:55,607   INFO  cfg.MODEL.POST_PROCESSING.NMS_CONFIG.NMS_POST_MAXSIZE: 500
+2022-11-09 23:29:55,607   INFO  
+cfg.OPTIMIZATION = edict()
+2022-11-09 23:29:55,607   INFO  cfg.OPTIMIZATION.BATCH_SIZE_PER_GPU: 2
+2022-11-09 23:29:55,607   INFO  cfg.OPTIMIZATION.NUM_EPOCHS: 80
+2022-11-09 23:29:55,607   INFO  cfg.OPTIMIZATION.OPTIMIZER: adam_onecycle
+2022-11-09 23:29:55,607   INFO  cfg.OPTIMIZATION.LR: 0.01
+2022-11-09 23:29:55,607   INFO  cfg.OPTIMIZATION.WEIGHT_DECAY: 0.01
+2022-11-09 23:29:55,607   INFO  cfg.OPTIMIZATION.MOMENTUM: 0.9
+2022-11-09 23:29:55,607   INFO  cfg.OPTIMIZATION.MOMS: [0.95, 0.85]
+2022-11-09 23:29:55,607   INFO  cfg.OPTIMIZATION.PCT_START: 0.4
+2022-11-09 23:29:55,607   INFO  cfg.OPTIMIZATION.DIV_FACTOR: 10
+2022-11-09 23:29:55,607   INFO  cfg.OPTIMIZATION.DECAY_STEP_LIST: [35, 45]
+2022-11-09 23:29:55,608   INFO  cfg.OPTIMIZATION.LR_DECAY: 0.1
+2022-11-09 23:29:55,608   INFO  cfg.OPTIMIZATION.LR_CLIP: 1e-07
+2022-11-09 23:29:55,608   INFO  cfg.OPTIMIZATION.LR_WARMUP: False
+2022-11-09 23:29:55,608   INFO  cfg.OPTIMIZATION.WARMUP_EPOCH: 1
+2022-11-09 23:29:55,608   INFO  cfg.OPTIMIZATION.GRAD_NORM_CLIP: 10
+2022-11-09 23:29:55,608   INFO  cfg.TAG: pv_rcnn
+2022-11-09 23:29:55,608   INFO  cfg.EXP_GROUP_PATH: home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models
+2022-11-09 23:29:55,625   INFO  Database filter by min points Car: 8310 => 8309
+2022-11-09 23:29:55,625   INFO  Database filter by min points Pedestrian: 3 => 3
+2022-11-09 23:29:55,625   INFO  Database filter by min points Truck: 2163 => 2163
+2022-11-09 23:29:55,637   INFO  Loading Custom dataset.
+2022-11-09 23:29:55,656   INFO  Total samples for CUSTOM dataset: 1600
+2022-11-09 23:29:57,845   INFO  PVRCNN(
+  (vfe): MeanVFE()
+  (backbone_3d): VoxelBackBone8x(
+    (conv_input): SparseSequential(
+      (0): SubMConv3d(4, 16, kernel_size=[3, 3, 3], stride=[1, 1, 1], padding=[1, 1, 1], dilation=[1, 1, 1], output_padding=[0, 0, 0], bias=False, algo=ConvAlgo.MaskImplicitGemm)
+      (1): BatchNorm1d(16, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+      (2): ReLU()
+    )
+    (conv1): SparseSequential(
+      (0): SparseSequential(
+        (0): SubMConv3d(16, 16, kernel_size=[3, 3, 3], stride=[1, 1, 1], padding=[0, 0, 0], dilation=[1, 1, 1], output_padding=[0, 0, 0], bias=False, algo=ConvAlgo.MaskImplicitGemm)
+        (1): BatchNorm1d(16, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+        (2): ReLU()
+      )
+    )
+    (conv2): SparseSequential(
+      (0): SparseSequential(
+        (0): SparseConv3d(16, 32, kernel_size=[3, 3, 3], stride=[2, 2, 2], padding=[1, 1, 1], dilation=[1, 1, 1], output_padding=[0, 0, 0], bias=False, algo=ConvAlgo.MaskImplicitGemm)
+        (1): BatchNorm1d(32, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+        (2): ReLU()
+      )
+      (1): SparseSequential(
+        (0): SubMConv3d(32, 32, kernel_size=[3, 3, 3], stride=[1, 1, 1], padding=[0, 0, 0], dilation=[1, 1, 1], output_padding=[0, 0, 0], bias=False, algo=ConvAlgo.MaskImplicitGemm)
+        (1): BatchNorm1d(32, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+        (2): ReLU()
+      )
+      (2): SparseSequential(
+        (0): SubMConv3d(32, 32, kernel_size=[3, 3, 3], stride=[1, 1, 1], padding=[0, 0, 0], dilation=[1, 1, 1], output_padding=[0, 0, 0], bias=False, algo=ConvAlgo.MaskImplicitGemm)
+        (1): BatchNorm1d(32, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+        (2): ReLU()
+      )
+    )
+    (conv3): SparseSequential(
+      (0): SparseSequential(
+        (0): SparseConv3d(32, 64, kernel_size=[3, 3, 3], stride=[2, 2, 2], padding=[1, 1, 1], dilation=[1, 1, 1], output_padding=[0, 0, 0], bias=False, algo=ConvAlgo.MaskImplicitGemm)
+        (1): BatchNorm1d(64, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+        (2): ReLU()
+      )
+      (1): SparseSequential(
+        (0): SubMConv3d(64, 64, kernel_size=[3, 3, 3], stride=[1, 1, 1], padding=[0, 0, 0], dilation=[1, 1, 1], output_padding=[0, 0, 0], bias=False, algo=ConvAlgo.MaskImplicitGemm)
+        (1): BatchNorm1d(64, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+        (2): ReLU()
+      )
+      (2): SparseSequential(
+        (0): SubMConv3d(64, 64, kernel_size=[3, 3, 3], stride=[1, 1, 1], padding=[0, 0, 0], dilation=[1, 1, 1], output_padding=[0, 0, 0], bias=False, algo=ConvAlgo.MaskImplicitGemm)
+        (1): BatchNorm1d(64, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+        (2): ReLU()
+      )
+    )
+    (conv4): SparseSequential(
+      (0): SparseSequential(
+        (0): SparseConv3d(64, 64, kernel_size=[3, 3, 3], stride=[2, 2, 2], padding=[0, 1, 1], dilation=[1, 1, 1], output_padding=[0, 0, 0], bias=False, algo=ConvAlgo.MaskImplicitGemm)
+        (1): BatchNorm1d(64, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+        (2): ReLU()
+      )
+      (1): SparseSequential(
+        (0): SubMConv3d(64, 64, kernel_size=[3, 3, 3], stride=[1, 1, 1], padding=[0, 0, 0], dilation=[1, 1, 1], output_padding=[0, 0, 0], bias=False, algo=ConvAlgo.MaskImplicitGemm)
+        (1): BatchNorm1d(64, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+        (2): ReLU()
+      )
+      (2): SparseSequential(
+        (0): SubMConv3d(64, 64, kernel_size=[3, 3, 3], stride=[1, 1, 1], padding=[0, 0, 0], dilation=[1, 1, 1], output_padding=[0, 0, 0], bias=False, algo=ConvAlgo.MaskImplicitGemm)
+        (1): BatchNorm1d(64, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+        (2): ReLU()
+      )
+    )
+    (conv_out): SparseSequential(
+      (0): SparseConv3d(64, 128, kernel_size=[3, 1, 1], stride=[2, 1, 1], padding=[0, 0, 0], dilation=[1, 1, 1], output_padding=[0, 0, 0], bias=False, algo=ConvAlgo.MaskImplicitGemm)
+      (1): BatchNorm1d(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+      (2): ReLU()
+    )
+  )
+  (map_to_bev_module): HeightCompression()
+  (pfe): VoxelSetAbstraction(
+    (SA_layers): ModuleList(
+      (0): StackSAModuleMSG(
+        (groupers): ModuleList(
+          (0): QueryAndGroup()
+          (1): QueryAndGroup()
+        )
+        (mlps): ModuleList(
+          (0): Sequential(
+            (0): Conv2d(67, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (2): ReLU()
+            (3): Conv2d(64, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (5): ReLU()
+          )
+          (1): Sequential(
+            (0): Conv2d(67, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (2): ReLU()
+            (3): Conv2d(64, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (5): ReLU()
+          )
+        )
+      )
+      (1): StackSAModuleMSG(
+        (groupers): ModuleList(
+          (0): QueryAndGroup()
+          (1): QueryAndGroup()
+        )
+        (mlps): ModuleList(
+          (0): Sequential(
+            (0): Conv2d(67, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (2): ReLU()
+            (3): Conv2d(64, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (5): ReLU()
+          )
+          (1): Sequential(
+            (0): Conv2d(67, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (2): ReLU()
+            (3): Conv2d(64, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (5): ReLU()
+          )
+        )
+      )
+    )
+    (SA_rawpoints): StackSAModuleMSG(
+      (groupers): ModuleList(
+        (0): QueryAndGroup()
+        (1): QueryAndGroup()
+      )
+      (mlps): ModuleList(
+        (0): Sequential(
+          (0): Conv2d(4, 16, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU()
+          (3): Conv2d(16, 16, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (4): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (5): ReLU()
+        )
+        (1): Sequential(
+          (0): Conv2d(4, 16, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU()
+          (3): Conv2d(16, 16, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (4): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (5): ReLU()
+        )
+      )
+    )
+    (vsa_point_feature_fusion): Sequential(
+      (0): Linear(in_features=544, out_features=128, bias=False)
+      (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (2): ReLU()
+    )
+  )
+  (backbone_2d): BaseBEVBackbone(
+    (blocks): ModuleList(
+      (0): Sequential(
+        (0): ZeroPad2d((1, 1, 1, 1))
+        (1): Conv2d(256, 128, kernel_size=(3, 3), stride=(1, 1), bias=False)
+        (2): BatchNorm2d(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+        (3): ReLU()
+        (4): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (5): BatchNorm2d(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+        (6): ReLU()
+        (7): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (8): BatchNorm2d(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+        (9): ReLU()
+        (10): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (11): BatchNorm2d(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+        (12): ReLU()
+        (13): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (14): BatchNorm2d(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+        (15): ReLU()
+        (16): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (17): BatchNorm2d(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+        (18): ReLU()
+      )
+      (1): Sequential(
+        (0): ZeroPad2d((1, 1, 1, 1))
+        (1): Conv2d(128, 256, kernel_size=(3, 3), stride=(2, 2), bias=False)
+        (2): BatchNorm2d(256, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+        (3): ReLU()
+        (4): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (5): BatchNorm2d(256, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+        (6): ReLU()
+        (7): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (8): BatchNorm2d(256, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+        (9): ReLU()
+        (10): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (11): BatchNorm2d(256, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+        (12): ReLU()
+        (13): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (14): BatchNorm2d(256, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+        (15): ReLU()
+        (16): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (17): BatchNorm2d(256, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+        (18): ReLU()
+      )
+    )
+    (deblocks): ModuleList(
+      (0): Sequential(
+        (0): ConvTranspose2d(128, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (1): BatchNorm2d(256, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+        (2): ReLU()
+      )
+      (1): Sequential(
+        (0): ConvTranspose2d(256, 256, kernel_size=(2, 2), stride=(2, 2), bias=False)
+        (1): BatchNorm2d(256, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+        (2): ReLU()
+      )
+    )
+  )
+  (dense_head): AnchorHeadSingle(
+    (cls_loss_func): SigmoidFocalClassificationLoss()
+    (reg_loss_func): WeightedSmoothL1Loss()
+    (dir_loss_func): WeightedCrossEntropyLoss()
+    (conv_cls): Conv2d(512, 18, kernel_size=(1, 1), stride=(1, 1))
+    (conv_box): Conv2d(512, 42, kernel_size=(1, 1), stride=(1, 1))
+    (conv_dir_cls): Conv2d(512, 12, kernel_size=(1, 1), stride=(1, 1))
+  )
+  (point_head): PointHeadSimple(
+    (cls_loss_func): SigmoidFocalClassificationLoss()
+    (cls_layers): Sequential(
+      (0): Linear(in_features=544, out_features=256, bias=False)
+      (1): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (2): ReLU()
+      (3): Linear(in_features=256, out_features=256, bias=False)
+      (4): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (5): ReLU()
+      (6): Linear(in_features=256, out_features=1, bias=True)
+    )
+  )
+  (roi_head): PVRCNNHead(
+    (proposal_target_layer): ProposalTargetLayer()
+    (reg_loss_func): WeightedSmoothL1Loss()
+    (roi_grid_pool_layer): StackSAModuleMSG(
+      (groupers): ModuleList(
+        (0): QueryAndGroup()
+        (1): QueryAndGroup()
+      )
+      (mlps): ModuleList(
+        (0): Sequential(
+          (0): Conv2d(131, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU()
+          (3): Conv2d(64, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (5): ReLU()
+        )
+        (1): Sequential(
+          (0): Conv2d(131, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU()
+          (3): Conv2d(64, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (5): ReLU()
+        )
+      )
+    )
+    (shared_fc_layer): Sequential(
+      (0): Conv1d(27648, 256, kernel_size=(1,), stride=(1,), bias=False)
+      (1): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (2): ReLU()
+      (3): Dropout(p=0.3, inplace=False)
+      (4): Conv1d(256, 256, kernel_size=(1,), stride=(1,), bias=False)
+      (5): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (6): ReLU()
+    )
+    (cls_layers): Sequential(
+      (0): Conv1d(256, 256, kernel_size=(1,), stride=(1,), bias=False)
+      (1): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (2): ReLU()
+      (3): Dropout(p=0.3, inplace=False)
+      (4): Conv1d(256, 256, kernel_size=(1,), stride=(1,), bias=False)
+      (5): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (6): ReLU()
+      (7): Conv1d(256, 1, kernel_size=(1,), stride=(1,))
+    )
+    (reg_layers): Sequential(
+      (0): Conv1d(256, 256, kernel_size=(1,), stride=(1,), bias=False)
+      (1): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (2): ReLU()
+      (3): Dropout(p=0.3, inplace=False)
+      (4): Conv1d(256, 256, kernel_size=(1,), stride=(1,), bias=False)
+      (5): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (6): ReLU()
+      (7): Conv1d(256, 7, kernel_size=(1,), stride=(1,))
+    )
+  )
+)
+2022-11-09 23:29:57,846   INFO  **********************Start training home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn(default)**********************
+2022-11-09 23:30:07,321   INFO  epoch: 0/60, acc_iter=1, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:09/1:01:50, time_cost(all): 00:09/61:50:58, loss=185.75906372070312, d_time=1.96(1.96), f_time=7.32(7.32), b_time=9.28(9.28), lr=0.0009999999999999992
+2022-11-09 23:30:58,637   INFO  epoch: 0/60, acc_iter=50, cur_iter=49/400, batch_size=4, time_cost(epoch): 01:00/07:05, time_cost(all): 01:00/8:03:45, loss=3.947584867477417, d_time=0.00(0.04), f_time=1.05(1.17), b_time=1.05(1.21), lr=0.0010005785256935896
+2022-11-09 23:31:50,236   INFO  epoch: 0/60, acc_iter=100, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:52/05:37, time_cost(all): 01:52/7:26:55, loss=3.707919120788574, d_time=0.00(0.02), f_time=1.03(1.10), b_time=1.04(1.12), lr=0.0010023614143586709
+2022-11-09 23:32:42,163   INFO  epoch: 0/60, acc_iter=150, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:44/04:34, time_cost(all): 02:44/7:14:56, loss=4.075374126434326, d_time=0.00(0.02), f_time=1.06(1.08), b_time=1.07(1.09), lr=0.0010053484296299701
+2022-11-09 23:32:42,206   INFO  
+2022-11-09 23:33:33,880   INFO  epoch: 0/60, acc_iter=200, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:35/03:36, time_cost(all): 03:36/7:08:05, loss=2.546093463897705, d_time=0.00(0.01), f_time=1.02(1.07), b_time=1.03(1.08), lr=0.0010095387718112737
+2022-11-09 23:34:25,630   INFO  epoch: 0/60, acc_iter=250, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:27/02:41, time_cost(all): 04:27/7:03:41, loss=3.3855438232421875, d_time=0.00(0.01), f_time=1.03(1.06), b_time=1.04(1.07), lr=0.0010149313190466486
+2022-11-09 23:34:58,904   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-09 23:35:17,428   INFO  epoch: 0/60, acc_iter=300, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:19/01:47, time_cost(all): 05:19/7:00:32, loss=5.85345983505249, d_time=0.00(0.01), f_time=1.04(1.05), b_time=1.04(1.06), lr=0.0010215246276208088
+2022-11-09 23:35:17,471   INFO  
+2022-11-09 23:36:09,386   INFO  epoch: 0/60, acc_iter=350, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:11/00:54, time_cost(all): 06:11/6:58:13, loss=2.681879997253418, d_time=0.00(0.01), f_time=1.02(1.05), b_time=1.02(1.06), lr=0.0010293169323456128
+2022-11-09 23:37:00,797   INFO  epoch: 0/60, acc_iter=400, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:02/00:01, time_cost(all): 07:02/6:55:43, loss=2.8010807037353516, d_time=0.00(0.01), f_time=1.03(1.05), b_time=1.03(1.06), lr=0.001038306147032663
+2022-11-09 23:37:02,330   INFO  epoch: 1/60, acc_iter=401, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/08:54, time_cost(all): 07:04/8:45:30, loss=2.661123514175415, d_time=0.33(0.33), f_time=1.01(1.01), b_time=1.33(1.33), lr=0.0010384981238178524
+2022-11-09 23:37:52,980   INFO  epoch: 1/60, acc_iter=450, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:51/06:04, time_cost(all): 07:55/6:48:06, loss=2.8975706100463867, d_time=0.00(0.01), f_time=1.01(1.03), b_time=1.02(1.04), lr=0.0010484898650518215
+2022-11-09 23:37:53,023   INFO  
+2022-11-09 23:38:44,643   INFO  epoch: 1/60, acc_iter=500, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:43/05:11, time_cost(all): 08:46/6:45:58, loss=2.757408618927002, d_time=0.00(0.01), f_time=1.00(1.03), b_time=1.01(1.04), lr=0.0010598653599755217
+2022-11-09 23:39:36,132   INFO  epoch: 1/60, acc_iter=550, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:35/04:19, time_cost(all): 09:38/6:44:14, loss=2.5241472721099854, d_time=0.00(0.01), f_time=1.03(1.03), b_time=1.04(1.03), lr=0.0010724295863087027
+2022-11-09 23:40:27,716   INFO  epoch: 1/60, acc_iter=600, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:26/03:27, time_cost(all): 10:29/6:43:07, loss=2.8581645488739014, d_time=0.00(0.01), f_time=1.04(1.03), b_time=1.04(1.03), lr=0.0010861791803041636
+2022-11-09 23:40:27,760   INFO  
+2022-11-09 23:41:19,396   INFO  epoch: 1/60, acc_iter=650, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:18/02:36, time_cost(all): 11:21/6:42:15, loss=2.6164143085479736, d_time=0.00(0.01), f_time=1.02(1.03), b_time=1.02(1.03), lr=0.0011011104608631105
+2022-11-09 23:42:02,477   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-09 23:42:11,732   INFO  epoch: 1/60, acc_iter=700, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:10/01:44, time_cost(all): 12:13/6:42:15, loss=2.983566999435425, d_time=0.00(0.01), f_time=1.01(1.03), b_time=1.02(1.04), lr=0.0011172194305206894
+2022-11-09 23:43:03,361   INFO  epoch: 1/60, acc_iter=750, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:02/00:52, time_cost(all): 13:05/6:41:12, loss=3.2981507778167725, d_time=0.00(0.01), f_time=1.05(1.03), b_time=1.06(1.04), lr=0.0011345017765161947
+2022-11-09 23:43:03,405   INFO  
+2022-11-09 23:43:55,070   INFO  epoch: 1/60, acc_iter=800, cur_iter=399/400, batch_size=4, time_cost(epoch): 06:54/00:01, time_cost(all): 13:57/6:40:17, loss=2.55460786819458, d_time=0.00(0.01), f_time=1.04(1.03), b_time=1.04(1.04), lr=0.0011529528719476986
+2022-11-09 23:43:56,575   INFO  epoch: 2/60, acc_iter=801, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/08:40, time_cost(all): 13:58/8:23:30, loss=2.7382616996765137, d_time=0.26(0.26), f_time=1.04(1.04), b_time=1.30(1.30), lr=0.0011533337816991927
+2022-11-09 23:44:47,075   INFO  epoch: 2/60, acc_iter=850, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:51/06:03, time_cost(all): 14:49/6:39:45, loss=2.456794500350952, d_time=0.00(0.01), f_time=1.03(1.03), b_time=1.03(1.04), lr=0.0011725677770107919
+2022-11-09 23:45:38,558   INFO  epoch: 2/60, acc_iter=900, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:43/05:10, time_cost(all): 15:40/6:37:40, loss=2.1975033283233643, d_time=0.00(0.01), f_time=1.02(1.03), b_time=1.02(1.03), lr=0.001193341240321083
+2022-11-09 23:45:38,603   INFO  
+2022-11-09 23:46:30,152   INFO  epoch: 2/60, acc_iter=950, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:34/04:19, time_cost(all): 16:32/6:36:40, loss=3.037400722503662, d_time=0.00(0.01), f_time=0.99(1.03), b_time=1.00(1.03), lr=0.0012152677003201239
+2022-11-09 23:47:21,409   INFO  epoch: 2/60, acc_iter=1000, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:26/03:27, time_cost(all): 17:23/6:35:06, loss=2.4730072021484375, d_time=0.00(0.01), f_time=1.02(1.03), b_time=1.02(1.03), lr=0.0012383412867643714
+2022-11-09 23:48:12,734   INFO  epoch: 2/60, acc_iter=1050, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:17/02:35, time_cost(all): 18:14/6:33:56, loss=2.5912153720855713, d_time=0.00(0.01), f_time=1.02(1.02), b_time=1.03(1.03), lr=0.0012625558222967952
+2022-11-09 23:48:12,779   INFO  
+2022-11-09 23:48:56,740   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-09 23:49:05,031   INFO  epoch: 2/60, acc_iter=1100, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:09/01:44, time_cost(all): 19:07/6:34:05, loss=2.4723570346832275, d_time=0.00(0.01), f_time=1.02(1.02), b_time=1.02(1.03), lr=0.0012879048241007038
+2022-11-09 23:49:56,574   INFO  epoch: 2/60, acc_iter=1150, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:01/00:52, time_cost(all): 19:58/6:33:08, loss=3.2497165203094482, d_time=0.00(0.01), f_time=1.00(1.02), b_time=1.01(1.03), lr=0.001314381505635353
+2022-11-09 23:50:47,695   INFO  epoch: 2/60, acc_iter=1200, cur_iter=399/400, batch_size=4, time_cost(epoch): 06:52/00:01, time_cost(all): 20:49/6:31:49, loss=2.513026237487793, d_time=0.00(0.01), f_time=1.01(1.02), b_time=1.02(1.03), lr=0.0013419787784528688
+2022-11-09 23:50:47,739   INFO  
+2022-11-09 23:50:49,270   INFO  epoch: 3/60, acc_iter=1201, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/08:51, time_cost(all): 20:51/8:24:54, loss=2.7272017002105713, d_time=0.29(0.29), f_time=1.04(1.04), b_time=1.33(1.33), lr=0.0013425421036992093
+2022-11-09 23:51:39,648   INFO  epoch: 3/60, acc_iter=1250, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:51/06:02, time_cost(all): 21:41/6:32:07, loss=2.788734197616577, d_time=0.00(0.01), f_time=0.99(1.02), b_time=0.99(1.03), lr=0.001370689254095987
+2022-11-09 23:52:30,832   INFO  epoch: 3/60, acc_iter=1300, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:42/05:09, time_cost(all): 22:32/6:29:17, loss=2.5385677814483643, d_time=0.00(0.01), f_time=1.05(1.02), b_time=1.06(1.03), lr=0.0014005052460761384
+2022-11-09 23:53:22,398   INFO  epoch: 3/60, acc_iter=1350, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:34/04:18, time_cost(all): 23:24/6:28:43, loss=3.1475563049316406, d_time=0.00(0.01), f_time=1.00(1.02), b_time=1.00(1.03), lr=0.0014314187719312935
+2022-11-09 23:53:22,445   INFO  
+2022-11-09 23:54:13,736   INFO  epoch: 3/60, acc_iter=1400, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:25/03:26, time_cost(all): 24:15/6:27:35, loss=2.2639644145965576, d_time=0.00(0.01), f_time=1.04(1.02), b_time=1.05(1.03), lr=0.0014634215553630606
+2022-11-09 23:55:04,921   INFO  epoch: 3/60, acc_iter=1450, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:16/02:35, time_cost(all): 25:07/6:26:20, loss=2.143641471862793, d_time=0.00(0.01), f_time=1.00(1.02), b_time=1.00(1.03), lr=0.0014965050284524613
+2022-11-09 23:55:49,159   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-09 23:55:57,444   INFO  epoch: 3/60, acc_iter=1500, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:09/01:44, time_cost(all): 25:59/6:26:53, loss=2.87776255607605, d_time=0.00(0.01), f_time=1.06(1.02), b_time=1.06(1.03), lr=0.0015306603339537619
+2022-11-09 23:55:57,489   INFO  
+2022-11-09 23:56:48,739   INFO  epoch: 3/60, acc_iter=1550, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:00/00:52, time_cost(all): 26:50/6:25:43, loss=2.7967467308044434, d_time=0.00(0.01), f_time=1.03(1.02), b_time=1.03(1.03), lr=0.0015658783276657762
+2022-11-09 23:57:40,301   INFO  epoch: 3/60, acc_iter=1600, cur_iter=399/400, batch_size=4, time_cost(epoch): 06:52/00:01, time_cost(all): 27:42/6:24:53, loss=1.9524770975112915, d_time=0.00(0.01), f_time=1.01(1.02), b_time=1.01(1.03), lr=0.0016021495808799836
+2022-11-09 23:57:41,793   INFO  epoch: 4/60, acc_iter=1601, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/08:34, time_cost(all): 27:43/8:00:35, loss=2.8746156692504883, d_time=0.27(0.27), f_time=1.02(1.02), b_time=1.28(1.28), lr=0.0016028856829700244
+2022-11-09 23:58:32,261   INFO  epoch: 4/60, acc_iter=1650, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:51/06:03, time_cost(all): 28:34/6:25:35, loss=1.9793508052825928, d_time=0.00(0.01), f_time=1.03(1.03), b_time=1.03(1.04), lr=0.0016394643829048296
+2022-11-09 23:58:32,307   INFO  
+2022-11-09 23:59:23,330   INFO  epoch: 4/60, acc_iter=1700, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:42/05:09, time_cost(all): 29:25/6:22:10, loss=2.370314836502075, d_time=0.00(0.01), f_time=1.02(1.02), b_time=1.03(1.03), lr=0.0016778127436655067
+2022-11-10 00:00:14,789   INFO  epoch: 4/60, acc_iter=1750, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:34/04:18, time_cost(all): 30:16/6:21:26, loss=2.832463264465332, d_time=0.00(0.01), f_time=0.99(1.02), b_time=1.00(1.03), lr=0.0017171843963785412
+2022-11-10 00:01:06,934   INFO  epoch: 4/60, acc_iter=1800, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:26/03:27, time_cost(all): 31:09/6:21:54, loss=1.8701082468032837, d_time=0.00(0.01), f_time=1.05(1.03), b_time=1.06(1.03), lr=0.0017575688003004623
+2022-11-10 00:01:06,979   INFO  
+2022-11-10 00:01:58,777   INFO  epoch: 4/60, acc_iter=1850, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:18/02:35, time_cost(all): 32:00/6:21:23, loss=2.8977298736572266, d_time=0.00(0.01), f_time=1.02(1.03), b_time=1.02(1.03), lr=0.0017989551435498106
+2022-11-10 00:02:42,193   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 00:02:51,437   INFO  epoch: 4/60, acc_iter=1900, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:10/01:44, time_cost(all): 32:53/6:21:46, loss=2.8790299892425537, d_time=0.00(0.01), f_time=1.01(1.03), b_time=1.01(1.04), lr=0.0018413323460017388
+2022-11-10 00:03:43,234   INFO  epoch: 4/60, acc_iter=1950, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:02/00:52, time_cost(all): 33:45/6:20:52, loss=2.393120765686035, d_time=0.00(0.01), f_time=1.04(1.03), b_time=1.05(1.04), lr=0.001884689062254431
+2022-11-10 00:03:43,281   INFO  
+2022-11-10 00:04:35,162   INFO  epoch: 4/60, acc_iter=2000, cur_iter=399/400, batch_size=4, time_cost(epoch): 06:54/00:01, time_cost(all): 34:37/6:20:07, loss=1.6451267004013062, d_time=0.00(0.01), f_time=1.04(1.03), b_time=1.05(1.04), lr=0.001929013684666546
+2022-11-10 00:04:36,693   INFO  epoch: 5/60, acc_iter=2001, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/08:50, time_cost(all): 34:38/8:06:37, loss=1.5192666053771973, d_time=0.28(0.28), f_time=1.05(1.05), b_time=1.32(1.32), lr=0.0019299099686894416
+2022-11-10 00:05:27,000   INFO  epoch: 5/60, acc_iter=2050, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:51/06:02, time_cost(all): 35:29/6:17:48, loss=1.3707215785980225, d_time=0.00(0.01), f_time=1.01(1.02), b_time=1.02(1.03), lr=0.0019742943464648548
+2022-11-10 00:06:18,727   INFO  epoch: 5/60, acc_iter=2100, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:43/05:11, time_cost(all): 36:20/6:17:17, loss=2.0277678966522217, d_time=0.00(0.01), f_time=1.01(1.03), b_time=1.01(1.03), lr=0.002020518924921267
+2022-11-10 00:06:18,773   INFO  
+2022-11-10 00:07:10,427   INFO  epoch: 5/60, acc_iter=2150, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:35/04:19, time_cost(all): 37:12/6:16:28, loss=2.055856466293335, d_time=0.00(0.01), f_time=1.03(1.03), b_time=1.03(1.03), lr=0.0020676750445983803
+2022-11-10 00:08:01,998   INFO  epoch: 5/60, acc_iter=2200, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:26/03:27, time_cost(all): 38:04/6:15:23, loss=2.040635108947754, d_time=0.00(0.01), f_time=1.01(1.03), b_time=1.01(1.03), lr=0.0021157500806626792
+2022-11-10 00:08:53,627   INFO  epoch: 5/60, acc_iter=2250, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:18/02:35, time_cost(all): 38:55/6:14:29, loss=2.1501998901367188, d_time=0.00(0.01), f_time=1.05(1.03), b_time=1.05(1.03), lr=0.0021647311622645157
+2022-11-10 00:08:53,672   INFO  
+2022-11-10 00:09:36,897   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 00:09:46,169   INFO  epoch: 5/60, acc_iter=2300, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:10/01:44, time_cost(all): 39:48/6:14:42, loss=2.274944305419922, d_time=0.00(0.01), f_time=1.03(1.03), b_time=1.03(1.04), lr=0.0022146051759839363
+2022-11-10 00:10:37,870   INFO  epoch: 5/60, acc_iter=2350, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:02/00:52, time_cost(all): 40:40/6:13:44, loss=1.9840235710144043, d_time=0.00(0.01), f_time=1.04(1.03), b_time=1.04(1.04), lr=0.0022653587693414728
+2022-11-10 00:11:29,550   INFO  epoch: 5/60, acc_iter=2400, cur_iter=399/400, batch_size=4, time_cost(epoch): 06:54/00:01, time_cost(all): 41:31/6:12:46, loss=1.6353204250335693, d_time=0.00(0.01), f_time=1.02(1.03), b_time=1.02(1.04), lr=0.0023169783543729155
+2022-11-10 00:11:29,596   INFO  
+2022-11-10 00:11:31,111   INFO  epoch: 6/60, acc_iter=2401, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/08:42, time_cost(all): 41:33/7:50:30, loss=1.6040745973587036, d_time=0.27(0.27), f_time=1.04(1.04), b_time=1.30(1.30), lr=0.002318019484660536
+2022-11-10 00:12:22,081   INFO  epoch: 6/60, acc_iter=2450, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:52/06:06, time_cost(all): 42:24/6:15:32, loss=2.2442562580108643, d_time=0.00(0.01), f_time=1.01(1.04), b_time=1.01(1.05), lr=0.0023694501112671478
+2022-11-10 00:13:13,624   INFO  epoch: 6/60, acc_iter=2500, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:43/05:12, time_cost(all): 43:15/6:12:02, loss=1.269284963607788, d_time=0.00(0.01), f_time=1.03(1.03), b_time=1.03(1.04), lr=0.002422759992066031
+2022-11-10 00:14:05,709   INFO  epoch: 6/60, acc_iter=2550, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:35/04:20, time_cost(all): 44:07/6:11:35, loss=1.710837960243225, d_time=0.00(0.01), f_time=1.03(1.03), b_time=1.04(1.04), lr=0.0024768937244254007
+2022-11-10 00:14:05,755   INFO  
+2022-11-10 00:14:57,753   INFO  epoch: 6/60, acc_iter=2600, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:27/03:28, time_cost(all): 44:59/6:10:51, loss=1.7264574766159058, d_time=0.00(0.01), f_time=1.01(1.03), b_time=1.02(1.04), lr=0.0025318368154361006
+2022-11-10 00:15:49,939   INFO  epoch: 6/60, acc_iter=2650, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:20/02:37, time_cost(all): 45:52/6:10:16, loss=2.3151931762695312, d_time=0.00(0.01), f_time=1.04(1.04), b_time=1.04(1.04), lr=0.0025875745555040937
+2022-11-10 00:16:31,796   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 00:16:43,321   INFO  epoch: 6/60, acc_iter=2700, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:13/01:45, time_cost(all): 46:45/6:11:00, loss=1.2652891874313354, d_time=0.00(0.01), f_time=1.04(1.04), b_time=1.04(1.05), lr=0.0026440920222885796
+2022-11-10 00:16:43,368   INFO  
+2022-11-10 00:17:35,586   INFO  epoch: 6/60, acc_iter=2750, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:05/00:53, time_cost(all): 47:37/6:10:09, loss=1.9486031532287598, d_time=0.00(0.01), f_time=1.05(1.04), b_time=1.05(1.05), lr=0.002701374084697058
+2022-11-10 00:18:27,760   INFO  epoch: 6/60, acc_iter=2800, cur_iter=399/400, batch_size=4, time_cost(epoch): 06:57/00:01, time_cost(all): 48:29/6:09:12, loss=1.6826353073120117, d_time=0.00(0.01), f_time=1.06(1.04), b_time=1.06(1.04), lr=0.002759405406936289
+2022-11-10 00:18:29,309   INFO  epoch: 7/60, acc_iter=2801, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/08:58, time_cost(all): 48:31/7:55:31, loss=1.935537576675415, d_time=0.30(0.30), f_time=1.04(1.04), b_time=1.34(1.34), lr=0.002760573569460756
+2022-11-10 00:19:20,875   INFO  epoch: 7/60, acc_iter=2850, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:52/06:11, time_cost(all): 49:23/6:13:02, loss=1.644661545753479, d_time=0.00(0.01), f_time=1.05(1.05), b_time=1.06(1.06), lr=0.002818170452618062
+2022-11-10 00:19:20,921   INFO  
+2022-11-10 00:20:13,249   INFO  epoch: 7/60, acc_iter=2900, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:45/05:16, time_cost(all): 50:15/6:10:16, loss=1.569373607635498, d_time=0.00(0.01), f_time=1.07(1.05), b_time=1.07(1.05), lr=0.002877653488918659
+2022-11-10 00:21:06,078   INFO  epoch: 7/60, acc_iter=2950, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:38/04:24, time_cost(all): 51:08/6:09:49, loss=1.5198372602462769, d_time=0.00(0.01), f_time=1.05(1.05), b_time=1.06(1.05), lr=0.002937838590790909
+2022-11-10 00:21:58,889   INFO  epoch: 7/60, acc_iter=3000, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:30/03:31, time_cost(all): 52:01/6:09:08, loss=1.6029667854309082, d_time=0.00(0.01), f_time=1.04(1.05), b_time=1.04(1.05), lr=0.002998709645227712
+2022-11-10 00:21:58,935   INFO  
+2022-11-10 00:22:51,178   INFO  epoch: 7/60, acc_iter=3050, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:23/02:38, time_cost(all): 52:53/6:07:38, loss=2.001986265182495, d_time=0.00(0.01), f_time=1.05(1.05), b_time=1.05(1.05), lr=0.0030602503555758817
+2022-11-10 00:23:29,135   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 00:23:44,809   INFO  epoch: 7/60, acc_iter=3100, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:16/01:46, time_cost(all): 53:46/6:07:54, loss=1.4043959379196167, d_time=0.00(0.01), f_time=1.05(1.05), b_time=1.06(1.06), lr=0.0031224442458991494
+2022-11-10 00:24:37,554   INFO  epoch: 7/60, acc_iter=3150, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:09/00:53, time_cost(all): 54:39/6:06:58, loss=1.3299020528793335, d_time=0.00(0.01), f_time=1.06(1.05), b_time=1.06(1.06), lr=0.00318527466538917
+2022-11-10 00:24:37,600   INFO  
+2022-11-10 00:25:30,121   INFO  epoch: 7/60, acc_iter=3200, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:02/00:01, time_cost(all): 55:32/6:05:53, loss=1.3303179740905762, d_time=0.00(0.01), f_time=1.05(1.05), b_time=1.06(1.06), lr=0.0032487247928233536
+2022-11-10 00:25:31,678   INFO  epoch: 8/60, acc_iter=3201, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/09:01, time_cost(all): 55:33/7:49:11, loss=1.33380126953125, d_time=0.31(0.31), f_time=1.04(1.04), b_time=1.35(1.35), lr=0.0032499999999999994
+2022-11-10 00:26:23,168   INFO  epoch: 8/60, acc_iter=3250, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:52/06:10, time_cost(all): 56:25/6:05:31, loss=1.2924820184707642, d_time=0.00(0.01), f_time=1.03(1.05), b_time=1.04(1.06), lr=0.0033127776410683055
+2022-11-10 00:27:16,318   INFO  epoch: 8/60, acc_iter=3300, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:45/05:19, time_cost(all): 57:18/6:05:41, loss=1.4935731887817383, d_time=0.00(0.01), f_time=1.04(1.05), b_time=1.05(1.06), lr=0.003377416061627697
+2022-11-10 00:27:16,364   INFO  
+2022-11-10 00:28:09,276   INFO  epoch: 8/60, acc_iter=3350, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:38/04:25, time_cost(all): 58:11/6:04:43, loss=1.2939722537994385, d_time=0.00(0.01), f_time=1.04(1.05), b_time=1.04(1.06), lr=0.0034426227492333327
+2022-11-10 00:29:02,034   INFO  epoch: 8/60, acc_iter=3400, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:31/03:32, time_cost(all): 59:04/6:03:27, loss=1.244849443435669, d_time=0.00(0.01), f_time=1.07(1.05), b_time=1.08(1.06), lr=0.003508380246478182
+2022-11-10 00:29:54,431   INFO  epoch: 8/60, acc_iter=3450, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:24/02:39, time_cost(all): 59:56/6:01:50, loss=1.3305997848510742, d_time=0.00(0.01), f_time=1.06(1.05), b_time=1.06(1.06), lr=0.00357467094849016
+2022-11-10 00:29:54,477   INFO  
+2022-11-10 00:30:32,123   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 00:30:47,682   INFO  epoch: 8/60, acc_iter=3500, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:17/01:46, time_cost(all): 1:00:49/6:01:27, loss=1.9478663206100464, d_time=0.00(0.01), f_time=1.03(1.05), b_time=1.03(1.06), lr=0.0036414771076453724
+2022-11-10 00:31:39,804   INFO  epoch: 8/60, acc_iter=3550, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:09/00:53, time_cost(all): 1:01:41/5:59:49, loss=2.586085796356201, d_time=0.00(0.01), f_time=1.03(1.05), b_time=1.03(1.06), lr=0.0037087808383195796
+2022-11-10 00:32:32,655   INFO  epoch: 8/60, acc_iter=3600, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:02/00:01, time_cost(all): 1:02:34/5:58:59, loss=2.5683274269104004, d_time=0.00(0.01), f_time=1.06(1.05), b_time=1.06(1.06), lr=0.003776564121676617
+2022-11-10 00:32:32,701   INFO  
+2022-11-10 00:32:34,265   INFO  epoch: 9/60, acc_iter=3601, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/09:01, time_cost(all): 1:02:36/7:40:41, loss=1.5397491455078125, d_time=0.27(0.27), f_time=1.08(1.08), b_time=1.35(1.35), lr=0.003777924554357095
+2022-11-10 00:33:25,825   INFO  epoch: 9/60, acc_iter=3650, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:52/06:11, time_cost(all): 1:03:27/5:58:57, loss=1.9144134521484375, d_time=0.00(0.01), f_time=1.08(1.05), b_time=1.08(1.06), lr=0.0038448088104924725
+2022-11-10 00:34:19,105   INFO  epoch: 9/60, acc_iter=3700, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:46/05:19, time_cost(all): 1:04:21/5:59:18, loss=1.3844472169876099, d_time=0.00(0.01), f_time=1.04(1.06), b_time=1.04(1.06), lr=0.003913496634013734
+2022-11-10 00:35:11,791   INFO  epoch: 9/60, acc_iter=3750, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:38/04:25, time_cost(all): 1:05:13/5:57:29, loss=1.48088800907135, d_time=0.00(0.01), f_time=1.07(1.05), b_time=1.07(1.06), lr=0.003982609202849111
+2022-11-10 00:35:11,838   INFO  
+2022-11-10 00:36:04,959   INFO  epoch: 9/60, acc_iter=3800, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:32/03:33, time_cost(all): 1:06:07/5:56:57, loss=1.2050690650939941, d_time=0.00(0.01), f_time=1.06(1.05), b_time=1.07(1.06), lr=0.004052128013892724
+2022-11-10 00:36:58,173   INFO  epoch: 9/60, acc_iter=3850, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:25/02:40, time_cost(all): 1:07:00/5:56:21, loss=1.8194549083709717, d_time=0.00(0.01), f_time=1.06(1.06), b_time=1.06(1.06), lr=0.004122034455277831
+2022-11-10 00:37:34,130   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 00:37:52,031   INFO  epoch: 9/60, acc_iter=3900, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:19/01:47, time_cost(all): 1:07:54/5:56:22, loss=1.6958979368209839, d_time=0.00(0.01), f_time=1.01(1.06), b_time=1.02(1.06), lr=0.0041923098113596765
+2022-11-10 00:37:52,078   INFO  
+2022-11-10 00:38:44,931   INFO  epoch: 9/60, acc_iter=3950, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:12/00:54, time_cost(all): 1:08:47/5:55:12, loss=1.8560495376586914, d_time=0.00(0.01), f_time=1.06(1.05), b_time=1.06(1.06), lr=0.004262935267726115
+2022-11-10 00:39:37,876   INFO  epoch: 9/60, acc_iter=4000, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:04/00:01, time_cost(all): 1:09:40/5:54:09, loss=1.259411096572876, d_time=0.00(0.01), f_time=1.07(1.05), b_time=1.07(1.06), lr=0.004333891916234693
+2022-11-10 00:39:39,409   INFO  epoch: 10/60, acc_iter=4001, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/08:53, time_cost(all): 1:09:41/7:24:15, loss=2.008603811264038, d_time=0.29(0.29), f_time=1.04(1.04), b_time=1.33(1.33), lr=0.0043353142970386565
+2022-11-10 00:40:31,427   INFO  epoch: 10/60, acc_iter=4050, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:53/06:14, time_cost(all): 1:10:33/5:54:47, loss=1.36331307888031, d_time=0.00(0.01), f_time=1.06(1.06), b_time=1.06(1.07), lr=0.0044051607600748095
+2022-11-10 00:40:31,473   INFO  
+2022-11-10 00:41:24,165   INFO  epoch: 10/60, acc_iter=4100, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:46/05:19, time_cost(all): 1:11:26/5:51:52, loss=1.0568068027496338, d_time=0.00(0.01), f_time=1.07(1.05), b_time=1.07(1.06), lr=0.0044767227188536275
+2022-11-10 00:42:17,432   INFO  epoch: 10/60, acc_iter=4150, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:39/04:26, time_cost(all): 1:12:19/5:51:29, loss=1.2023632526397705, d_time=0.00(0.01), f_time=1.08(1.06), b_time=1.08(1.06), lr=0.004548558633704349
+2022-11-10 00:43:10,856   INFO  epoch: 10/60, acc_iter=4200, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:32/03:33, time_cost(all): 1:13:13/5:51:06, loss=1.635060429573059, d_time=0.00(0.01), f_time=1.07(1.06), b_time=1.08(1.06), lr=0.004620649272415514
+2022-11-10 00:43:10,902   INFO  
+2022-11-10 00:44:04,338   INFO  epoch: 10/60, acc_iter=4250, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:26/02:40, time_cost(all): 1:14:06/5:50:35, loss=1.3295421600341797, d_time=0.00(0.01), f_time=1.07(1.06), b_time=1.08(1.07), lr=0.004692975334579925
+2022-11-10 00:44:39,343   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 00:44:58,540   INFO  epoch: 10/60, acc_iter=4300, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:20/01:47, time_cost(all): 1:15:00/5:50:44, loss=1.7489567995071411, d_time=0.00(0.01), f_time=1.08(1.06), b_time=1.09(1.07), lr=0.004765517456761834
+2022-11-10 00:45:51,841   INFO  epoch: 10/60, acc_iter=4350, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:13/00:54, time_cost(all): 1:15:53/5:49:45, loss=1.2009944915771484, d_time=0.00(0.01), f_time=1.09(1.06), b_time=1.10(1.07), lr=0.004838256217680997
+2022-11-10 00:45:51,888   INFO  
+2022-11-10 00:46:44,703   INFO  epoch: 10/60, acc_iter=4400, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:06/00:01, time_cost(all): 1:16:46/5:48:25, loss=1.4804188013076782, d_time=0.00(0.01), f_time=1.03(1.06), b_time=1.04(1.07), lr=0.004911172143412233
+2022-11-10 00:46:46,253   INFO  epoch: 11/60, acc_iter=4401, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/08:57, time_cost(all): 1:16:48/7:19:13, loss=1.753847599029541, d_time=0.28(0.28), f_time=1.06(1.06), b_time=1.34(1.34), lr=0.0049126321350097665
+2022-11-10 00:47:38,012   INFO  epoch: 11/60, acc_iter=4450, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:53/06:12, time_cost(all): 1:17:40/5:46:04, loss=1.424664855003357, d_time=0.00(0.01), f_time=1.07(1.05), b_time=1.07(1.06), lr=0.00498424571259905
+2022-11-10 00:48:31,468   INFO  epoch: 11/60, acc_iter=4500, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:46/05:20, time_cost(all): 1:18:33/5:46:20, loss=1.1151236295700073, d_time=0.00(0.01), f_time=1.09(1.06), b_time=1.09(1.07), lr=0.005057457361679995
+2022-11-10 00:48:31,515   INFO  
+2022-11-10 00:49:25,018   INFO  epoch: 11/60, acc_iter=4550, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:40/04:27, time_cost(all): 1:19:27/5:46:02, loss=1.5662345886230469, d_time=0.00(0.01), f_time=1.08(1.06), b_time=1.09(1.07), lr=0.005130787490126289
+2022-11-10 00:50:18,421   INFO  epoch: 11/60, acc_iter=4600, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:33/03:34, time_cost(all): 1:20:20/5:45:11, loss=1.2894182205200195, d_time=0.00(0.01), f_time=1.10(1.06), b_time=1.10(1.07), lr=0.005204216465689357
+2022-11-10 00:51:11,971   INFO  epoch: 11/60, acc_iter=4650, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:27/02:41, time_cost(all): 1:21:14/5:44:31, loss=1.4511253833770752, d_time=0.00(0.01), f_time=1.05(1.06), b_time=1.06(1.07), lr=0.005277724629656864
+2022-11-10 00:51:12,017   INFO  
+2022-11-10 00:51:46,017   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 00:52:06,229   INFO  epoch: 11/60, acc_iter=4700, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:21/01:48, time_cost(all): 1:22:08/5:44:32, loss=2.191709518432617, d_time=0.00(0.01), f_time=1.07(1.06), b_time=1.08(1.07), lr=0.005351292302115828
+2022-11-10 00:52:59,412   INFO  epoch: 11/60, acc_iter=4750, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:14/00:54, time_cost(all): 1:23:01/5:43:18, loss=1.164893388748169, d_time=0.00(0.01), f_time=1.07(1.06), b_time=1.08(1.07), lr=0.005424899787221395
+2022-11-10 00:53:52,640   INFO  epoch: 11/60, acc_iter=4800, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:07/00:01, time_cost(all): 1:23:54/5:42:12, loss=274989.625, d_time=0.00(0.01), f_time=1.06(1.06), b_time=1.06(1.07), lr=0.005498527378469913
+2022-11-10 00:53:52,686   INFO  
+2022-11-10 00:53:54,289   INFO  epoch: 12/60, acc_iter=4801, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/09:16, time_cost(all): 1:23:56/7:25:20, loss=1.2683498859405518, d_time=0.29(0.29), f_time=1.10(1.10), b_time=1.39(1.39), lr=0.0055
+2022-11-10 00:54:46,636   INFO  epoch: 12/60, acc_iter=4850, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:53/06:17, time_cost(all): 1:24:48/5:43:02, loss=2.0185775756835938, d_time=0.00(0.01), f_time=1.04(1.06), b_time=1.04(1.07), lr=0.005572155363974825
+2022-11-10 00:55:39,814   INFO  epoch: 12/60, acc_iter=4900, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:46/05:21, time_cost(all): 1:25:41/5:40:22, loss=1.2503790855407715, d_time=0.00(0.01), f_time=1.06(1.06), b_time=1.06(1.07), lr=0.005645764031744019
+2022-11-10 00:56:33,224   INFO  epoch: 12/60, acc_iter=4950, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:40/04:28, time_cost(all): 1:26:35/5:39:22, loss=1.5520884990692139, d_time=0.00(0.01), f_time=1.05(1.06), b_time=1.05(1.07), lr=0.005719333674957214
+2022-11-10 00:56:33,269   INFO  
+2022-11-10 00:57:26,429   INFO  epoch: 12/60, acc_iter=5000, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:33/03:34, time_cost(all): 1:27:28/5:38:06, loss=1.3299927711486816, d_time=0.00(0.01), f_time=1.07(1.06), b_time=1.07(1.07), lr=0.0057928445972419435
+2022-11-10 00:58:19,884   INFO  epoch: 12/60, acc_iter=5050, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:26/02:41, time_cost(all): 1:28:22/5:37:18, loss=1.2021303176879883, d_time=0.00(0.01), f_time=1.07(1.06), b_time=1.07(1.07), lr=0.005866277117946751
+2022-11-10 00:58:54,500   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 00:59:14,770   INFO  epoch: 12/60, acc_iter=5100, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:21/01:48, time_cost(all): 1:29:16/5:37:59, loss=1.135948657989502, d_time=0.00(0.01), f_time=1.05(1.06), b_time=1.06(1.07), lr=0.005939611577410182
+2022-11-10 00:59:14,816   INFO  
+2022-11-10 01:00:08,177   INFO  epoch: 12/60, acc_iter=5150, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:15/00:54, time_cost(all): 1:30:10/5:36:52, loss=1.0365498065948486, d_time=0.00(0.01), f_time=1.08(1.06), b_time=1.09(1.07), lr=0.006012828342224149
+2022-11-10 01:01:01,237   INFO  epoch: 12/60, acc_iter=5200, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:08/00:01, time_cost(all): 1:31:03/5:35:33, loss=1.50375497341156, d_time=0.00(0.01), f_time=1.07(1.06), b_time=1.07(1.07), lr=0.006085907810490261
+2022-11-10 01:01:02,781   INFO  epoch: 13/60, acc_iter=5201, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/08:54, time_cost(all): 1:31:04/6:58:45, loss=1.3693870306015015, d_time=0.27(0.27), f_time=1.06(1.06), b_time=1.33(1.33), lr=0.006087367864990231
+2022-11-10 01:01:55,082   INFO  epoch: 13/60, acc_iter=5250, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:53/06:16, time_cost(all): 1:31:57/5:35:14, loss=1.298253059387207, d_time=0.00(0.01), f_time=1.06(1.06), b_time=1.06(1.07), lr=0.006158830417067743
+2022-11-10 01:01:55,129   INFO  
+2022-11-10 01:02:48,691   INFO  epoch: 13/60, acc_iter=5300, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:47/05:22, time_cost(all): 1:32:50/5:34:16, loss=1.4109961986541748, d_time=0.00(0.01), f_time=1.05(1.07), b_time=1.06(1.07), lr=0.0062315766388114785
+2022-11-10 01:03:41,958   INFO  epoch: 13/60, acc_iter=5350, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:40/04:28, time_cost(all): 1:33:44/5:32:38, loss=1.4365530014038086, d_time=0.00(0.01), f_time=1.06(1.06), b_time=1.07(1.07), lr=0.0063041269997988385
+2022-11-10 01:04:35,341   INFO  epoch: 13/60, acc_iter=5400, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:33/03:34, time_cost(all): 1:34:37/5:31:33, loss=1.4130775928497314, d_time=0.00(0.01), f_time=1.04(1.06), b_time=1.05(1.07), lr=0.0063764620765438575
+2022-11-10 01:04:35,387   INFO  
+2022-11-10 01:05:28,537   INFO  epoch: 13/60, acc_iter=5450, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:27/02:41, time_cost(all): 1:35:30/5:30:19, loss=1.5498409271240234, d_time=0.00(0.01), f_time=1.06(1.06), b_time=1.06(1.07), lr=0.006448562503197365
+2022-11-10 01:06:03,450   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 01:06:22,612   INFO  epoch: 13/60, acc_iter=5500, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:21/01:48, time_cost(all): 1:36:24/5:30:06, loss=1.091538667678833, d_time=0.00(0.01), f_time=1.08(1.06), b_time=1.08(1.07), lr=0.006520408976731694
+2022-11-10 01:07:15,774   INFO  epoch: 13/60, acc_iter=5550, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:14/00:54, time_cost(all): 1:37:17/5:28:53, loss=1.691727638244629, d_time=0.00(0.01), f_time=1.06(1.06), b_time=1.06(1.07), lr=0.006591982262108567
+2022-11-10 01:07:15,820   INFO  
+2022-11-10 01:08:09,304   INFO  epoch: 13/60, acc_iter=5600, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:07/00:01, time_cost(all): 1:38:11/5:28:02, loss=1.5714101791381836, d_time=0.00(0.01), f_time=1.09(1.06), b_time=1.10(1.07), lr=0.006663263197428788
+2022-11-10 01:08:10,907   INFO  epoch: 14/60, acc_iter=5601, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/09:18, time_cost(all): 1:38:13/7:08:18, loss=1.427138090133667, d_time=0.28(0.28), f_time=1.11(1.11), b_time=1.39(1.39), lr=0.006664685702961344
+2022-11-10 01:09:03,179   INFO  epoch: 14/60, acc_iter=5650, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:53/06:16, time_cost(all): 1:39:05/5:28:17, loss=1.7517629861831665, d_time=0.00(0.01), f_time=1.02(1.06), b_time=1.03(1.07), lr=0.006734232699062332
+2022-11-10 01:09:56,506   INFO  epoch: 14/60, acc_iter=5700, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:46/05:22, time_cost(all): 1:39:58/5:26:21, loss=1.67039155960083, d_time=0.00(0.01), f_time=1.08(1.06), b_time=1.09(1.07), lr=0.006804871766757509
+2022-11-10 01:09:56,553   INFO  
+2022-11-10 01:10:49,904   INFO  epoch: 14/60, acc_iter=5750, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:40/04:28, time_cost(all): 1:40:52/5:25:15, loss=1.149932861328125, d_time=0.00(0.01), f_time=1.07(1.06), b_time=1.07(1.07), lr=0.006875161488727782
+2022-11-10 01:11:42,947   INFO  epoch: 14/60, acc_iter=5800, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:33/03:34, time_cost(all): 1:41:45/5:23:43, loss=1.32874596118927, d_time=0.00(0.01), f_time=1.08(1.06), b_time=1.09(1.07), lr=0.006945083046714911
+2022-11-10 01:12:36,200   INFO  epoch: 14/60, acc_iter=5850, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:26/02:41, time_cost(all): 1:42:38/5:22:42, loss=1.280148983001709, d_time=0.00(0.01), f_time=1.10(1.06), b_time=1.10(1.07), lr=0.007014617721027062
+2022-11-10 01:12:36,247   INFO  
+2022-11-10 01:13:11,263   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 01:13:30,382   INFO  epoch: 14/60, acc_iter=5900, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:20/01:48, time_cost(all): 1:43:32/5:22:40, loss=1.0561232566833496, d_time=0.00(0.01), f_time=1.06(1.06), b_time=1.07(1.07), lr=0.007083746895550511
+2022-11-10 01:14:23,639   INFO  epoch: 14/60, acc_iter=5950, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:14/00:54, time_cost(all): 1:44:25/5:21:35, loss=1.1150857210159302, d_time=0.00(0.01), f_time=1.05(1.06), b_time=1.05(1.07), lr=0.007152452062733629
+2022-11-10 01:15:17,091   INFO  epoch: 14/60, acc_iter=6000, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:07/00:01, time_cost(all): 1:45:19/5:20:42, loss=1.5975079536437988, d_time=0.00(0.01), f_time=1.06(1.06), b_time=1.06(1.07), lr=0.007220714828541816
+2022-11-10 01:15:17,137   INFO  
+2022-11-10 01:15:18,745   INFO  epoch: 15/60, acc_iter=6001, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/09:22, time_cost(all): 1:45:20/7:01:31, loss=1.0184659957885742, d_time=0.30(0.30), f_time=1.10(1.10), b_time=1.40(1.40), lr=0.007222075445642904
+2022-11-10 01:16:11,434   INFO  epoch: 15/60, acc_iter=6050, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:54/06:19, time_cost(all): 1:46:13/5:23:41, loss=1.8154058456420898, d_time=0.00(0.01), f_time=1.06(1.07), b_time=1.07(1.08), lr=0.0072885169173820125
+2022-11-10 01:17:04,629   INFO  epoch: 15/60, acc_iter=6100, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:47/05:22, time_cost(all): 1:47:06/5:20:05, loss=1.6262341737747192, d_time=0.00(0.01), f_time=1.05(1.07), b_time=1.05(1.07), lr=0.007355840176995516
+2022-11-10 01:17:57,805   INFO  epoch: 15/60, acc_iter=6150, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:40/04:28, time_cost(all): 1:47:59/5:18:16, loss=2.010016679763794, d_time=0.00(0.01), f_time=1.05(1.06), b_time=1.05(1.07), lr=0.0074226665833177965
+2022-11-10 01:17:57,852   INFO  
+2022-11-10 01:18:51,233   INFO  epoch: 15/60, acc_iter=6200, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:33/03:34, time_cost(all): 1:48:53/5:17:17, loss=1.2571742534637451, d_time=0.00(0.01), f_time=1.09(1.06), b_time=1.09(1.07), lr=0.0074889782453039615
+2022-11-10 01:19:44,483   INFO  epoch: 15/60, acc_iter=6250, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:27/02:41, time_cost(all): 1:49:46/5:16:08, loss=1.064077615737915, d_time=0.00(0.01), f_time=1.04(1.06), b_time=1.04(1.07), lr=0.007554757409718619
+2022-11-10 01:20:18,424   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 01:20:38,864   INFO  epoch: 15/60, acc_iter=6300, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:21/01:48, time_cost(all): 1:50:41/5:16:11, loss=1.0736347436904907, d_time=0.00(0.01), f_time=1.07(1.06), b_time=1.07(1.07), lr=0.00761998646588886
+2022-11-10 01:20:38,910   INFO  
+2022-11-10 01:21:32,366   INFO  epoch: 15/60, acc_iter=6350, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:15/00:54, time_cost(all): 1:51:34/5:15:13, loss=0.9027711749076843, d_time=0.00(0.01), f_time=1.05(1.06), b_time=1.05(1.07), lr=0.0076846479504190535
+2022-11-10 01:22:25,380   INFO  epoch: 15/60, acc_iter=6400, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:08/00:01, time_cost(all): 1:52:27/5:13:54, loss=1.112404704093933, d_time=0.00(0.01), f_time=1.06(1.06), b_time=1.06(1.07), lr=0.007748724551866217
+2022-11-10 01:22:26,965   INFO  epoch: 16/60, acc_iter=6401, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/09:11, time_cost(all): 1:52:29/6:44:19, loss=1.1168193817138672, d_time=0.28(0.28), f_time=1.09(1.09), b_time=1.38(1.38), lr=0.007749999999999999
+2022-11-10 01:23:19,457   INFO  epoch: 16/60, acc_iter=6450, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:53/06:18, time_cost(all): 1:53:21/5:15:09, loss=1.79081130027771, d_time=0.00(0.01), f_time=1.06(1.07), b_time=1.06(1.08), lr=0.0078121991153747156
+2022-11-10 01:23:19,503   INFO  
+2022-11-10 01:24:12,810   INFO  epoch: 16/60, acc_iter=6500, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:47/05:22, time_cost(all): 1:54:14/5:12:45, loss=1.0944609642028809, d_time=0.00(0.01), f_time=1.09(1.06), b_time=1.09(1.07), lr=0.007875054647269026
+2022-11-10 01:25:06,159   INFO  epoch: 16/60, acc_iter=6550, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:40/04:28, time_cost(all): 1:55:08/5:11:20, loss=1.2101730108261108, d_time=0.00(0.01), f_time=1.06(1.06), b_time=1.07(1.07), lr=0.00793727431960336
+2022-11-10 01:25:59,529   INFO  epoch: 16/60, acc_iter=6600, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:33/03:35, time_cost(all): 1:56:01/5:10:14, loss=1.2984569072723389, d_time=0.00(0.01), f_time=1.08(1.06), b_time=1.08(1.07), lr=0.007998841474666908
+2022-11-10 01:25:59,576   INFO  
+2022-11-10 01:26:53,263   INFO  epoch: 16/60, acc_iter=6650, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:27/02:41, time_cost(all): 1:56:55/5:09:37, loss=1.134204626083374, d_time=0.00(0.01), f_time=1.06(1.07), b_time=1.07(1.07), lr=0.008059739629443511
+2022-11-10 01:27:27,697   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 01:27:48,135   INFO  epoch: 16/60, acc_iter=6700, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:22/01:48, time_cost(all): 1:57:50/5:10:01, loss=0.7242254018783569, d_time=0.00(0.01), f_time=1.05(1.07), b_time=1.05(1.08), lr=0.008119952480024561
+2022-11-10 01:28:42,039   INFO  epoch: 16/60, acc_iter=6750, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:16/00:54, time_cost(all): 1:58:44/5:09:14, loss=1.5176392793655396, d_time=0.00(0.01), f_time=1.08(1.07), b_time=1.08(1.08), lr=0.008179463905973964
+2022-11-10 01:28:42,087   INFO  
+2022-11-10 01:29:35,664   INFO  epoch: 16/60, acc_iter=6800, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:10/00:01, time_cost(all): 1:59:37/5:08:14, loss=1.643214464187622, d_time=0.00(0.01), f_time=1.06(1.07), b_time=1.06(1.08), lr=0.008238257974643955
+2022-11-10 01:29:37,231   INFO  epoch: 17/60, acc_iter=6801, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/09:05, time_cost(all): 1:59:39/6:31:14, loss=1.6821800470352173, d_time=0.30(0.30), f_time=1.06(1.06), b_time=1.36(1.36), lr=0.008239426430539242
+2022-11-10 01:30:29,961   INFO  epoch: 17/60, acc_iter=6850, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:54/06:19, time_cost(all): 2:00:32/5:09:15, loss=1.1706335544586182, d_time=0.00(0.01), f_time=1.11(1.07), b_time=1.11(1.08), lr=0.008296318945440652
+2022-11-10 01:31:23,825   INFO  epoch: 17/60, acc_iter=6900, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:47/05:24, time_cost(all): 2:01:25/5:07:42, loss=1.3861258029937744, d_time=0.00(0.01), f_time=1.10(1.07), b_time=1.10(1.08), lr=0.008353631274038213
+2022-11-10 01:31:23,871   INFO  
+2022-11-10 01:32:17,333   INFO  epoch: 17/60, acc_iter=6950, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:41/04:30, time_cost(all): 2:02:19/5:05:54, loss=0.9748537540435791, d_time=0.00(0.01), f_time=1.08(1.07), b_time=1.08(1.08), lr=0.008410179616540408
+2022-11-10 01:33:11,182   INFO  epoch: 17/60, acc_iter=7000, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:35/03:36, time_cost(all): 2:03:13/5:05:02, loss=1.0259824991226196, d_time=0.00(0.01), f_time=1.10(1.07), b_time=1.11(1.08), lr=0.00846594883358856
+2022-11-10 01:34:04,974   INFO  epoch: 17/60, acc_iter=7050, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:29/02:42, time_cost(all): 2:04:07/5:04:06, loss=1.1900825500488281, d_time=0.00(0.01), f_time=1.08(1.07), b_time=1.08(1.08), lr=0.00852092399441472
+2022-11-10 01:34:05,021   INFO  
+2022-11-10 01:34:37,317   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 01:34:59,721   INFO  epoch: 17/60, acc_iter=7100, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:23/01:49, time_cost(all): 2:05:01/5:04:04, loss=1.2371478080749512, d_time=0.00(0.01), f_time=1.06(1.07), b_time=1.07(1.08), lr=0.008575090380838986
+2022-11-10 01:35:53,514   INFO  epoch: 17/60, acc_iter=7150, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:17/00:55, time_cost(all): 2:05:55/5:03:02, loss=0.9397006034851074, d_time=0.00(0.01), f_time=1.09(1.07), b_time=1.09(1.08), lr=0.00862843349120992
+2022-11-10 01:36:47,376   INFO  epoch: 17/60, acc_iter=7200, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:11/00:01, time_cost(all): 2:06:49/5:02:04, loss=1.5221550464630127, d_time=0.00(0.01), f_time=1.09(1.07), b_time=1.09(1.08), lr=0.008680939044286995
+2022-11-10 01:36:47,422   INFO  
+2022-11-10 01:36:49,017   INFO  epoch: 18/60, acc_iter=7201, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/09:16, time_cost(all): 2:06:51/6:29:23, loss=1.066560983657837, d_time=0.29(0.29), f_time=1.09(1.09), b_time=1.39(1.39), lr=0.008681980515339464
+2022-11-10 01:37:41,784   INFO  epoch: 18/60, acc_iter=7250, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:54/06:20, time_cost(all): 2:07:43/5:02:23, loss=2.5577776432037354, d_time=0.00(0.01), f_time=1.04(1.07), b_time=1.04(1.08), lr=0.008732592983064018
+2022-11-10 01:38:35,464   INFO  epoch: 18/60, acc_iter=7300, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:47/05:24, time_cost(all): 2:08:37/5:00:09, loss=1.5220167636871338, d_time=0.00(0.01), f_time=1.03(1.07), b_time=1.03(1.08), lr=0.008783381478532543
+2022-11-10 01:39:29,076   INFO  epoch: 18/60, acc_iter=7350, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:41/04:30, time_cost(all): 2:09:31/4:58:41, loss=0.869441032409668, d_time=0.00(0.01), f_time=1.03(1.07), b_time=1.04(1.08), lr=0.008833290933384225
+2022-11-10 01:39:29,122   INFO  
+2022-11-10 01:40:22,583   INFO  epoch: 18/60, acc_iter=7400, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:34/03:36, time_cost(all): 2:10:24/4:57:22, loss=0.9820976853370667, d_time=0.00(0.01), f_time=1.10(1.07), b_time=1.11(1.07), lr=0.008882307985651143
+2022-11-10 01:41:16,122   INFO  epoch: 18/60, acc_iter=7450, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:28/02:42, time_cost(all): 2:11:18/4:56:15, loss=0.9402148723602295, d_time=0.00(0.01), f_time=1.08(1.07), b_time=1.08(1.07), lr=0.00893041951228313
+2022-11-10 01:41:49,413   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 01:42:10,822   INFO  epoch: 18/60, acc_iter=7500, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:23/01:48, time_cost(all): 2:12:12/4:56:16, loss=1.5852303504943848, d_time=0.00(0.01), f_time=1.08(1.07), b_time=1.09(1.08), lr=0.00897761263266113
+2022-11-10 01:42:10,868   INFO  
+2022-11-10 01:43:04,456   INFO  epoch: 18/60, acc_iter=7550, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:16/00:54, time_cost(all): 2:13:06/4:55:12, loss=0.99505615234375, d_time=0.00(0.01), f_time=1.07(1.07), b_time=1.07(1.08), lr=0.009023874712045644
+2022-11-10 01:43:58,091   INFO  epoch: 18/60, acc_iter=7600, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:10/00:01, time_cost(all): 2:14:00/4:54:10, loss=1.0708928108215332, d_time=0.00(0.01), f_time=1.06(1.07), b_time=1.06(1.08), lr=0.009069193364959365
+2022-11-10 01:43:59,657   INFO  epoch: 19/60, acc_iter=7601, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/09:03, time_cost(all): 2:14:01/6:11:28, loss=1.006938099861145, d_time=0.27(0.27), f_time=1.09(1.09), b_time=1.36(1.36), lr=0.009070090031310558
+2022-11-10 01:44:52,258   INFO  epoch: 19/60, acc_iter=7650, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:53/06:18, time_cost(all): 2:14:54/4:54:05, loss=0.9476890563964844, d_time=0.00(0.01), f_time=1.07(1.07), b_time=1.07(1.08), lr=0.009113556458503062
+2022-11-10 01:44:52,305   INFO  
+2022-11-10 01:45:45,942   INFO  epoch: 19/60, acc_iter=7700, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:47/05:24, time_cost(all): 2:15:48/4:52:27, loss=0.8707711696624756, d_time=0.00(0.01), f_time=1.08(1.07), b_time=1.09(1.08), lr=0.009156952115603858
+2022-11-10 01:46:39,365   INFO  epoch: 19/60, acc_iter=7750, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:41/04:29, time_cost(all): 2:16:41/4:50:50, loss=1.3299808502197266, d_time=0.00(0.01), f_time=1.05(1.07), b_time=1.05(1.07), lr=0.009199368718194996
+2022-11-10 01:47:33,172   INFO  epoch: 19/60, acc_iter=7800, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:34/03:35, time_cost(all): 2:17:35/4:50:05, loss=1.0255553722381592, d_time=0.00(0.01), f_time=1.07(1.07), b_time=1.08(1.07), lr=0.009240794910326297
+2022-11-10 01:47:33,219   INFO  
+2022-11-10 01:48:26,720   INFO  epoch: 19/60, acc_iter=7850, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:28/02:42, time_cost(all): 2:18:28/4:49:01, loss=1.0267276763916016, d_time=0.00(0.01), f_time=1.09(1.07), b_time=1.10(1.07), lr=0.009281219601204404
+2022-11-10 01:48:59,829   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 01:49:21,218   INFO  epoch: 19/60, acc_iter=7900, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:22/01:48, time_cost(all): 2:19:23/4:48:51, loss=0.6311541795730591, d_time=0.00(0.01), f_time=1.08(1.07), b_time=1.08(1.08), lr=0.009320631968162064
+2022-11-10 01:50:14,934   INFO  epoch: 19/60, acc_iter=7950, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:16/00:54, time_cost(all): 2:20:17/4:47:52, loss=0.9775733947753906, d_time=0.00(0.01), f_time=1.07(1.07), b_time=1.07(1.08), lr=0.009359021459555618
+2022-11-10 01:50:14,981   INFO  
+2022-11-10 01:51:09,001   INFO  epoch: 19/60, acc_iter=8000, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:10/00:01, time_cost(all): 2:21:11/4:47:09, loss=1.0934702157974243, d_time=0.00(0.01), f_time=1.09(1.07), b_time=1.09(1.08), lr=0.00939637779758993
+2022-11-10 01:51:10,627   INFO  epoch: 20/60, acc_iter=8001, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/09:28, time_cost(all): 2:21:12/6:18:56, loss=0.947219967842102, d_time=0.31(0.31), f_time=1.11(1.11), b_time=1.42(1.42), lr=0.009397114317029975
+2022-11-10 01:52:03,203   INFO  epoch: 20/60, acc_iter=8050, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:53/06:19, time_cost(all): 2:22:05/4:47:06, loss=1.0823659896850586, d_time=0.00(0.01), f_time=1.05(1.07), b_time=1.06(1.08), lr=0.009432690981069995
+2022-11-10 01:52:56,839   INFO  epoch: 20/60, acc_iter=8100, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:47/05:23, time_cost(all): 2:22:58/4:45:14, loss=2.2178118228912354, d_time=0.00(0.01), f_time=1.08(1.07), b_time=1.08(1.08), lr=0.009467951288078513
+2022-11-10 01:52:56,886   INFO  
+2022-11-10 01:53:50,378   INFO  epoch: 20/60, acc_iter=8150, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:41/04:29, time_cost(all): 2:23:52/4:43:51, loss=0.7347081303596497, d_time=0.00(0.01), f_time=1.07(1.07), b_time=1.07(1.07), lr=0.009502149278578672
+2022-11-10 01:54:44,123   INFO  epoch: 20/60, acc_iter=8200, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:34/03:35, time_cost(all): 2:24:46/4:42:59, loss=0.8020399212837219, d_time=0.00(0.01), f_time=1.08(1.07), b_time=1.08(1.07), lr=0.009535275796941479
+2022-11-10 01:55:37,727   INFO  epoch: 20/60, acc_iter=8250, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:28/02:42, time_cost(all): 2:25:39/4:41:57, loss=0.8606948852539062, d_time=0.00(0.01), f_time=1.05(1.07), b_time=1.05(1.07), lr=0.00956732197439694
+2022-11-10 01:55:37,774   INFO  
+2022-11-10 01:56:10,978   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 01:56:32,580   INFO  epoch: 20/60, acc_iter=8300, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:23/01:48, time_cost(all): 2:26:34/4:42:04, loss=1.0033531188964844, d_time=0.00(0.01), f_time=1.06(1.07), b_time=1.07(1.08), lr=0.009598279231408444
+2022-11-10 01:57:26,628   INFO  epoch: 20/60, acc_iter=8350, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:17/00:54, time_cost(all): 2:27:28/4:41:17, loss=0.70745849609375, d_time=0.00(0.01), f_time=1.06(1.07), b_time=1.07(1.08), lr=0.009628139279969717
+2022-11-10 01:58:20,604   INFO  epoch: 20/60, acc_iter=8400, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:11/00:01, time_cost(all): 2:28:22/4:40:25, loss=0.9479604363441467, d_time=0.00(0.01), f_time=1.07(1.07), b_time=1.07(1.08), lr=0.009656894125823715
+2022-11-10 01:58:20,651   INFO  
+2022-11-10 01:58:22,241   INFO  epoch: 21/60, acc_iter=8401, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/09:15, time_cost(all): 2:28:24/6:01:06, loss=1.1573282480239868, d_time=0.30(0.30), f_time=1.09(1.09), b_time=1.39(1.39), lr=0.00965745789630079
+2022-11-10 01:59:15,263   INFO  epoch: 21/60, acc_iter=8450, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:54/06:21, time_cost(all): 2:29:17/4:42:02, loss=0.9016363620758057, d_time=0.00(0.01), f_time=1.07(1.08), b_time=1.07(1.09), lr=0.009684536070602889
+2022-11-10 02:00:09,040   INFO  epoch: 21/60, acc_iter=8500, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:48/05:25, time_cost(all): 2:30:11/4:39:30, loss=0.6698294878005981, d_time=0.00(0.01), f_time=1.08(1.07), b_time=1.09(1.08), lr=0.009711057713890211
+2022-11-10 02:01:02,469   INFO  epoch: 21/60, acc_iter=8550, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:41/04:30, time_cost(all): 2:31:04/4:37:27, loss=1.059125542640686, d_time=0.00(0.01), f_time=1.05(1.07), b_time=1.05(1.08), lr=0.009736451955200459
+2022-11-10 02:01:02,516   INFO  
+2022-11-10 02:01:56,370   INFO  epoch: 21/60, acc_iter=8600, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:35/03:36, time_cost(all): 2:31:58/4:36:35, loss=1.1208748817443848, d_time=0.00(0.01), f_time=1.07(1.07), b_time=1.08(1.08), lr=0.009760711995881178
+2022-11-10 02:02:50,168   INFO  epoch: 21/60, acc_iter=8650, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:29/02:42, time_cost(all): 2:32:52/4:35:37, loss=1.3933305740356445, d_time=0.00(0.01), f_time=1.06(1.07), b_time=1.06(1.08), lr=0.00978383134093285
+2022-11-10 02:03:22,216   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 02:03:44,667   INFO  epoch: 21/60, acc_iter=8700, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:23/01:49, time_cost(all): 2:33:46/4:35:15, loss=0.6379539966583252, d_time=0.00(0.01), f_time=1.08(1.07), b_time=1.08(1.08), lr=0.009805803800747758
+2022-11-10 02:03:44,714   INFO  
+2022-11-10 02:04:38,449   INFO  epoch: 21/60, acc_iter=8750, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:17/00:55, time_cost(all): 2:34:40/4:34:13, loss=1.0916519165039062, d_time=0.00(0.01), f_time=1.04(1.07), b_time=1.05(1.08), lr=0.009826623492767096
+2022-11-10 02:05:32,504   INFO  epoch: 21/60, acc_iter=8800, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:11/00:01, time_cost(all): 2:35:34/4:33:23, loss=0.6294773817062378, d_time=0.00(0.01), f_time=1.11(1.07), b_time=1.12(1.08), lr=0.009846284843055872
+2022-11-10 02:05:34,101   INFO  epoch: 22/60, acc_iter=8801, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/09:15, time_cost(all): 2:35:36/5:51:47, loss=0.8721109628677368, d_time=0.28(0.28), f_time=1.11(1.11), b_time=1.39(1.39), lr=0.009846666218300807
+2022-11-10 02:06:26,346   INFO  epoch: 22/60, acc_iter=8850, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:53/06:16, time_cost(all): 2:36:28/4:30:52, loss=0.5979856848716736, d_time=0.00(0.01), f_time=1.06(1.06), b_time=1.06(1.07), lr=0.009864782587795185
+2022-11-10 02:06:26,393   INFO  
+2022-11-10 02:07:19,803   INFO  epoch: 22/60, acc_iter=8900, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:47/05:22, time_cost(all): 2:37:21/4:29:31, loss=0.9010576605796814, d_time=0.00(0.01), f_time=1.09(1.06), b_time=1.09(1.07), lr=0.009882111774691478
+2022-11-10 02:08:13,467   INFO  epoch: 22/60, acc_iter=8950, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:40/04:28, time_cost(all): 2:38:15/4:28:50, loss=1.3267076015472412, d_time=0.00(0.01), f_time=1.05(1.07), b_time=1.06(1.07), lr=0.00989826776430238
+2022-11-10 02:09:07,196   INFO  epoch: 22/60, acc_iter=9000, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:34/03:35, time_cost(all): 2:39:09/4:28:07, loss=0.9533704519271851, d_time=0.00(0.01), f_time=1.05(1.07), b_time=1.06(1.07), lr=0.009913246231278813
+2022-11-10 02:09:07,243   INFO  
+2022-11-10 02:10:00,921   INFO  epoch: 22/60, acc_iter=9050, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:28/02:41, time_cost(all): 2:40:03/4:27:19, loss=0.6050194501876831, d_time=0.00(0.01), f_time=1.08(1.07), b_time=1.08(1.07), lr=0.009927043165522967
+2022-11-10 02:10:34,275   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 02:10:55,714   INFO  epoch: 22/60, acc_iter=9100, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:23/01:48, time_cost(all): 2:40:57/4:27:23, loss=0.6983026266098022, d_time=0.00(0.01), f_time=1.05(1.07), b_time=1.06(1.08), lr=0.009939654873261929
+2022-11-10 02:11:49,362   INFO  epoch: 22/60, acc_iter=9150, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:16/00:54, time_cost(all): 2:41:51/4:26:21, loss=0.9117413759231567, d_time=0.00(0.01), f_time=1.10(1.07), b_time=1.10(1.08), lr=0.009951077978036573
+2022-11-10 02:11:49,408   INFO  
+2022-11-10 02:12:42,873   INFO  epoch: 22/60, acc_iter=9200, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:10/00:01, time_cost(all): 2:42:45/4:25:17, loss=0.7695648074150085, d_time=0.00(0.01), f_time=1.08(1.07), b_time=1.09(1.08), lr=0.009961309421605528
+2022-11-10 02:12:44,407   INFO  epoch: 23/60, acc_iter=9201, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/08:50, time_cost(all): 2:42:46/5:27:10, loss=0.6821609735488892, d_time=0.27(0.27), f_time=1.05(1.05), b_time=1.32(1.32), lr=0.009961501876182147
+2022-11-10 02:13:37,041   INFO  epoch: 23/60, acc_iter=9250, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:53/06:18, time_cost(all): 2:43:39/4:25:19, loss=1.4164115190505981, d_time=0.00(0.01), f_time=1.05(1.07), b_time=1.05(1.08), lr=0.00997034646476395
+2022-11-10 02:14:30,411   INFO  epoch: 23/60, acc_iter=9300, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:47/05:23, time_cost(all): 2:44:32/4:22:58, loss=0.6611465215682983, d_time=0.00(0.01), f_time=1.06(1.07), b_time=1.06(1.07), lr=0.009978186688076858
+2022-11-10 02:14:30,458   INFO  
+2022-11-10 02:15:24,095   INFO  epoch: 23/60, acc_iter=9350, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:41/04:29, time_cost(all): 2:45:26/4:22:06, loss=0.8360586166381836, d_time=0.00(0.01), f_time=1.08(1.07), b_time=1.08(1.07), lr=0.009984827992526889
+2022-11-10 02:16:17,784   INFO  epoch: 23/60, acc_iter=9400, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:34/03:35, time_cost(all): 2:46:19/4:21:14, loss=0.7648160457611084, d_time=0.00(0.01), f_time=1.08(1.07), b_time=1.08(1.07), lr=0.009990268600076247
+2022-11-10 02:17:11,736   INFO  epoch: 23/60, acc_iter=9450, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:28/02:42, time_cost(all): 2:47:13/4:20:36, loss=0.7782704830169678, d_time=0.00(0.01), f_time=1.05(1.07), b_time=1.05(1.07), lr=0.009994507054142737
+2022-11-10 02:17:11,783   INFO  
+2022-11-10 02:17:44,947   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 02:18:06,419   INFO  epoch: 23/60, acc_iter=9500, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:23/01:48, time_cost(all): 2:48:08/4:20:29, loss=1.045825481414795, d_time=0.00(0.01), f_time=1.06(1.07), b_time=1.06(1.08), lr=0.009997542219989712
+2022-11-10 02:19:00,198   INFO  epoch: 23/60, acc_iter=9550, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:17/00:54, time_cost(all): 2:49:02/4:19:30, loss=0.7629226446151733, d_time=0.00(0.01), f_time=1.07(1.07), b_time=1.08(1.08), lr=0.009999373285029884
+2022-11-10 02:19:54,147   INFO  epoch: 23/60, acc_iter=9600, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:11/00:01, time_cost(all): 2:49:56/4:18:39, loss=0.7911298274993896, d_time=0.00(0.01), f_time=1.06(1.07), b_time=1.06(1.08), lr=0.009999999759042864
+2022-11-10 02:19:54,194   INFO  
+2022-11-10 02:19:55,736   INFO  epoch: 24/60, acc_iter=9601, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/08:52, time_cost(all): 2:49:57/5:19:46, loss=0.6561226844787598, d_time=0.27(0.27), f_time=1.06(1.06), b_time=1.33(1.33), lr=0.01
+2022-11-10 02:20:48,407   INFO  epoch: 24/60, acc_iter=9650, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:54/06:19, time_cost(all): 2:50:50/4:18:19, loss=0.46242207288742065, d_time=0.00(0.01), f_time=1.05(1.07), b_time=1.05(1.08), lr=0.009999714307755486
+2022-11-10 02:21:41,839   INFO  epoch: 24/60, acc_iter=9700, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:47/05:23, time_cost(all): 2:51:43/4:16:04, loss=0.6774475574493408, d_time=0.00(0.01), f_time=1.05(1.07), b_time=1.05(1.07), lr=0.009998833824446478
+2022-11-10 02:22:34,985   INFO  epoch: 24/60, acc_iter=9750, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:40/04:28, time_cost(all): 2:52:37/4:14:16, loss=0.7302730083465576, d_time=0.00(0.01), f_time=1.07(1.06), b_time=1.08(1.07), lr=0.009997358535851698
+2022-11-10 02:22:35,032   INFO  
+2022-11-10 02:23:28,640   INFO  epoch: 24/60, acc_iter=9800, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:34/03:35, time_cost(all): 2:53:30/4:13:31, loss=0.6255956888198853, d_time=0.00(0.01), f_time=1.08(1.07), b_time=1.09(1.07), lr=0.009995288617515733
+2022-11-10 02:24:22,544   INFO  epoch: 24/60, acc_iter=9850, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:28/02:41, time_cost(all): 2:54:24/4:12:57, loss=0.8124730587005615, d_time=0.00(0.01), f_time=1.06(1.07), b_time=1.07(1.07), lr=0.009992624315738165
+2022-11-10 02:24:55,945   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 02:25:17,441   INFO  epoch: 24/60, acc_iter=9900, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:23/01:48, time_cost(all): 2:55:19/4:13:03, loss=0.8368097543716431, d_time=0.00(0.01), f_time=1.08(1.07), b_time=1.08(1.08), lr=0.009989365947544265
+2022-11-10 02:25:17,487   INFO  
+2022-11-10 02:26:11,279   INFO  epoch: 24/60, acc_iter=9950, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:16/00:54, time_cost(all): 2:56:13/4:12:09, loss=0.9044061899185181, d_time=0.00(0.01), f_time=1.09(1.07), b_time=1.10(1.08), lr=0.009985513900647261
+2022-11-10 02:27:05,057   INFO  epoch: 24/60, acc_iter=10000, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:10/00:01, time_cost(all): 2:57:07/4:11:13, loss=0.8125187754631042, d_time=0.00(0.01), f_time=1.07(1.07), b_time=1.08(1.08), lr=0.00998106863340221
+2022-11-10 02:27:06,632   INFO  epoch: 25/60, acc_iter=10001, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/09:08, time_cost(all): 2:57:08/5:20:00, loss=0.7569215893745422, d_time=0.30(0.30), f_time=1.07(1.07), b_time=1.37(1.37), lr=0.009980973680723823
+2022-11-10 02:27:59,315   INFO  epoch: 25/60, acc_iter=10050, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:54/06:19, time_cost(all): 2:58:01/4:11:22, loss=0.9116141200065613, d_time=0.00(0.01), f_time=1.06(1.07), b_time=1.07(1.08), lr=0.009976030674751465
+2022-11-10 02:27:59,361   INFO  
+2022-11-10 02:28:52,882   INFO  epoch: 25/60, acc_iter=10100, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:47/05:23, time_cost(all): 2:58:55/4:09:20, loss=1.1322927474975586, d_time=0.00(0.01), f_time=1.08(1.07), b_time=1.08(1.08), lr=0.009970400624161721
+2022-11-10 02:29:46,574   INFO  epoch: 25/60, acc_iter=10150, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:41/04:29, time_cost(all): 2:59:48/4:08:15, loss=0.6937947869300842, d_time=0.00(0.01), f_time=1.07(1.07), b_time=1.08(1.08), lr=0.009964179151552698
+2022-11-10 02:30:40,177   INFO  epoch: 25/60, acc_iter=10200, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:34/03:35, time_cost(all): 3:00:42/4:07:10, loss=1.4887635707855225, d_time=0.00(0.01), f_time=1.07(1.07), b_time=1.08(1.07), lr=0.009957366997217417
+2022-11-10 02:30:40,224   INFO  
+2022-11-10 02:31:33,339   INFO  epoch: 25/60, acc_iter=10250, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:28/02:41, time_cost(all): 3:01:35/4:05:45, loss=0.6502896547317505, d_time=0.00(0.01), f_time=1.08(1.07), b_time=1.08(1.07), lr=0.009949964971734122
+2022-11-10 02:32:06,328   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 02:32:27,811   INFO  epoch: 25/60, acc_iter=10300, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:22/01:48, time_cost(all): 3:02:29/4:05:30, loss=0.6372919678688049, d_time=0.00(0.01), f_time=1.06(1.07), b_time=1.06(1.08), lr=0.009941973955869822
+2022-11-10 02:33:21,249   INFO  epoch: 25/60, acc_iter=10350, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:15/00:54, time_cost(all): 3:03:23/4:04:24, loss=0.6529101133346558, d_time=0.00(0.01), f_time=1.07(1.07), b_time=1.08(1.07), lr=0.009933394900475496
+2022-11-10 02:33:21,294   INFO  
+2022-11-10 02:34:14,393   INFO  epoch: 25/60, acc_iter=10400, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:09/00:01, time_cost(all): 3:04:16/4:03:11, loss=0.8007702231407166, d_time=0.00(0.01), f_time=1.08(1.06), b_time=1.09(1.07), lr=0.009924228826372939
+2022-11-10 02:34:15,996   INFO  epoch: 26/60, acc_iter=10401, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/09:02, time_cost(all): 3:04:18/5:07:26, loss=1.264136552810669, d_time=0.27(0.27), f_time=1.08(1.08), b_time=1.35(1.35), lr=0.00992403952467339
+2022-11-10 02:35:08,130   INFO  epoch: 26/60, acc_iter=10450, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:53/06:15, time_cost(all): 3:05:10/4:01:36, loss=1.4353845119476318, d_time=0.00(0.01), f_time=1.05(1.06), b_time=1.06(1.07), lr=0.009914476824233307
+2022-11-10 02:36:01,174   INFO  epoch: 26/60, acc_iter=10500, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:46/05:20, time_cost(all): 3:06:03/3:59:43, loss=0.9813246726989746, d_time=0.00(0.01), f_time=1.08(1.06), b_time=1.08(1.07), lr=0.00990414005444733
+2022-11-10 02:36:01,220   INFO  
+2022-11-10 02:36:54,442   INFO  epoch: 26/60, acc_iter=10550, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:39/04:27, time_cost(all): 3:06:56/3:58:49, loss=0.9638149738311768, d_time=0.00(0.01), f_time=1.07(1.06), b_time=1.07(1.07), lr=0.009893219746987246
+2022-11-10 02:37:47,416   INFO  epoch: 26/60, acc_iter=10600, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:32/03:33, time_cost(all): 3:07:49/3:57:37, loss=0.8218915462493896, d_time=0.00(0.01), f_time=1.03(1.06), b_time=1.03(1.06), lr=0.009881717201260432
+2022-11-10 02:38:40,515   INFO  epoch: 26/60, acc_iter=10650, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:25/02:40, time_cost(all): 3:08:42/3:56:38, loss=1.0699348449707031, d_time=0.00(0.01), f_time=1.02(1.06), b_time=1.03(1.06), lr=0.009869633785954802
+2022-11-10 02:38:40,562   INFO  
+2022-11-10 02:39:16,489   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 02:39:34,532   INFO  epoch: 26/60, acc_iter=10700, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:19/01:47, time_cost(all): 3:09:36/3:56:22, loss=1.5994157791137695, d_time=0.00(0.01), f_time=1.03(1.06), b_time=1.03(1.07), lr=0.009856970938875942
+2022-11-10 02:40:27,926   INFO  epoch: 26/60, acc_iter=10750, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:13/00:54, time_cost(all): 3:10:30/3:55:32, loss=0.4725991487503052, d_time=0.00(0.01), f_time=1.08(1.06), b_time=1.08(1.07), lr=0.009843730166776019
+2022-11-10 02:41:21,436   INFO  epoch: 26/60, acc_iter=10800, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:06/00:01, time_cost(all): 3:11:23/3:54:45, loss=0.6839714050292969, d_time=0.00(0.01), f_time=1.06(1.06), b_time=1.06(1.07), lr=0.0098299130451745
+2022-11-10 02:41:21,481   INFO  
+2022-11-10 02:41:23,060   INFO  epoch: 27/60, acc_iter=10801, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/09:07, time_cost(all): 3:11:25/5:01:09, loss=0.7812751531600952, d_time=0.28(0.28), f_time=1.08(1.08), b_time=1.37(1.37), lr=0.009829630835154026
+2022-11-10 02:42:15,483   INFO  epoch: 27/60, acc_iter=10850, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:53/06:17, time_cost(all): 3:12:17/3:55:48, loss=1.0333688259124756, d_time=0.00(0.01), f_time=1.06(1.07), b_time=1.07(1.08), lr=0.009815521218170685
+2022-11-10 02:43:08,663   INFO  epoch: 27/60, acc_iter=10900, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:46/05:21, time_cost(all): 3:13:10/3:53:34, loss=0.9729017615318298, d_time=0.00(0.01), f_time=1.05(1.06), b_time=1.06(1.07), lr=0.009800556398248061
+2022-11-10 02:44:02,341   INFO  epoch: 27/60, acc_iter=10950, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:40/04:28, time_cost(all): 3:14:04/3:52:57, loss=0.7140217423439026, d_time=0.00(0.01), f_time=1.07(1.06), b_time=1.07(1.07), lr=0.009785020366070547
+2022-11-10 02:44:02,387   INFO  
+2022-11-10 02:44:56,077   INFO  epoch: 27/60, acc_iter=11000, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:34/03:35, time_cost(all): 3:14:58/3:52:16, loss=0.7182081937789917, d_time=0.00(0.01), f_time=1.06(1.07), b_time=1.07(1.07), lr=0.009768914970270609
+2022-11-10 02:45:49,551   INFO  epoch: 27/60, acc_iter=11050, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:27/02:41, time_cost(all): 3:15:51/3:51:16, loss=0.7253056764602661, d_time=0.00(0.01), f_time=1.05(1.07), b_time=1.05(1.07), lr=0.009752242127229286
+2022-11-10 02:46:22,756   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 02:46:44,208   INFO  epoch: 27/60, acc_iter=11100, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:22/01:48, time_cost(all): 3:16:46/3:51:09, loss=0.4070062041282654, d_time=0.00(0.01), f_time=1.06(1.07), b_time=1.06(1.08), lr=0.009735003820848168
+2022-11-10 02:46:44,253   INFO  
+2022-11-10 02:47:37,902   INFO  epoch: 27/60, acc_iter=11150, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:16/00:54, time_cost(all): 3:17:40/3:50:13, loss=0.9354549050331116, d_time=0.00(0.01), f_time=1.07(1.07), b_time=1.07(1.07), lr=0.009717202102313324
+2022-11-10 02:48:31,402   INFO  epoch: 27/60, acc_iter=11200, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:09/00:01, time_cost(all): 3:18:33/3:49:11, loss=0.9760259389877319, d_time=0.00(0.01), f_time=1.06(1.07), b_time=1.07(1.07), lr=0.009698839089851242
+2022-11-10 02:48:32,955   INFO  epoch: 28/60, acc_iter=11201, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/09:00, time_cost(all): 3:18:35/4:48:22, loss=0.7923153638839722, d_time=0.31(0.31), f_time=1.04(1.04), b_time=1.35(1.35), lr=0.009698466119298503
+2022-11-10 02:49:25,074   INFO  epoch: 28/60, acc_iter=11250, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:53/06:15, time_cost(all): 3:19:27/3:47:15, loss=1.020437479019165, d_time=0.00(0.01), f_time=1.05(1.06), b_time=1.05(1.07), lr=0.009679916968476763
+2022-11-10 02:49:25,119   INFO  
+2022-11-10 02:50:18,422   INFO  epoch: 28/60, acc_iter=11300, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:46/05:21, time_cost(all): 3:20:20/3:46:06, loss=0.6970062255859375, d_time=0.00(0.01), f_time=1.06(1.06), b_time=1.07(1.07), lr=0.009660437989733107
+2022-11-10 02:51:11,766   INFO  epoch: 28/60, acc_iter=11350, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:40/04:28, time_cost(all): 3:21:13/3:45:08, loss=0.4738793671131134, d_time=0.00(0.01), f_time=1.06(1.06), b_time=1.06(1.07), lr=0.00964040447142395
+2022-11-10 02:52:05,096   INFO  epoch: 28/60, acc_iter=11400, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:33/03:34, time_cost(all): 3:22:07/3:44:11, loss=0.6670547723770142, d_time=0.00(0.01), f_time=1.07(1.06), b_time=1.07(1.07), lr=0.009619818797337629
+2022-11-10 02:52:05,142   INFO  
+2022-11-10 02:52:58,420   INFO  epoch: 28/60, acc_iter=11450, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:26/02:41, time_cost(all): 3:23:00/3:43:15, loss=0.8634517788887024, d_time=0.00(0.01), f_time=1.07(1.06), b_time=1.07(1.07), lr=0.009598683416963495
+2022-11-10 02:53:33,434   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 02:53:52,701   INFO  epoch: 28/60, acc_iter=11500, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:21/01:48, time_cost(all): 3:23:54/3:43:00, loss=1.061781883239746, d_time=0.00(0.01), f_time=1.04(1.06), b_time=1.05(1.07), lr=0.009577000845200453
+2022-11-10 02:54:46,071   INFO  epoch: 28/60, acc_iter=11550, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:14/00:54, time_cost(all): 3:24:48/3:42:01, loss=0.7463793754577637, d_time=0.00(0.01), f_time=1.05(1.06), b_time=1.05(1.07), lr=0.009554773662057713
+2022-11-10 02:54:46,117   INFO  
+2022-11-10 02:55:39,606   INFO  epoch: 28/60, acc_iter=11600, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:08/00:01, time_cost(all): 3:25:41/3:41:09, loss=0.5525573492050171, d_time=0.00(0.01), f_time=1.07(1.06), b_time=1.07(1.07), lr=0.00953200451234779
+2022-11-10 02:55:41,147   INFO  epoch: 29/60, acc_iter=11601, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/08:53, time_cost(all): 3:25:43/4:35:53, loss=0.6300477981567383, d_time=0.26(0.26), f_time=1.07(1.07), b_time=1.33(1.33), lr=0.009531543619793898
+2022-11-10 02:56:33,432   INFO  epoch: 29/60, acc_iter=11650, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:53/06:16, time_cost(all): 3:26:35/3:40:45, loss=0.6547645330429077, d_time=0.00(0.01), f_time=1.06(1.06), b_time=1.07(1.07), lr=0.009508696105371797
+2022-11-10 02:57:26,944   INFO  epoch: 29/60, acc_iter=11700, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:47/05:22, time_cost(all): 3:27:29/3:39:38, loss=0.8990928530693054, d_time=0.00(0.01), f_time=1.08(1.06), b_time=1.09(1.07), lr=0.00948485121459708
+2022-11-10 02:57:26,990   INFO  
+2022-11-10 02:58:20,429   INFO  epoch: 29/60, acc_iter=11750, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:40/04:28, time_cost(all): 3:28:22/3:38:38, loss=0.698760449886322, d_time=0.00(0.01), f_time=1.06(1.06), b_time=1.06(1.07), lr=0.00946047267732718
+2022-11-10 02:59:14,143   INFO  epoch: 29/60, acc_iter=11800, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:34/03:35, time_cost(all): 3:29:16/3:37:55, loss=1.2321404218673706, d_time=0.00(0.01), f_time=1.02(1.07), b_time=1.03(1.07), lr=0.00943556339436424
+2022-11-10 03:00:07,601   INFO  epoch: 29/60, acc_iter=11850, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:27/02:41, time_cost(all): 3:30:09/3:36:55, loss=0.5438095331192017, d_time=0.00(0.01), f_time=1.07(1.07), b_time=1.07(1.07), lr=0.009410126329663834
+2022-11-10 03:00:07,647   INFO  
+2022-11-10 03:00:41,807   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 03:01:02,286   INFO  epoch: 29/60, acc_iter=11900, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:22/01:48, time_cost(all): 3:31:04/3:36:47, loss=0.5530699491500854, d_time=0.00(0.01), f_time=1.08(1.07), b_time=1.08(1.07), lr=0.009384164509982284
+2022-11-10 03:01:55,848   INFO  epoch: 29/60, acc_iter=11950, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:16/00:54, time_cost(all): 3:31:58/3:35:47, loss=0.752920389175415, d_time=0.00(0.01), f_time=1.03(1.07), b_time=1.04(1.07), lr=0.009357681024516501
+2022-11-10 03:02:49,640   INFO  epoch: 29/60, acc_iter=12000, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:09/00:01, time_cost(all): 3:32:51/3:34:55, loss=0.7531259059906006, d_time=0.00(0.01), f_time=1.07(1.07), b_time=1.07(1.07), lr=0.009330679024536418
+2022-11-10 03:02:49,685   INFO  
+2022-11-10 03:02:51,250   INFO  epoch: 30/60, acc_iter=12001, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/09:05, time_cost(all): 3:32:53/4:32:39, loss=0.7802565693855286, d_time=0.27(0.27), f_time=1.09(1.09), b_time=1.36(1.36), lr=0.009330133717652005
+2022-11-10 03:03:43,888   INFO  epoch: 30/60, acc_iter=12050, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:54/06:19, time_cost(all): 3:33:46/3:35:07, loss=0.7592660784721375, d_time=0.00(0.01), f_time=1.06(1.07), b_time=1.07(1.08), lr=0.009303161723010002
+2022-11-10 03:04:37,454   INFO  epoch: 30/60, acc_iter=12100, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:47/05:23, time_cost(all): 3:34:39/3:33:21, loss=0.6517047882080078, d_time=0.00(0.01), f_time=1.09(1.07), b_time=1.09(1.08), lr=0.009275132394220955
+2022-11-10 03:05:30,747   INFO  epoch: 30/60, acc_iter=12150, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:40/04:29, time_cost(all): 3:35:32/3:31:49, loss=0.8360520601272583, d_time=0.00(0.01), f_time=1.08(1.07), b_time=1.08(1.07), lr=0.0092465943733791
+2022-11-10 03:05:30,793   INFO  
+2022-11-10 03:06:24,086   INFO  epoch: 30/60, acc_iter=12200, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:34/03:35, time_cost(all): 3:36:26/3:30:38, loss=0.6111262440681458, d_time=0.00(0.01), f_time=1.09(1.07), b_time=1.10(1.07), lr=0.009217551056223528
+2022-11-10 03:07:17,439   INFO  epoch: 30/60, acc_iter=12250, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:27/02:41, time_cost(all): 3:37:19/3:29:36, loss=1.3644697666168213, d_time=0.00(0.01), f_time=1.04(1.06), b_time=1.05(1.07), lr=0.00918800589861854
+2022-11-10 03:07:51,759   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 03:08:11,969   INFO  epoch: 30/60, acc_iter=12300, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:22/01:48, time_cost(all): 3:38:14/3:29:22, loss=0.5431171655654907, d_time=0.00(0.01), f_time=1.03(1.06), b_time=1.03(1.07), lr=0.00915796241614243
+2022-11-10 03:08:12,016   INFO  
+2022-11-10 03:09:04,759   INFO  epoch: 30/60, acc_iter=12350, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:14/00:54, time_cost(all): 3:39:06/3:27:58, loss=0.561977207660675, d_time=0.00(0.01), f_time=1.06(1.06), b_time=1.07(1.07), lr=0.009127424183669167
+2022-11-10 03:09:58,033   INFO  epoch: 30/60, acc_iter=12400, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:08/00:01, time_cost(all): 3:40:00/3:26:57, loss=0.6011519432067871, d_time=0.00(0.01), f_time=1.07(1.06), b_time=1.07(1.07), lr=0.009096394834943027
+2022-11-10 03:09:59,616   INFO  epoch: 31/60, acc_iter=12401, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/09:07, time_cost(all): 3:40:01/4:24:36, loss=0.7441531419754028, d_time=0.28(0.28), f_time=1.08(1.08), b_time=1.37(1.37), lr=0.009095769263842745
+2022-11-10 03:10:51,615   INFO  epoch: 31/60, acc_iter=12450, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:53/06:14, time_cost(all): 3:40:53/3:25:28, loss=0.9610260725021362, d_time=0.00(0.01), f_time=1.06(1.06), b_time=1.06(1.07), lr=0.009064878062146203
+2022-11-10 03:10:51,661   INFO  
+2022-11-10 03:11:44,477   INFO  epoch: 31/60, acc_iter=12500, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:46/05:19, time_cost(all): 3:41:46/3:23:37, loss=0.9828946590423584, d_time=0.00(0.01), f_time=1.04(1.05), b_time=1.04(1.06), lr=0.009032877615459484
+2022-11-10 03:12:37,652   INFO  epoch: 31/60, acc_iter=12550, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:39/04:26, time_cost(all): 3:42:39/3:22:48, loss=0.5221045017242432, d_time=0.00(0.01), f_time=1.04(1.06), b_time=1.04(1.06), lr=0.009000397302616005
+2022-11-10 03:13:30,481   INFO  epoch: 31/60, acc_iter=12600, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:32/03:33, time_cost(all): 3:43:32/3:21:38, loss=0.5973008871078491, d_time=0.00(0.01), f_time=1.07(1.06), b_time=1.08(1.06), lr=0.008967440988448191
+2022-11-10 03:13:30,527   INFO  
+2022-11-10 03:14:23,344   INFO  epoch: 31/60, acc_iter=12650, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:25/02:40, time_cost(all): 3:44:25/3:20:36, loss=0.5147122740745544, d_time=0.00(0.01), f_time=1.08(1.05), b_time=1.08(1.06), lr=0.008934012594427847
+2022-11-10 03:14:59,558   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 03:15:17,676   INFO  epoch: 31/60, acc_iter=12700, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:19/01:47, time_cost(all): 3:45:19/3:20:32, loss=0.6334685683250427, d_time=0.00(0.01), f_time=1.06(1.06), b_time=1.06(1.06), lr=0.008900116098199571
+2022-11-10 03:16:10,206   INFO  epoch: 31/60, acc_iter=12750, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:11/00:54, time_cost(all): 3:46:12/3:19:16, loss=0.5579790472984314, d_time=0.00(0.01), f_time=1.00(1.05), b_time=1.00(1.06), lr=0.00886575553310744
+2022-11-10 03:16:10,252   INFO  
+2022-11-10 03:17:02,795   INFO  epoch: 31/60, acc_iter=12800, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:04/00:01, time_cost(all): 3:47:04/3:18:08, loss=0.48261475563049316, d_time=0.00(0.01), f_time=1.06(1.05), b_time=1.07(1.06), lr=0.00883093498771508
+2022-11-10 03:17:04,342   INFO  epoch: 32/60, acc_iter=12801, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/08:55, time_cost(all): 3:47:06/4:09:42, loss=0.6465873122215271, d_time=0.27(0.27), f_time=1.07(1.07), b_time=1.34(1.34), lr=0.008830233913372733
+2022-11-10 03:17:56,497   INFO  epoch: 32/60, acc_iter=12850, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:53/06:15, time_cost(all): 3:47:58/3:18:50, loss=0.4139905571937561, d_time=0.00(0.01), f_time=1.05(1.06), b_time=1.05(1.07), lr=0.008795658605319182
+2022-11-10 03:18:49,682   INFO  epoch: 32/60, acc_iter=12900, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:46/05:21, time_cost(all): 3:48:51/3:17:22, loss=1.1528875827789307, d_time=0.00(0.01), f_time=1.07(1.06), b_time=1.08(1.07), lr=0.008759930583456471
+2022-11-10 03:18:49,728   INFO  
+2022-11-10 03:19:42,535   INFO  epoch: 32/60, acc_iter=12950, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:39/04:26, time_cost(all): 3:49:44/3:15:53, loss=0.5610921382904053, d_time=0.00(0.01), f_time=1.01(1.06), b_time=1.02(1.06), lr=0.008723755173404263
+2022-11-10 03:20:35,325   INFO  epoch: 32/60, acc_iter=13000, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:32/03:33, time_cost(all): 3:50:37/3:14:38, loss=0.5400674343109131, d_time=0.00(0.01), f_time=1.04(1.06), b_time=1.05(1.06), lr=0.008687136679674586
+2022-11-10 03:21:28,160   INFO  epoch: 32/60, acc_iter=13050, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:25/02:40, time_cost(all): 3:51:30/3:13:34, loss=0.7430970668792725, d_time=0.00(0.01), f_time=1.06(1.06), b_time=1.06(1.06), lr=0.008650079459502
+2022-11-10 03:21:28,206   INFO  
+2022-11-10 03:22:04,277   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 03:22:22,392   INFO  epoch: 32/60, acc_iter=13100, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:19/01:47, time_cost(all): 3:52:24/3:13:25, loss=0.615500271320343, d_time=0.00(0.01), f_time=1.07(1.06), b_time=1.07(1.06), lr=0.008612587922325119
+2022-11-10 03:23:15,417   INFO  epoch: 32/60, acc_iter=13150, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:12/00:54, time_cost(all): 3:53:17/3:12:25, loss=0.4550662040710449, d_time=0.00(0.01), f_time=1.04(1.06), b_time=1.05(1.06), lr=0.008574666529261945
+2022-11-10 03:24:08,579   INFO  epoch: 32/60, acc_iter=13200, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:05/00:01, time_cost(all): 3:54:10/3:11:31, loss=0.6250383853912354, d_time=0.00(0.01), f_time=1.06(1.06), b_time=1.07(1.06), lr=0.008536319792579022
+2022-11-10 03:24:08,625   INFO  
+2022-11-10 03:24:10,172   INFO  epoch: 33/60, acc_iter=13201, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/08:52, time_cost(all): 3:54:12/3:59:37, loss=0.5994865894317627, d_time=0.26(0.26), f_time=1.07(1.07), b_time=1.33(1.33), lr=0.008535548550593679
+2022-11-10 03:25:02,058   INFO  epoch: 33/60, acc_iter=13250, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:53/06:13, time_cost(all): 3:55:04/3:10:42, loss=0.7401787638664246, d_time=0.00(0.01), f_time=1.06(1.05), b_time=1.06(1.06), lr=0.008497552275154542
+2022-11-10 03:25:55,159   INFO  epoch: 33/60, acc_iter=13300, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:46/05:20, time_cost(all): 3:55:57/3:09:37, loss=0.5733994841575623, d_time=0.00(0.01), f_time=1.07(1.06), b_time=1.07(1.06), lr=0.00845836858993539
+2022-11-10 03:26:47,704   INFO  epoch: 33/60, acc_iter=13350, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:38/04:25, time_cost(all): 3:56:49/3:08:00, loss=0.6351518630981445, d_time=0.00(0.01), f_time=1.03(1.05), b_time=1.04(1.06), lr=0.008418773399388254
+2022-11-10 03:26:47,750   INFO  
+2022-11-10 03:27:40,636   INFO  epoch: 33/60, acc_iter=13400, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:31/03:32, time_cost(all): 3:57:42/3:07:06, loss=0.49880725145339966, d_time=0.00(0.01), f_time=1.06(1.05), b_time=1.06(1.06), lr=0.008378771414944851
+2022-11-10 03:28:33,583   INFO  epoch: 33/60, acc_iter=13450, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:24/02:39, time_cost(all): 3:58:35/3:06:13, loss=0.7854758501052856, d_time=0.00(0.01), f_time=1.08(1.05), b_time=1.08(1.06), lr=0.008338367396441296
+2022-11-10 03:29:10,927   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 03:29:27,961   INFO  epoch: 33/60, acc_iter=13500, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:19/01:47, time_cost(all): 3:59:30/3:06:10, loss=0.8860657215118408, d_time=0.00(0.01), f_time=1.06(1.05), b_time=1.07(1.06), lr=0.008297566151551736
+2022-11-10 03:29:28,008   INFO  
+2022-11-10 03:30:20,235   INFO  epoch: 33/60, acc_iter=13550, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:11/00:54, time_cost(all): 4:00:22/3:04:49, loss=0.5877285003662109, d_time=0.00(0.01), f_time=1.03(1.05), b_time=1.03(1.06), lr=0.008256372535216293
+2022-11-10 03:31:12,640   INFO  epoch: 33/60, acc_iter=13600, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:03/00:01, time_cost(all): 4:01:14/3:03:39, loss=1.080458402633667, d_time=0.00(0.01), f_time=1.04(1.05), b_time=1.05(1.06), lr=0.00821479144906336
+2022-11-10 03:31:14,190   INFO  epoch: 34/60, acc_iter=13601, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/08:54, time_cost(all): 4:01:16/3:51:43, loss=0.6395026445388794, d_time=0.27(0.27), f_time=1.06(1.06), b_time=1.33(1.33), lr=0.008213955909052212
+2022-11-10 03:32:05,678   INFO  epoch: 34/60, acc_iter=13650, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:52/06:10, time_cost(all): 4:02:07/3:02:15, loss=0.8386860489845276, d_time=0.00(0.01), f_time=1.09(1.05), b_time=1.09(1.06), lr=0.008172827840826364
+2022-11-10 03:32:05,724   INFO  
+2022-11-10 03:32:58,756   INFO  epoch: 34/60, acc_iter=13700, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:45/05:18, time_cost(all): 4:03:00/3:01:49, loss=0.8327043056488037, d_time=0.00(0.01), f_time=1.05(1.05), b_time=1.05(1.06), lr=0.00813048670375504
+2022-11-10 03:33:51,591   INFO  epoch: 34/60, acc_iter=13750, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:38/04:25, time_cost(all): 4:03:53/3:00:48, loss=0.7673623561859131, d_time=0.00(0.01), f_time=1.04(1.05), b_time=1.05(1.06), lr=0.008087773076021272
+2022-11-10 03:34:44,447   INFO  epoch: 34/60, acc_iter=13800, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:31/03:32, time_cost(all): 4:04:46/2:59:52, loss=0.4806140065193176, d_time=0.00(0.01), f_time=1.05(1.05), b_time=1.06(1.06), lr=0.008044692040119615
+2022-11-10 03:34:44,493   INFO  
+2022-11-10 03:35:37,596   INFO  epoch: 34/60, acc_iter=13850, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:24/02:39, time_cost(all): 4:05:39/2:59:09, loss=0.400420218706131, d_time=0.00(0.01), f_time=1.06(1.05), b_time=1.06(1.06), lr=0.008001248722262516
+2022-11-10 03:36:14,640   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 03:36:31,622   INFO  epoch: 34/60, acc_iter=13900, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:18/01:47, time_cost(all): 4:06:33/2:58:52, loss=0.5253279209136963, d_time=0.00(0.01), f_time=1.03(1.05), b_time=1.03(1.06), lr=0.007957448291770353
+2022-11-10 03:37:24,618   INFO  epoch: 34/60, acc_iter=13950, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:11/00:54, time_cost(all): 4:07:26/2:57:56, loss=0.35553547739982605, d_time=0.00(0.01), f_time=1.04(1.05), b_time=1.04(1.06), lr=0.00791329596045634
+2022-11-10 03:37:24,664   INFO  
+2022-11-10 03:38:17,825   INFO  epoch: 34/60, acc_iter=14000, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:04/00:01, time_cost(all): 4:08:19/2:57:05, loss=0.5475314855575562, d_time=0.00(0.01), f_time=1.07(1.05), b_time=1.07(1.06), lr=0.007868796982006364
+2022-11-10 03:38:19,361   INFO  epoch: 35/60, acc_iter=14001, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/08:52, time_cost(all): 4:08:21/3:41:52, loss=0.6857748031616211, d_time=0.27(0.27), f_time=1.06(1.06), b_time=1.33(1.33), lr=0.007867903502933413
+2022-11-10 03:39:11,316   INFO  epoch: 35/60, acc_iter=14050, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:53/06:14, time_cost(all): 4:09:13/2:56:44, loss=0.6318739652633667, d_time=0.00(0.01), f_time=1.06(1.06), b_time=1.06(1.07), lr=0.007823956651353856
+2022-11-10 03:40:04,475   INFO  epoch: 35/60, acc_iter=14100, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:46/05:20, time_cost(all): 4:10:06/2:55:39, loss=0.5637482404708862, d_time=0.00(0.01), f_time=1.08(1.06), b_time=1.08(1.06), lr=0.007778780304049753
+2022-11-10 03:40:04,521   INFO  
+2022-11-10 03:40:57,792   INFO  epoch: 35/60, acc_iter=14150, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:39/04:27, time_cost(all): 4:10:59/2:54:52, loss=0.43814536929130554, d_time=0.00(0.01), f_time=1.04(1.06), b_time=1.05(1.07), lr=0.007733273315627603
+2022-11-10 03:41:50,991   INFO  epoch: 35/60, acc_iter=14200, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:32/03:34, time_cost(all): 4:11:53/2:53:56, loss=0.5744002461433411, d_time=0.00(0.01), f_time=1.08(1.06), b_time=1.09(1.06), lr=0.0076874411009639435
+2022-11-10 03:42:44,100   INFO  epoch: 35/60, acc_iter=14250, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:26/02:40, time_cost(all): 4:12:46/2:52:57, loss=0.699142575263977, d_time=0.00(0.01), f_time=1.08(1.06), b_time=1.08(1.06), lr=0.007641289113633986
+2022-11-10 03:42:44,146   INFO  
+2022-11-10 03:43:19,107   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 03:43:38,085   INFO  epoch: 35/60, acc_iter=14300, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:20/01:47, time_cost(all): 4:13:40/2:52:29, loss=0.5512489676475525, d_time=0.00(0.01), f_time=1.01(1.06), b_time=1.02(1.07), lr=0.007594822845262688
+2022-11-10 03:44:31,225   INFO  epoch: 35/60, acc_iter=14350, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:13/00:54, time_cost(all): 4:14:33/2:51:30, loss=0.49630147218704224, d_time=0.00(0.01), f_time=1.06(1.06), b_time=1.06(1.07), lr=0.00754804782487131
+2022-11-10 03:45:24,356   INFO  epoch: 35/60, acc_iter=14400, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:06/00:01, time_cost(all): 4:15:26/2:50:32, loss=0.8371393084526062, d_time=0.00(0.01), f_time=1.06(1.06), b_time=1.06(1.07), lr=0.007500969618219513
+2022-11-10 03:45:24,402   INFO  
+2022-11-10 03:45:25,959   INFO  epoch: 36/60, acc_iter=14401, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/08:58, time_cost(all): 4:15:28/3:35:14, loss=0.49210023880004883, d_time=0.27(0.27), f_time=1.07(1.07), b_time=1.34(1.34), lr=0.007500025000000001
+2022-11-10 03:46:17,720   INFO  epoch: 36/60, acc_iter=14450, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:53/06:12, time_cost(all): 4:16:19/2:49:04, loss=0.46426165103912354, d_time=0.00(0.01), f_time=1.04(1.05), b_time=1.04(1.06), lr=0.007453593827143092
+2022-11-10 03:47:10,626   INFO  epoch: 36/60, acc_iter=14500, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:46/05:19, time_cost(all): 4:17:12/2:47:52, loss=0.5481398701667786, d_time=0.00(0.01), f_time=1.04(1.05), b_time=1.04(1.06), lr=0.007405926088887418
+2022-11-10 03:48:03,390   INFO  epoch: 36/60, acc_iter=14550, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:38/04:25, time_cost(all): 4:18:05/2:46:43, loss=0.36345237493515015, d_time=0.00(0.01), f_time=1.04(1.05), b_time=1.04(1.06), lr=0.007357972075436645
+2022-11-10 03:48:03,435   INFO  
+2022-11-10 03:48:56,181   INFO  epoch: 36/60, acc_iter=14600, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:31/03:32, time_cost(all): 4:18:58/2:45:44, loss=0.4421236515045166, d_time=0.00(0.01), f_time=1.09(1.05), b_time=1.09(1.06), lr=0.007309737492838823
+2022-11-10 03:49:48,936   INFO  epoch: 36/60, acc_iter=14650, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:24/02:39, time_cost(all): 4:19:51/2:44:46, loss=0.3584274649620056, d_time=0.00(0.01), f_time=1.06(1.05), b_time=1.06(1.06), lr=0.007261228080526919
+2022-11-10 03:50:26,057   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 03:50:43,224   INFO  epoch: 36/60, acc_iter=14700, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:18/01:47, time_cost(all): 4:20:45/2:44:37, loss=0.4090671241283417, d_time=0.00(0.01), f_time=1.07(1.05), b_time=1.07(1.06), lr=0.007212449610635891
+2022-11-10 03:50:43,270   INFO  
+2022-11-10 03:51:36,333   INFO  epoch: 36/60, acc_iter=14750, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:11/00:54, time_cost(all): 4:21:38/2:43:45, loss=0.4912998080253601, d_time=0.00(0.01), f_time=1.05(1.05), b_time=1.06(1.06), lr=0.007163407887315856
+2022-11-10 03:52:29,341   INFO  epoch: 36/60, acc_iter=14800, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:04/00:01, time_cost(all): 4:22:31/2:42:49, loss=0.5759074091911316, d_time=0.00(0.01), f_time=1.03(1.05), b_time=1.03(1.06), lr=0.007114108746041458
+2022-11-10 03:52:30,900   INFO  epoch: 37/60, acc_iter=14801, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/08:58, time_cost(all): 4:22:33/3:26:32, loss=0.5618684887886047, d_time=0.29(0.29), f_time=1.06(1.06), b_time=1.34(1.34), lr=0.007113120177790411
+2022-11-10 03:53:22,864   INFO  epoch: 37/60, acc_iter=14850, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:53/06:14, time_cost(all): 4:23:25/2:42:37, loss=0.47563397884368896, d_time=0.00(0.01), f_time=1.04(1.06), b_time=1.04(1.07), lr=0.0070645580529175005
+2022-11-10 03:53:22,910   INFO  
+2022-11-10 03:54:16,060   INFO  epoch: 37/60, acc_iter=14900, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:46/05:20, time_cost(all): 4:24:18/2:41:33, loss=1.0907071828842163, d_time=0.00(0.01), f_time=1.03(1.06), b_time=1.03(1.07), lr=0.007014761703980946
+2022-11-10 03:55:09,582   INFO  epoch: 37/60, acc_iter=14950, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:40/04:27, time_cost(all): 4:25:11/2:40:56, loss=0.503277063369751, d_time=0.00(0.01), f_time=1.05(1.06), b_time=1.06(1.07), lr=0.006964725624499338
+2022-11-10 03:56:03,258   INFO  epoch: 37/60, acc_iter=15000, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:33/03:34, time_cost(all): 4:26:05/2:40:17, loss=0.4622832238674164, d_time=0.00(0.01), f_time=1.04(1.06), b_time=1.04(1.07), lr=0.006914455768265758
+2022-11-10 03:56:03,304   INFO  
+2022-11-10 03:56:56,928   INFO  epoch: 37/60, acc_iter=15050, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:27/02:41, time_cost(all): 4:26:59/2:39:33, loss=0.5489122867584229, d_time=0.00(0.01), f_time=1.06(1.06), b_time=1.06(1.07), lr=0.006863958116890388
+2022-11-10 03:57:31,238   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 03:57:51,541   INFO  epoch: 37/60, acc_iter=15100, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:21/01:48, time_cost(all): 4:27:53/2:39:13, loss=0.49798691272735596, d_time=0.00(0.01), f_time=1.07(1.06), b_time=1.07(1.07), lr=0.006813238679088746
+2022-11-10 03:58:44,797   INFO  epoch: 37/60, acc_iter=15150, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:15/00:54, time_cost(all): 4:28:46/2:38:09, loss=0.4914177656173706, d_time=0.00(0.01), f_time=1.04(1.06), b_time=1.04(1.07), lr=0.006762303489966723
+2022-11-10 03:58:44,843   INFO  
+2022-11-10 03:59:38,112   INFO  epoch: 37/60, acc_iter=15200, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:08/00:01, time_cost(all): 4:29:40/2:37:09, loss=0.8745125532150269, d_time=0.00(0.01), f_time=1.07(1.06), b_time=1.07(1.07), lr=0.006711158610302456
+2022-11-10 03:59:39,679   INFO  epoch: 38/60, acc_iter=15201, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/09:00, time_cost(all): 4:29:41/3:18:04, loss=0.3122866451740265, d_time=0.28(0.28), f_time=1.07(1.07), b_time=1.35(1.35), lr=0.006710133615621179
+2022-11-10 04:00:32,110   INFO  epoch: 38/60, acc_iter=15250, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:53/06:17, time_cost(all): 4:30:34/2:36:52, loss=0.36323684453964233, d_time=0.00(0.01), f_time=1.06(1.07), b_time=1.06(1.08), lr=0.0066598101258251614
+2022-11-10 04:01:25,648   INFO  epoch: 38/60, acc_iter=15300, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:47/05:23, time_cost(all): 4:31:27/2:35:37, loss=0.2981053292751312, d_time=0.00(0.01), f_time=1.08(1.07), b_time=1.08(1.07), lr=0.006608264146490992
+2022-11-10 04:01:25,694   INFO  
+2022-11-10 04:02:19,582   INFO  epoch: 38/60, acc_iter=15350, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:41/04:29, time_cost(all): 4:32:21/2:35:00, loss=0.37816283106803894, d_time=0.00(0.01), f_time=1.07(1.07), b_time=1.08(1.08), lr=0.006556526805756013
+2022-11-10 04:03:13,171   INFO  epoch: 38/60, acc_iter=15400, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:34/03:35, time_cost(all): 4:33:15/2:33:59, loss=0.5792147517204285, d_time=0.00(0.01), f_time=1.05(1.07), b_time=1.05(1.07), lr=0.0065046042598463855
+2022-11-10 04:04:06,991   INFO  epoch: 38/60, acc_iter=15450, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:28/02:42, time_cost(all): 4:34:09/2:33:09, loss=0.580397367477417, d_time=0.00(0.01), f_time=1.06(1.07), b_time=1.07(1.07), lr=0.006452502687025829
+2022-11-10 04:04:07,038   INFO  
+2022-11-10 04:04:40,015   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 04:05:01,039   INFO  epoch: 38/60, acc_iter=15500, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:22/01:48, time_cost(all): 4:35:03/2:32:24, loss=0.9802284836769104, d_time=0.00(0.01), f_time=1.05(1.07), b_time=1.05(1.08), lr=0.006400228286860477
+2022-11-10 04:05:54,610   INFO  epoch: 38/60, acc_iter=15550, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:16/00:54, time_cost(all): 4:35:56/2:31:25, loss=0.365039199590683, d_time=0.00(0.01), f_time=1.07(1.07), b_time=1.07(1.08), lr=0.006347787279481191
+2022-11-10 04:06:48,192   INFO  epoch: 38/60, acc_iter=15600, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:09/00:01, time_cost(all): 4:36:50/2:30:28, loss=0.589519739151001, d_time=0.00(0.01), f_time=1.06(1.07), b_time=1.06(1.07), lr=0.006295185904843424
+2022-11-10 04:06:48,237   INFO  
+2022-11-10 04:06:49,780   INFO  epoch: 39/60, acc_iter=15601, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/08:51, time_cost(all): 4:36:51/3:06:01, loss=0.35085755586624146, d_time=0.26(0.26), f_time=1.06(1.06), b_time=1.33(1.33), lr=0.006294132284560349
+2022-11-10 04:07:42,010   INFO  epoch: 39/60, acc_iter=15650, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:53/06:15, time_cost(all): 4:37:44/2:29:05, loss=0.458867609500885, d_time=0.00(0.01), f_time=1.05(1.06), b_time=1.06(1.07), lr=0.006242430421984727
+2022-11-10 04:08:35,702   INFO  epoch: 39/60, acc_iter=15700, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:47/05:22, time_cost(all): 4:38:37/2:28:22, loss=0.41469135880470276, d_time=0.00(0.01), f_time=1.06(1.07), b_time=1.06(1.07), lr=0.006189527108279991
+2022-11-10 04:09:29,390   INFO  epoch: 39/60, acc_iter=15750, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:40/04:29, time_cost(all): 4:39:31/2:27:32, loss=0.5365934371948242, d_time=0.00(0.01), f_time=1.05(1.07), b_time=1.05(1.07), lr=0.006136482258694497
+2022-11-10 04:09:29,436   INFO  
+2022-11-10 04:10:23,173   INFO  epoch: 39/60, acc_iter=15800, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:34/03:35, time_cost(all): 4:40:25/2:26:44, loss=0.3892199993133545, d_time=0.00(0.01), f_time=1.04(1.07), b_time=1.05(1.07), lr=0.00608330218503488
+2022-11-10 04:11:17,043   INFO  epoch: 39/60, acc_iter=15850, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:28/02:42, time_cost(all): 4:41:19/2:25:57, loss=0.507209062576294, d_time=0.00(0.01), f_time=1.05(1.07), b_time=1.06(1.07), lr=0.006029993215198092
+2022-11-10 04:11:50,106   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 04:12:11,350   INFO  epoch: 39/60, acc_iter=15900, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:22/01:48, time_cost(all): 4:42:13/2:25:19, loss=0.8335738182067871, d_time=0.00(0.01), f_time=1.07(1.07), b_time=1.07(1.08), lr=0.005976561692418435
+2022-11-10 04:12:11,397   INFO  
+2022-11-10 04:13:04,528   INFO  epoch: 39/60, acc_iter=15950, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:16/00:54, time_cost(all): 4:43:06/2:24:10, loss=0.35021036863327026, d_time=0.00(0.01), f_time=1.05(1.07), b_time=1.06(1.07), lr=0.0059230139745127895
+2022-11-10 04:13:57,863   INFO  epoch: 39/60, acc_iter=16000, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:09/00:01, time_cost(all): 4:44:00/2:23:09, loss=0.4028272330760956, d_time=0.00(0.01), f_time=1.06(1.07), b_time=1.06(1.07), lr=0.005869356433124094
+2022-11-10 04:13:59,417   INFO  epoch: 40/60, acc_iter=16001, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/08:57, time_cost(all): 4:44:01/2:59:06, loss=0.41826486587524414, d_time=0.27(0.27), f_time=1.07(1.07), b_time=1.34(1.34), lr=0.00586828220592577
+2022-11-10 04:14:51,856   INFO  epoch: 40/60, acc_iter=16050, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:53/06:17, time_cost(all): 4:44:54/2:22:32, loss=0.5191367864608765, d_time=0.00(0.01), f_time=1.07(1.07), b_time=1.07(1.08), lr=0.0058155954529631815
+2022-11-10 04:14:51,903   INFO  
+2022-11-10 04:15:45,770   INFO  epoch: 40/60, acc_iter=16100, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:47/05:24, time_cost(all): 4:45:47/2:21:49, loss=0.5282684564590454, d_time=0.00(0.01), f_time=1.06(1.07), b_time=1.06(1.08), lr=0.005761737431049064
+2022-11-10 04:16:39,523   INFO  epoch: 40/60, acc_iter=16150, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:41/04:30, time_cost(all): 4:46:41/2:20:50, loss=0.42123156785964966, d_time=0.00(0.01), f_time=1.06(1.07), b_time=1.06(1.08), lr=0.005707788775947755
+2022-11-10 04:17:32,736   INFO  epoch: 40/60, acc_iter=16200, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:34/03:35, time_cost(all): 4:47:34/2:19:32, loss=0.32949307560920715, d_time=0.00(0.01), f_time=1.05(1.07), b_time=1.06(1.07), lr=0.005653755907009706
+2022-11-10 04:17:32,783   INFO  
+2022-11-10 04:18:26,175   INFO  epoch: 40/60, acc_iter=16250, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:28/02:41, time_cost(all): 4:48:28/2:18:32, loss=0.4711863100528717, d_time=0.00(0.01), f_time=1.11(1.07), b_time=1.12(1.07), lr=0.00559964525360598
+2022-11-10 04:18:59,444   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 04:19:21,057   INFO  epoch: 40/60, acc_iter=16300, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:22/01:48, time_cost(all): 4:49:23/2:18:10, loss=0.39643773436546326, d_time=0.00(0.01), f_time=1.09(1.07), b_time=1.09(1.08), lr=0.005545463254363208
+2022-11-10 04:20:14,586   INFO  epoch: 40/60, acc_iter=16350, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:16/00:54, time_cost(all): 4:50:16/2:17:10, loss=0.6622509956359863, d_time=0.00(0.01), f_time=1.06(1.07), b_time=1.07(1.08), lr=0.00549121635639746
+2022-11-10 04:20:14,633   INFO  
+2022-11-10 04:21:08,459   INFO  epoch: 40/60, acc_iter=16400, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:10/00:01, time_cost(all): 4:51:10/2:16:18, loss=0.3475668728351593, d_time=0.00(0.01), f_time=1.09(1.07), b_time=1.09(1.08), lr=0.0054369110145471135
+2022-11-10 04:21:10,062   INFO  epoch: 41/60, acc_iter=16401, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/09:15, time_cost(all): 4:51:12/2:55:54, loss=0.38631725311279297, d_time=0.29(0.29), f_time=1.10(1.10), b_time=1.39(1.39), lr=0.005435824355951155
+2022-11-10 04:22:02,885   INFO  epoch: 41/60, acc_iter=16450, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:54/06:20, time_cost(all): 4:52:05/2:16:27, loss=0.6778061389923096, d_time=0.00(0.01), f_time=1.06(1.07), b_time=1.06(1.08), lr=0.005382553690604775
+2022-11-10 04:22:57,059   INFO  epoch: 41/60, acc_iter=16500, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:48/05:26, time_cost(all): 4:52:59/2:15:29, loss=0.3573871850967407, d_time=0.00(0.01), f_time=1.11(1.08), b_time=1.12(1.08), lr=0.005328150852548408
+2022-11-10 04:22:57,106   INFO  
+2022-11-10 04:23:51,143   INFO  epoch: 41/60, acc_iter=16550, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:42/04:31, time_cost(all): 4:53:53/2:14:30, loss=0.44595304131507874, d_time=0.00(0.01), f_time=1.05(1.08), b_time=1.06(1.08), lr=0.005273708973771693
+2022-11-10 04:24:45,060   INFO  epoch: 41/60, acc_iter=16600, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:36/03:37, time_cost(all): 4:54:47/2:13:27, loss=0.4708114564418793, d_time=0.00(0.01), f_time=1.08(1.08), b_time=1.09(1.08), lr=0.005219234532313772
+2022-11-10 04:25:38,658   INFO  epoch: 41/60, acc_iter=16650, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:29/02:43, time_cost(all): 4:55:40/2:12:18, loss=0.37789395451545715, d_time=0.00(0.01), f_time=1.10(1.07), b_time=1.10(1.08), lr=0.005164734010088415
+2022-11-10 04:25:38,705   INFO  
+2022-11-10 04:26:10,633   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 04:26:33,139   INFO  epoch: 41/60, acc_iter=16700, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:24/01:49, time_cost(all): 4:56:35/2:11:36, loss=0.3975462019443512, d_time=0.00(0.01), f_time=1.07(1.07), b_time=1.08(1.08), lr=0.005110213892112749
+2022-11-10 04:27:27,088   INFO  epoch: 41/60, acc_iter=16750, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:18/00:55, time_cost(all): 4:57:29/2:10:39, loss=0.5199236273765564, d_time=0.00(0.01), f_time=1.08(1.07), b_time=1.08(1.08), lr=0.0050556806657355916
+2022-11-10 04:28:20,400   INFO  epoch: 41/60, acc_iter=16800, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:11/00:01, time_cost(all): 4:58:22/2:09:32, loss=0.4265555739402771, d_time=0.00(0.01), f_time=1.07(1.07), b_time=1.07(1.08), lr=0.005001140819865536
+2022-11-10 04:28:20,446   INFO  
+2022-11-10 04:28:22,030   INFO  epoch: 42/60, acc_iter=16801, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/09:07, time_cost(all): 4:58:24/2:44:12, loss=0.42449700832366943, d_time=0.28(0.28), f_time=1.08(1.08), b_time=1.37(1.37), lr=0.005000050000000001
+2022-11-10 04:29:14,323   INFO  epoch: 42/60, acc_iter=16850, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:53/06:16, time_cost(all): 4:59:16/2:07:54, loss=0.498887836933136, d_time=0.00(0.01), f_time=1.04(1.06), b_time=1.05(1.07), lr=0.004946600844198825
+2022-11-10 04:30:07,664   INFO  epoch: 42/60, acc_iter=16900, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:47/05:22, time_cost(all): 5:00:09/2:06:38, loss=0.5415590405464172, d_time=0.00(0.01), f_time=1.08(1.06), b_time=1.08(1.07), lr=0.0048920672284471466
+2022-11-10 04:31:01,178   INFO  epoch: 42/60, acc_iter=16950, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:40/04:28, time_cost(all): 5:01:03/2:05:45, loss=0.3906775712966919, d_time=0.00(0.01), f_time=1.06(1.06), b_time=1.07(1.07), lr=0.004837546461565425
+2022-11-10 04:31:01,223   INFO  
+2022-11-10 04:31:54,205   INFO  epoch: 42/60, acc_iter=17000, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:33/03:34, time_cost(all): 5:01:56/2:04:35, loss=0.32807931303977966, d_time=0.00(0.01), f_time=1.06(1.06), b_time=1.06(1.07), lr=0.004783045030979688
+2022-11-10 04:32:47,197   INFO  epoch: 42/60, acc_iter=17050, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:26/02:40, time_cost(all): 5:02:49/2:03:30, loss=0.41810843348503113, d_time=0.00(0.01), f_time=1.05(1.06), b_time=1.06(1.07), lr=0.004728569421815153
+2022-11-10 04:33:22,041   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 04:33:41,268   INFO  epoch: 42/60, acc_iter=17100, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:20/01:47, time_cost(all): 5:03:43/2:02:55, loss=0.5508323907852173, d_time=0.00(0.01), f_time=1.07(1.06), b_time=1.07(1.07), lr=0.004674126116124534
+2022-11-10 04:33:41,313   INFO  
+2022-11-10 04:34:34,930   INFO  epoch: 42/60, acc_iter=17150, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:14/00:54, time_cost(all): 5:04:37/2:02:06, loss=0.4278966188430786, d_time=0.00(0.01), f_time=1.07(1.06), b_time=1.07(1.07), lr=0.00461972159211676
+2022-11-10 04:35:28,148   INFO  epoch: 42/60, acc_iter=17200, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:07/00:01, time_cost(all): 5:05:30/2:01:08, loss=0.43870097398757935, d_time=0.00(0.01), f_time=1.08(1.06), b_time=1.08(1.07), lr=0.0045653623233861285
+2022-11-10 04:35:29,778   INFO  epoch: 43/60, acc_iter=17201, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/09:28, time_cost(all): 5:05:31/2:41:10, loss=0.3829120695590973, d_time=0.31(0.31), f_time=1.11(1.11), b_time=1.42(1.42), lr=0.004564275644048847
+2022-11-10 04:36:21,996   INFO  epoch: 43/60, acc_iter=17250, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:53/06:16, time_cost(all): 5:06:24/2:00:42, loss=0.5940282344818115, d_time=0.00(0.01), f_time=1.10(1.06), b_time=1.10(1.07), lr=0.004511054778142005
+2022-11-10 04:36:22,043   INFO  
+2022-11-10 04:37:15,743   INFO  epoch: 43/60, acc_iter=17300, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:47/05:23, time_cost(all): 5:07:17/1:59:55, loss=0.273712158203125, d_time=0.00(0.01), f_time=1.07(1.07), b_time=1.07(1.07), lr=0.004456805418439184
+2022-11-10 04:38:09,321   INFO  epoch: 43/60, acc_iter=17350, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:40/04:29, time_cost(all): 5:08:11/1:58:57, loss=0.49990636110305786, d_time=0.00(0.01), f_time=1.07(1.07), b_time=1.08(1.07), lr=0.00440262069940896
+2022-11-10 04:39:03,212   INFO  epoch: 43/60, acc_iter=17400, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:34/03:35, time_cost(all): 5:09:05/1:58:11, loss=0.33735257387161255, d_time=0.00(0.01), f_time=1.04(1.07), b_time=1.04(1.07), lr=0.004348507068491035
+2022-11-10 04:39:03,258   INFO  
+2022-11-10 04:39:57,082   INFO  epoch: 43/60, acc_iter=17450, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:28/02:42, time_cost(all): 5:09:59/1:57:21, loss=0.49004948139190674, d_time=0.00(0.01), f_time=1.07(1.07), b_time=1.08(1.07), lr=0.004294470964666333
+2022-11-10 04:40:30,386   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 04:40:51,730   INFO  epoch: 43/60, acc_iter=17500, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:23/01:48, time_cost(all): 5:10:53/1:56:47, loss=0.7433598041534424, d_time=0.00(0.01), f_time=1.06(1.07), b_time=1.06(1.08), lr=0.004240518817690836
+2022-11-10 04:41:45,634   INFO  epoch: 43/60, acc_iter=17550, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:17/00:54, time_cost(all): 5:11:47/1:55:53, loss=0.7329279184341431, d_time=0.00(0.01), f_time=1.05(1.07), b_time=1.05(1.08), lr=0.004186657047330494
+2022-11-10 04:41:45,681   INFO  
+2022-11-10 04:42:39,516   INFO  epoch: 43/60, acc_iter=17600, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:11/00:01, time_cost(all): 5:12:41/1:54:59, loss=0.330626904964447, d_time=0.00(0.01), f_time=1.06(1.07), b_time=1.07(1.08), lr=0.004132892062597346
+2022-11-10 04:42:41,096   INFO  epoch: 44/60, acc_iter=17601, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/09:08, time_cost(all): 5:12:43/2:26:18, loss=0.44038403034210205, d_time=0.30(0.30), f_time=1.06(1.06), b_time=1.37(1.37), lr=0.004131817794074232
+2022-11-10 04:43:33,384   INFO  epoch: 44/60, acc_iter=17650, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:53/06:16, time_cost(all): 5:13:35/1:53:35, loss=0.5082707405090332, d_time=0.00(0.01), f_time=1.06(1.06), b_time=1.06(1.07), lr=0.0040792302609869106
+2022-11-10 04:44:26,642   INFO  epoch: 44/60, acc_iter=17700, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:46/05:21, time_cost(all): 5:14:28/1:52:16, loss=0.5321850776672363, d_time=0.00(0.01), f_time=1.07(1.06), b_time=1.07(1.07), lr=0.004025678027716945
+2022-11-10 04:44:26,689   INFO  
+2022-11-10 04:45:20,222   INFO  epoch: 44/60, acc_iter=17750, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:40/04:28, time_cost(all): 5:15:22/1:51:28, loss=0.3525542914867401, d_time=0.00(0.01), f_time=1.05(1.06), b_time=1.05(1.07), lr=0.003972241734967668
+2022-11-10 04:46:13,784   INFO  epoch: 44/60, acc_iter=17800, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:34/03:35, time_cost(all): 5:16:15/1:50:36, loss=0.3986513018608093, d_time=0.00(0.01), f_time=1.06(1.06), b_time=1.07(1.07), lr=0.00391892774112354
+2022-11-10 04:47:07,337   INFO  epoch: 44/60, acc_iter=17850, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:27/02:41, time_cost(all): 5:17:09/1:49:44, loss=0.2524975538253784, d_time=0.00(0.01), f_time=1.07(1.06), b_time=1.07(1.07), lr=0.0038657423900166727
+2022-11-10 04:47:07,384   INFO  
+2022-11-10 04:47:41,394   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 04:48:01,646   INFO  epoch: 44/60, acc_iter=17900, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:21/01:48, time_cost(all): 5:18:03/1:49:06, loss=0.796038031578064, d_time=0.00(0.01), f_time=1.05(1.06), b_time=1.06(1.07), lr=0.0038126920101719747
+2022-11-10 04:48:55,266   INFO  epoch: 44/60, acc_iter=17950, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:15/00:54, time_cost(all): 5:18:57/1:48:12, loss=0.428423136472702, d_time=0.00(0.01), f_time=1.06(1.06), b_time=1.07(1.07), lr=0.003759782914054133
+2022-11-10 04:49:48,938   INFO  epoch: 44/60, acc_iter=18000, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:09/00:01, time_cost(all): 5:19:51/1:47:19, loss=0.5606460571289062, d_time=0.00(0.01), f_time=1.05(1.07), b_time=1.05(1.07), lr=0.003707021397316476
+2022-11-10 04:49:48,985   INFO  
+2022-11-10 04:49:50,597   INFO  epoch: 45/60, acc_iter=18001, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/09:17, time_cost(all): 5:19:52/2:19:22, loss=0.3623814880847931, d_time=0.30(0.30), f_time=1.09(1.09), b_time=1.39(1.39), lr=0.003705967715439651
+2022-11-10 04:50:43,404   INFO  epoch: 45/60, acc_iter=18050, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:54/06:20, time_cost(all): 5:20:45/1:47:31, loss=0.4876266121864319, d_time=0.00(0.01), f_time=1.11(1.07), b_time=1.11(1.08), lr=0.0036544137380518657
+2022-11-10 04:51:37,090   INFO  epoch: 45/60, acc_iter=18100, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:47/05:24, time_cost(all): 5:21:39/1:46:06, loss=0.298343300819397, d_time=0.00(0.01), f_time=1.08(1.07), b_time=1.09(1.08), lr=0.003601966196045662
+2022-11-10 04:52:31,044   INFO  epoch: 45/60, acc_iter=18150, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:41/04:30, time_cost(all): 5:22:33/1:45:12, loss=0.30549854040145874, d_time=0.00(0.01), f_time=1.07(1.07), b_time=1.07(1.08), lr=0.003549685012030871
+2022-11-10 04:52:31,091   INFO  
+2022-11-10 04:53:24,960   INFO  epoch: 45/60, acc_iter=18200, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:35/03:36, time_cost(all): 5:23:27/1:44:18, loss=0.41115325689315796, d_time=0.00(0.01), f_time=1.06(1.07), b_time=1.07(1.08), lr=0.0034975764069455646
+2022-11-10 04:54:19,078   INFO  epoch: 45/60, acc_iter=18250, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:29/02:43, time_cost(all): 5:24:21/1:43:28, loss=0.2737090587615967, d_time=0.00(0.01), f_time=1.09(1.07), b_time=1.09(1.08), lr=0.003445646581192645
+2022-11-10 04:54:50,419   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 04:55:14,043   INFO  epoch: 45/60, acc_iter=18300, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:24/01:49, time_cost(all): 5:25:16/1:42:53, loss=0.37325209379196167, d_time=0.00(0.01), f_time=1.09(1.07), b_time=1.09(1.08), lr=0.003393901713902064
+2022-11-10 04:55:14,089   INFO  
+2022-11-10 04:56:08,113   INFO  epoch: 45/60, acc_iter=18350, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:18/00:55, time_cost(all): 5:26:10/1:41:57, loss=0.7352784276008606, d_time=0.00(0.01), f_time=1.08(1.07), b_time=1.09(1.08), lr=0.0033423479621955635
+2022-11-10 04:57:02,172   INFO  epoch: 45/60, acc_iter=18400, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:12/00:01, time_cost(all): 5:27:04/1:41:02, loss=0.261707603931427, d_time=0.00(0.01), f_time=1.09(1.07), b_time=1.09(1.08), lr=0.003290991460454046
+2022-11-10 04:57:03,795   INFO  epoch: 46/60, acc_iter=18401, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/09:23, time_cost(all): 5:27:05/2:11:35, loss=0.3487522602081299, d_time=0.31(0.31), f_time=1.10(1.10), b_time=1.41(1.41), lr=0.003289966384378823
+2022-11-10 04:57:56,978   INFO  epoch: 46/60, acc_iter=18450, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:54/06:23, time_cost(all): 5:27:59/1:41:00, loss=0.39885851740837097, d_time=0.00(0.01), f_time=1.08(1.08), b_time=1.08(1.09), lr=0.0032398383195876377
+2022-11-10 04:57:57,025   INFO  
+2022-11-10 04:58:51,314   INFO  epoch: 46/60, acc_iter=18500, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:48/05:27, time_cost(all): 5:28:53/1:39:52, loss=0.5906887054443359, d_time=0.00(0.01), f_time=1.10(1.08), b_time=1.10(1.09), lr=0.003188894626308554
+2022-11-10 04:59:45,482   INFO  epoch: 46/60, acc_iter=18550, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:43/04:32, time_cost(all): 5:29:47/1:38:46, loss=0.28345000743865967, d_time=0.00(0.01), f_time=1.08(1.08), b_time=1.08(1.09), lr=0.003138166442406843
+2022-11-10 05:00:39,559   INFO  epoch: 46/60, acc_iter=18600, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:37/03:38, time_cost(all): 5:30:41/1:37:44, loss=0.46024033427238464, d_time=0.00(0.01), f_time=1.12(1.08), b_time=1.13(1.09), lr=0.0030876598040290924
+2022-11-10 05:00:39,606   INFO  
+2022-11-10 05:01:33,765   INFO  epoch: 46/60, acc_iter=18650, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:31/02:43, time_cost(all): 5:31:35/1:36:48, loss=0.46802306175231934, d_time=0.00(0.01), f_time=1.05(1.08), b_time=1.06(1.09), lr=0.003037380720960187
+2022-11-10 05:02:04,024   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 05:02:28,831   INFO  epoch: 46/60, acc_iter=18700, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:26/01:49, time_cost(all): 5:32:30/1:36:08, loss=0.31253135204315186, d_time=0.00(0.01), f_time=1.05(1.08), b_time=1.06(1.09), lr=0.0029873351759082075
+2022-11-10 05:03:23,175   INFO  epoch: 46/60, acc_iter=18750, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:20/00:55, time_cost(all): 5:33:25/1:35:12, loss=0.35456621646881104, d_time=0.00(0.01), f_time=1.05(1.08), b_time=1.06(1.09), lr=0.002937529123792545
+2022-11-10 05:03:23,222   INFO  
+2022-11-10 05:04:17,301   INFO  epoch: 46/60, acc_iter=18800, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:14/00:01, time_cost(all): 5:34:19/1:34:14, loss=0.26349401473999023, d_time=0.00(0.01), f_time=1.07(1.08), b_time=1.08(1.09), lr=0.002887968491035321
+2022-11-10 05:04:18,908   INFO  epoch: 47/60, acc_iter=18801, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/09:17, time_cost(all): 5:34:21/2:00:45, loss=0.30001527070999146, d_time=0.30(0.30), f_time=1.10(1.10), b_time=1.39(1.39), lr=0.002886979822209591
+2022-11-10 05:05:12,038   INFO  epoch: 47/60, acc_iter=18850, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:54/06:22, time_cost(all): 5:35:14/1:33:37, loss=0.3705793023109436, d_time=0.00(0.01), f_time=1.06(1.08), b_time=1.06(1.09), lr=0.0028386591748562197
+2022-11-10 05:06:06,025   INFO  epoch: 47/60, acc_iter=18900, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:48/05:26, time_cost(all): 5:36:08/1:32:15, loss=0.35331591963768005, d_time=0.00(0.01), f_time=1.08(1.08), b_time=1.09(1.09), lr=0.0027896070425707515
+2022-11-10 05:06:06,072   INFO  
+2022-11-10 05:07:00,010   INFO  epoch: 47/60, acc_iter=18950, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:42/04:31, time_cost(all): 5:37:02/1:31:11, loss=0.3031270503997803, d_time=0.00(0.01), f_time=1.08(1.08), b_time=1.09(1.08), lr=0.0027408179308921286
+2022-11-10 05:07:54,224   INFO  epoch: 47/60, acc_iter=19000, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:36/03:37, time_cost(all): 5:37:56/1:30:18, loss=0.24169936776161194, d_time=0.00(0.01), f_time=1.05(1.08), b_time=1.05(1.08), lr=0.0026922976452367305
+2022-11-10 05:08:48,283   INFO  epoch: 47/60, acc_iter=19050, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:30/02:43, time_cost(all): 5:38:50/1:29:22, loss=0.3115191161632538, d_time=0.00(0.01), f_time=1.07(1.08), b_time=1.07(1.08), lr=0.0026440519590333355
+2022-11-10 05:08:48,330   INFO  
+2022-11-10 05:09:19,453   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 05:09:43,155   INFO  epoch: 47/60, acc_iter=19100, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:25/01:49, time_cost(all): 5:39:45/1:28:39, loss=1.1148662567138672, d_time=0.00(0.01), f_time=1.09(1.08), b_time=1.09(1.09), lr=0.0025960866130361284
+2022-11-10 05:10:36,895   INFO  epoch: 47/60, acc_iter=19150, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:19/00:55, time_cost(all): 5:40:39/1:27:38, loss=0.3294309973716736, d_time=0.00(0.01), f_time=1.08(1.08), b_time=1.08(1.08), lr=0.0025484073146416174
+2022-11-10 05:11:31,037   INFO  epoch: 47/60, acc_iter=19200, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:13/00:01, time_cost(all): 5:41:33/1:26:43, loss=0.3137122392654419, d_time=0.00(0.01), f_time=1.07(1.08), b_time=1.07(1.08), lr=0.002501019737209503
+2022-11-10 05:11:31,084   INFO  
+2022-11-10 05:11:32,642   INFO  epoch: 48/60, acc_iter=19201, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/08:55, time_cost(all): 5:41:34/1:47:05, loss=0.2876357436180115, d_time=0.28(0.28), f_time=1.05(1.05), b_time=1.34(1.34), lr=0.0025000750000000013
+2022-11-10 05:12:25,672   INFO  epoch: 48/60, acc_iter=19250, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:54/06:21, time_cost(all): 5:42:27/1:26:06, loss=0.46115827560424805, d_time=0.00(0.01), f_time=1.06(1.08), b_time=1.06(1.09), lr=0.0024539295193876055
+2022-11-10 05:13:19,623   INFO  epoch: 48/60, acc_iter=19300, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:48/05:26, time_cost(all): 5:43:21/1:24:52, loss=0.2575848698616028, d_time=0.00(0.01), f_time=1.08(1.08), b_time=1.09(1.08), lr=0.002407142264440937
+2022-11-10 05:14:13,821   INFO  epoch: 48/60, acc_iter=19350, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:42/04:31, time_cost(all): 5:44:15/1:23:59, loss=0.38685083389282227, d_time=0.00(0.01), f_time=1.11(1.08), b_time=1.11(1.08), lr=0.0023606635395849447
+2022-11-10 05:14:13,869   INFO  
+2022-11-10 05:15:07,876   INFO  epoch: 48/60, acc_iter=19400, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:36/03:37, time_cost(all): 5:45:10/1:23:02, loss=0.30331993103027344, d_time=0.00(0.01), f_time=1.06(1.08), b_time=1.07(1.08), lr=0.0023144988753230882
+2022-11-10 05:16:01,752   INFO  epoch: 48/60, acc_iter=19450, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:30/02:43, time_cost(all): 5:46:03/1:22:03, loss=0.27891871333122253, d_time=0.00(0.01), f_time=1.06(1.08), b_time=1.06(1.08), lr=0.0022686537647887525
+2022-11-10 05:16:32,990   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 05:16:56,782   INFO  epoch: 48/60, acc_iter=19500, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:25/01:49, time_cost(all): 5:46:58/1:21:23, loss=0.20895269513130188, d_time=0.00(0.01), f_time=1.05(1.08), b_time=1.05(1.08), lr=0.0022231336630916245
+2022-11-10 05:16:56,830   INFO  
+2022-11-10 05:17:50,846   INFO  epoch: 48/60, acc_iter=19550, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:19/00:55, time_cost(all): 5:47:52/1:20:26, loss=0.23095156252384186, d_time=0.00(0.01), f_time=1.08(1.08), b_time=1.09(1.08), lr=0.0021779439866685957
+2022-11-10 05:18:45,217   INFO  epoch: 48/60, acc_iter=19600, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:13/00:01, time_cost(all): 5:48:47/1:19:34, loss=0.22861850261688232, d_time=0.00(0.01), f_time=1.08(1.08), b_time=1.09(1.08), lr=0.002133090112639246
+2022-11-10 05:18:46,786   INFO  epoch: 49/60, acc_iter=19601, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/09:02, time_cost(all): 5:48:48/1:39:22, loss=0.27269238233566284, d_time=0.28(0.28), f_time=1.08(1.08), b_time=1.35(1.35), lr=0.0021321964970665882
+2022-11-10 05:19:39,836   INFO  epoch: 49/60, acc_iter=19650, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:54/06:21, time_cost(all): 5:49:41/1:18:54, loss=0.2871057391166687, d_time=0.00(0.01), f_time=1.07(1.08), b_time=1.08(1.09), lr=0.002088577378166036
+2022-11-10 05:19:39,883   INFO  
+2022-11-10 05:20:34,196   INFO  epoch: 49/60, acc_iter=19700, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:48/05:27, time_cost(all): 5:50:36/1:17:57, loss=0.3208458125591278, d_time=0.00(0.01), f_time=1.08(1.08), b_time=1.08(1.09), lr=0.002044411079819224
+2022-11-10 05:21:28,455   INFO  epoch: 49/60, acc_iter=19750, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:43/04:32, time_cost(all): 5:51:30/1:17:00, loss=0.20393483340740204, d_time=0.00(0.01), f_time=1.09(1.08), b_time=1.09(1.09), lr=0.00200059647294664
+2022-11-10 05:22:22,882   INFO  epoch: 49/60, acc_iter=19800, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:37/03:38, time_cost(all): 5:52:25/1:16:07, loss=0.3558960258960724, d_time=0.00(0.01), f_time=1.12(1.08), b_time=1.13(1.09), lr=0.0019571387710483426
+2022-11-10 05:22:22,930   INFO  
+2022-11-10 05:23:17,214   INFO  epoch: 49/60, acc_iter=19850, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:31/02:44, time_cost(all): 5:53:19/1:15:12, loss=0.3074491024017334, d_time=0.00(0.01), f_time=1.05(1.08), b_time=1.05(1.09), lr=0.001914043145156265
+2022-11-10 05:23:47,483   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 05:24:12,519   INFO  epoch: 49/60, acc_iter=19900, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:27/01:50, time_cost(all): 5:54:14/1:14:31, loss=0.37342506647109985, d_time=0.00(0.01), f_time=1.09(1.08), b_time=1.10(1.09), lr=0.0018713147232189225
+2022-11-10 05:25:06,880   INFO  epoch: 49/60, acc_iter=19950, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:21/00:55, time_cost(all): 5:55:09/1:13:34, loss=0.43488961458206177, d_time=0.00(0.01), f_time=1.10(1.08), b_time=1.10(1.09), lr=0.0018289585894912255
+2022-11-10 05:25:06,928   INFO  
+2022-11-10 05:26:01,089   INFO  epoch: 49/60, acc_iter=20000, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:15/00:01, time_cost(all): 5:56:03/1:12:37, loss=0.27674591541290283, d_time=0.00(0.01), f_time=1.06(1.08), b_time=1.06(1.09), lr=0.0017869797839295165
+2022-11-10 05:26:02,708   INFO  epoch: 50/60, acc_iter=20001, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/09:20, time_cost(all): 5:56:04/1:33:23, loss=0.26754868030548096, d_time=0.32(0.32), f_time=1.08(1.08), b_time=1.40(1.40), lr=0.0017861440909477876
+2022-11-10 05:26:55,718   INFO  epoch: 50/60, acc_iter=20050, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:54/06:21, time_cost(all): 5:56:57/1:11:39, loss=0.2583695948123932, d_time=0.00(0.01), f_time=1.09(1.08), b_time=1.09(1.09), lr=0.001745383301591854
+2022-11-10 05:27:49,995   INFO  epoch: 50/60, acc_iter=20100, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:48/05:27, time_cost(all): 5:57:52/1:10:39, loss=0.24626407027244568, d_time=0.00(0.01), f_time=1.07(1.08), b_time=1.08(1.09), lr=0.0017041740920436612
+2022-11-10 05:27:50,042   INFO  
+2022-11-10 05:28:44,558   INFO  epoch: 50/60, acc_iter=20150, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:43/04:33, time_cost(all): 5:58:46/1:09:51, loss=0.3234860599040985, d_time=0.00(0.01), f_time=1.10(1.08), b_time=1.10(1.09), lr=0.001663357058768768
+2022-11-10 05:29:39,075   INFO  epoch: 50/60, acc_iter=20200, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:37/03:38, time_cost(all): 5:59:41/1:08:58, loss=0.2796592712402344, d_time=0.00(0.01), f_time=1.07(1.08), b_time=1.07(1.09), lr=0.0016229370585859524
+2022-11-10 05:30:33,240   INFO  epoch: 50/60, acc_iter=20250, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:31/02:44, time_cost(all): 6:00:35/1:08:00, loss=0.2599097490310669, d_time=0.00(0.01), f_time=1.08(1.08), b_time=1.08(1.09), lr=0.0015829189010710253
+2022-11-10 05:30:33,286   INFO  
+2022-11-10 05:31:02,542   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 05:31:28,621   INFO  epoch: 50/60, acc_iter=20300, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:27/01:50, time_cost(all): 6:01:30/1:07:17, loss=0.21294207870960236, d_time=0.00(0.01), f_time=1.06(1.08), b_time=1.06(1.09), lr=0.0015433073479845347
+2022-11-10 05:32:22,661   INFO  epoch: 50/60, acc_iter=20350, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:21/00:55, time_cost(all): 6:02:24/1:06:18, loss=0.25887617468833923, d_time=0.00(0.01), f_time=1.06(1.08), b_time=1.07(1.09), lr=0.0015041071127051733
+2022-11-10 05:33:16,838   INFO  epoch: 50/60, acc_iter=20400, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:15/00:01, time_cost(all): 6:03:18/1:05:20, loss=0.383165180683136, d_time=0.00(0.01), f_time=1.12(1.08), b_time=1.12(1.09), lr=0.0014653228596689244
+2022-11-10 05:33:16,886   INFO  
+2022-11-10 05:33:18,496   INFO  epoch: 51/60, acc_iter=20401, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/09:19, time_cost(all): 6:03:20/1:23:53, loss=0.28484711050987244, d_time=0.29(0.29), f_time=1.11(1.11), b_time=1.40(1.40), lr=0.0014645514494063222
+2022-11-10 05:34:11,719   INFO  epoch: 51/60, acc_iter=20450, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:54/06:23, time_cost(all): 6:04:13/1:04:39, loss=0.41399621963500977, d_time=0.00(0.01), f_time=1.08(1.08), b_time=1.09(1.09), lr=0.0014269592038140427
+2022-11-10 05:35:05,953   INFO  epoch: 51/60, acc_iter=20500, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:48/05:27, time_cost(all): 6:05:08/1:03:31, loss=0.21700870990753174, d_time=0.00(0.01), f_time=1.08(1.08), b_time=1.08(1.09), lr=0.001389020710031931
+2022-11-10 05:36:00,363   INFO  epoch: 51/60, acc_iter=20550, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:43/04:33, time_cost(all): 6:06:02/1:02:36, loss=0.24439653754234314, d_time=0.01(0.01), f_time=1.09(1.08), b_time=1.09(1.09), lr=0.0013515118926239488
+2022-11-10 05:36:00,410   INFO  
+2022-11-10 05:36:54,541   INFO  epoch: 51/60, acc_iter=20600, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:37/03:38, time_cost(all): 6:06:56/1:01:37, loss=0.5057508945465088, d_time=0.00(0.01), f_time=1.08(1.08), b_time=1.08(1.09), lr=0.001314437214764271
+2022-11-10 05:37:48,630   INFO  epoch: 51/60, acc_iter=20650, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:31/02:44, time_cost(all): 6:07:50/1:00:39, loss=0.27590104937553406, d_time=0.00(0.01), f_time=1.08(1.08), b_time=1.08(1.09), lr=0.0012778010879688057
+2022-11-10 05:38:18,950   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 05:38:43,829   INFO  epoch: 51/60, acc_iter=20700, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:26/01:49, time_cost(all): 6:08:45/59:55, loss=0.3521299958229065, d_time=0.00(0.01), f_time=1.06(1.08), b_time=1.06(1.09), lr=0.0012416078715702663
+2022-11-10 05:38:43,876   INFO  
+2022-11-10 05:39:38,347   INFO  epoch: 51/60, acc_iter=20750, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:21/00:55, time_cost(all): 6:09:40/59:01, loss=0.28880855441093445, d_time=0.00(0.01), f_time=1.07(1.08), b_time=1.08(1.09), lr=0.0012058618721994645
+2022-11-10 05:40:32,763   INFO  epoch: 51/60, acc_iter=20800, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:15/00:01, time_cost(all): 6:10:34/58:06, loss=0.26613250374794006, d_time=0.00(0.01), f_time=1.05(1.08), b_time=1.05(1.09), lr=0.0011705673432728522
+2022-11-10 05:40:34,353   INFO  epoch: 52/60, acc_iter=20801, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/09:11, time_cost(all): 6:10:36/1:13:32, loss=0.33398574590682983, d_time=0.29(0.29), f_time=1.08(1.08), b_time=1.38(1.38), lr=0.0011698660866272666
+2022-11-10 05:41:27,505   INFO  epoch: 52/60, acc_iter=20850, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:54/06:22, time_cost(all): 6:11:29/57:16, loss=0.2484060376882553, d_time=0.00(0.01), f_time=1.10(1.08), b_time=1.11(1.09), lr=0.0011357284844864175
+2022-11-10 05:41:27,552   INFO  
+2022-11-10 05:42:21,795   INFO  epoch: 52/60, acc_iter=20900, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:48/05:27, time_cost(all): 6:12:23/56:14, loss=0.24544757604599, d_time=0.00(0.01), f_time=1.07(1.08), b_time=1.08(1.09), lr=0.0011013494413159555
+2022-11-10 05:43:15,789   INFO  epoch: 52/60, acc_iter=20950, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:42/04:32, time_cost(all): 6:13:17/55:11, loss=0.20649462938308716, d_time=0.00(0.01), f_time=1.09(1.08), b_time=1.10(1.09), lr=0.0010674343045238043
+2022-11-10 05:44:10,178   INFO  epoch: 52/60, acc_iter=21000, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:37/03:38, time_cost(all): 6:14:12/54:19, loss=0.34546416997909546, d_time=0.00(0.01), f_time=1.06(1.08), b_time=1.07(1.09), lr=0.00103398710967208
+2022-11-10 05:44:10,225   INFO  
+2022-11-10 05:45:04,632   INFO  epoch: 52/60, acc_iter=21050, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:31/02:44, time_cost(all): 6:15:06/53:26, loss=0.27689284086227417, d_time=0.00(0.01), f_time=1.07(1.08), b_time=1.07(1.09), lr=0.0010010118366424851
+2022-11-10 05:45:34,930   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 05:46:00,051   INFO  epoch: 52/60, acc_iter=21100, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:27/01:50, time_cost(all): 6:16:02/52:42, loss=0.3096754550933838, d_time=0.00(0.01), f_time=1.07(1.08), b_time=1.08(1.09), lr=0.000968512409162753
+2022-11-10 05:46:54,515   INFO  epoch: 52/60, acc_iter=21150, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:21/00:55, time_cost(all): 6:16:56/51:47, loss=0.2927430272102356, d_time=0.00(0.01), f_time=1.06(1.08), b_time=1.06(1.09), lr=0.0009364926943397459
+2022-11-10 05:46:54,562   INFO  
+2022-11-10 05:47:49,042   INFO  epoch: 52/60, acc_iter=21200, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:16/00:01, time_cost(all): 6:17:51/50:53, loss=0.3093944787979126, d_time=0.00(0.01), f_time=1.09(1.08), b_time=1.10(1.09), lr=0.0009049565021993235
+2022-11-10 05:47:50,667   INFO  epoch: 53/60, acc_iter=21201, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/09:26, time_cost(all): 6:17:52/1:06:05, loss=0.2339247316122055, d_time=0.29(0.29), f_time=1.12(1.12), b_time=1.41(1.41), lr=0.0009043307361572549
+2022-11-10 05:48:43,870   INFO  epoch: 53/60, acc_iter=21250, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:54/06:23, time_cost(all): 6:18:46/50:05, loss=0.2621920108795166, d_time=0.00(0.01), f_time=1.06(1.08), b_time=1.06(1.09), lr=0.0008739075852329776
+2022-11-10 05:49:38,140   INFO  epoch: 53/60, acc_iter=21300, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:48/05:27, time_cost(all): 6:19:40/49:01, loss=0.20247220993041992, d_time=0.00(0.01), f_time=1.07(1.08), b_time=1.08(1.09), lr=0.0008433496379513271
+2022-11-10 05:49:38,187   INFO  
+2022-11-10 05:50:32,605   INFO  epoch: 53/60, acc_iter=21350, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:43/04:33, time_cost(all): 6:20:34/48:07, loss=0.23793460428714752, d_time=0.00(0.01), f_time=1.10(1.08), b_time=1.11(1.09), lr=0.0008132862964445138
+2022-11-10 05:51:26,912   INFO  epoch: 53/60, acc_iter=21400, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:37/03:38, time_cost(all): 6:21:29/47:10, loss=0.24265316128730774, d_time=0.00(0.01), f_time=1.07(1.08), b_time=1.07(1.09), lr=0.0007837211379495308
+2022-11-10 05:52:21,079   INFO  epoch: 53/60, acc_iter=21450, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:31/02:44, time_cost(all): 6:22:23/46:13, loss=0.42934179306030273, d_time=0.00(0.01), f_time=1.06(1.08), b_time=1.07(1.09), lr=0.0007546576804245813
+2022-11-10 05:52:21,127   INFO  
+2022-11-10 05:52:50,316   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 05:53:16,500   INFO  epoch: 53/60, acc_iter=21500, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:27/01:50, time_cost(all): 6:23:18/45:28, loss=0.620082437992096, d_time=0.00(0.01), f_time=1.13(1.08), b_time=1.13(1.09), lr=0.0007260993821304655
+2022-11-10 05:54:10,837   INFO  epoch: 53/60, acc_iter=21550, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:21/00:55, time_cost(all): 6:24:12/44:32, loss=0.2227405458688736, d_time=0.00(0.01), f_time=1.08(1.08), b_time=1.08(1.09), lr=0.0006980496412190894
+2022-11-10 05:55:05,259   INFO  epoch: 53/60, acc_iter=21600, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:16/00:01, time_cost(all): 6:25:07/43:37, loss=0.2145448625087738, d_time=0.00(0.01), f_time=1.06(1.08), b_time=1.07(1.09), lr=0.0006705117953291176
+2022-11-10 05:55:05,305   INFO  
+2022-11-10 05:55:06,913   INFO  epoch: 54/60, acc_iter=21601, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/09:17, time_cost(all): 6:25:09/55:45, loss=0.27376702427864075, d_time=0.29(0.29), f_time=1.11(1.11), b_time=1.39(1.39), lr=0.0006699662823479957
+2022-11-10 05:56:00,030   INFO  epoch: 54/60, acc_iter=21650, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:54/06:22, time_cost(all): 6:26:02/42:43, loss=0.1937209665775299, d_time=0.00(0.01), f_time=1.07(1.08), b_time=1.08(1.09), lr=0.0006434891211888211
+2022-11-10 05:56:54,486   INFO  epoch: 54/60, acc_iter=21700, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:48/05:27, time_cost(all): 6:26:56/41:47, loss=0.22495508193969727, d_time=0.00(0.01), f_time=1.10(1.08), b_time=1.10(1.09), lr=0.000616984834226191
+2022-11-10 05:57:49,088   INFO  epoch: 54/60, acc_iter=21750, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:43/04:33, time_cost(all): 6:27:51/40:54, loss=0.21810725331306458, d_time=0.00(0.01), f_time=1.07(1.08), b_time=1.08(1.09), lr=0.0005910020881863224
+2022-11-10 05:57:49,136   INFO  
+2022-11-10 05:58:43,530   INFO  epoch: 54/60, acc_iter=21800, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:38/03:39, time_cost(all): 6:28:45/39:59, loss=0.2114732563495636, d_time=0.00(0.01), f_time=1.07(1.08), b_time=1.07(1.09), lr=0.0005655439747561605
+2022-11-10 05:59:37,850   INFO  epoch: 54/60, acc_iter=21850, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:32/02:44, time_cost(all): 6:29:40/39:03, loss=0.2148178070783615, d_time=0.00(0.01), f_time=1.07(1.08), b_time=1.08(1.09), lr=0.000540613523196613
+2022-11-10 06:00:07,126   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 06:00:33,085   INFO  epoch: 54/60, acc_iter=21900, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:27/01:50, time_cost(all): 6:30:35/38:14, loss=0.20388288795948029, d_time=0.00(0.01), f_time=1.09(1.08), b_time=1.10(1.09), lr=0.0005162136999821062
+2022-11-10 06:00:33,133   INFO  
+2022-11-10 06:01:27,282   INFO  epoch: 54/60, acc_iter=21950, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:21/00:55, time_cost(all): 6:31:29/37:17, loss=0.22957868874073029, d_time=0.00(0.01), f_time=1.10(1.08), b_time=1.10(1.09), lr=0.000492347408447594
+2022-11-10 06:02:21,703   INFO  epoch: 54/60, acc_iter=22000, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:16/00:01, time_cost(all): 6:32:23/36:22, loss=0.17062833905220032, d_time=0.00(0.01), f_time=1.09(1.08), b_time=1.09(1.09), lr=0.00046901748844310005
+2022-11-10 06:02:23,306   INFO  epoch: 55/60, acc_iter=22001, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/09:16, time_cost(all): 6:32:25/46:23, loss=0.31882381439208984, d_time=0.28(0.28), f_time=1.11(1.11), b_time=1.39(1.39), lr=0.0004685563802061022
+2022-11-10 06:03:16,569   INFO  epoch: 55/60, acc_iter=22050, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:54/06:23, time_cost(all): 6:33:18/35:32, loss=0.20894834399223328, d_time=0.00(0.01), f_time=1.08(1.08), b_time=1.08(1.09), lr=0.00044622671599580077
+2022-11-10 06:03:16,616   INFO  
+2022-11-10 06:04:11,272   INFO  epoch: 55/60, acc_iter=22100, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:49/05:29, time_cost(all): 6:34:13/34:38, loss=0.29225271940231323, d_time=0.00(0.01), f_time=1.07(1.09), b_time=1.07(1.09), lr=0.00042397780297969974
+2022-11-10 06:05:05,593   INFO  epoch: 55/60, acc_iter=22150, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:43/04:33, time_cost(all): 6:35:07/33:39, loss=0.22822438180446625, d_time=0.00(0.01), f_time=1.05(1.08), b_time=1.06(1.09), lr=0.0004022733967929522
+2022-11-10 06:06:00,011   INFO  epoch: 55/60, acc_iter=22200, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:38/03:39, time_cost(all): 6:36:02/32:43, loss=0.2519747018814087, d_time=0.00(0.01), f_time=1.08(1.08), b_time=1.08(1.09), lr=0.00038111608004284315
+2022-11-10 06:06:00,058   INFO  
+2022-11-10 06:06:54,353   INFO  epoch: 55/60, acc_iter=22250, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:32/02:44, time_cost(all): 6:36:56/31:48, loss=0.35193508863449097, d_time=0.00(0.01), f_time=1.08(1.08), b_time=1.08(1.09), lr=0.0003605083702384855
+2022-11-10 06:07:23,679   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 06:07:49,623   INFO  epoch: 55/60, acc_iter=22300, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:27/01:50, time_cost(all): 6:37:51/30:58, loss=0.15786956250667572, d_time=0.00(0.01), f_time=1.07(1.08), b_time=1.08(1.09), lr=0.00034045271949126435
+2022-11-10 06:08:44,024   INFO  epoch: 55/60, acc_iter=22350, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:22/00:55, time_cost(all): 6:38:46/30:02, loss=0.149728462100029, d_time=0.00(0.01), f_time=1.08(1.08), b_time=1.09(1.09), lr=0.00032095151422305415
+2022-11-10 06:08:44,072   INFO  
+2022-11-10 06:09:38,363   INFO  epoch: 55/60, acc_iter=22400, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:16/00:01, time_cost(all): 6:39:40/29:06, loss=0.21441347897052765, d_time=0.00(0.01), f_time=1.11(1.08), b_time=1.12(1.09), lr=0.00030200707488226496
+2022-11-10 06:09:39,956   INFO  epoch: 56/60, acc_iter=22401, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/09:11, time_cost(all): 6:39:42/36:44, loss=0.163221538066864, d_time=0.27(0.27), f_time=1.11(1.11), b_time=1.38(1.38), lr=0.0003016338807014977
+2022-11-10 06:10:33,328   INFO  epoch: 56/60, acc_iter=22450, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:54/06:24, time_cost(all): 6:40:35/28:18, loss=0.25030994415283203, d_time=0.00(0.01), f_time=1.09(1.09), b_time=1.09(1.09), lr=0.0002836216556677292
+2022-11-10 06:11:27,565   INFO  epoch: 56/60, acc_iter=22500, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:48/05:28, time_cost(all): 6:41:29/27:15, loss=0.25578099489212036, d_time=0.00(0.01), f_time=1.05(1.08), b_time=1.06(1.09), lr=0.00026579744426047196
+2022-11-10 06:11:27,612   INFO  
+2022-11-10 06:12:22,156   INFO  epoch: 56/60, acc_iter=22550, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:43/04:33, time_cost(all): 6:42:24/26:22, loss=0.2311369776725769, d_time=0.00(0.01), f_time=1.08(1.08), b_time=1.08(1.09), lr=0.0002485365615634048
+2022-11-10 06:13:16,492   INFO  epoch: 56/60, acc_iter=22600, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:37/03:39, time_cost(all): 6:43:18/25:26, loss=0.18669350445270538, d_time=0.00(0.01), f_time=1.09(1.08), b_time=1.09(1.09), lr=0.0002318410614489534
+2022-11-10 06:14:10,971   INFO  epoch: 56/60, acc_iter=22650, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:32/02:44, time_cost(all): 6:44:13/24:32, loss=0.22951790690422058, d_time=0.00(0.01), f_time=1.13(1.08), b_time=1.13(1.09), lr=0.00021571293051467268
+2022-11-10 06:14:11,018   INFO  
+2022-11-10 06:14:40,380   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 06:15:06,552   INFO  epoch: 56/60, acc_iter=22700, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:27/01:50, time_cost(all): 6:45:08/23:42, loss=0.16664958000183105, d_time=0.00(0.01), f_time=1.11(1.08), b_time=1.12(1.09), lr=0.00020015408784685609
+2022-11-10 06:16:00,821   INFO  epoch: 56/60, acc_iter=22750, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:22/00:55, time_cost(all): 6:46:02/22:46, loss=0.25598451495170593, d_time=0.00(0.01), f_time=1.11(1.08), b_time=1.11(1.09), lr=0.00018516638479218947
+2022-11-10 06:16:55,296   INFO  epoch: 56/60, acc_iter=22800, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:16/00:01, time_cost(all): 6:46:57/21:51, loss=0.372504323720932, d_time=0.00(0.01), f_time=1.09(1.08), b_time=1.09(1.09), lr=0.0001707516047374539
+2022-11-10 06:16:55,344   INFO  
+2022-11-10 06:16:56,913   INFO  epoch: 57/60, acc_iter=22801, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/09:01, time_cost(all): 6:46:59/27:03, loss=0.2474060356616974, d_time=0.28(0.28), f_time=1.08(1.08), b_time=1.35(1.35), lr=0.00017046916484597346
+2022-11-10 06:17:50,012   INFO  epoch: 57/60, acc_iter=22850, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:54/06:22, time_cost(all): 6:47:52/20:53, loss=0.30152428150177, d_time=0.00(0.01), f_time=1.09(1.08), b_time=1.09(1.09), lr=0.00015691146289732307
+2022-11-10 06:18:44,537   INFO  epoch: 57/60, acc_iter=22900, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:48/05:28, time_cost(all): 6:48:46/19:59, loss=0.29084834456443787, d_time=0.00(0.01), f_time=1.10(1.08), b_time=1.11(1.09), lr=0.00014364760611027306
+2022-11-10 06:19:38,927   INFO  epoch: 57/60, acc_iter=22950, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:43/04:33, time_cost(all): 6:49:41/19:04, loss=0.17895233631134033, d_time=0.00(0.01), f_time=1.08(1.08), b_time=1.08(1.09), lr=0.00013096161264261605
+2022-11-10 06:19:38,975   INFO  
+2022-11-10 06:20:33,349   INFO  epoch: 57/60, acc_iter=23000, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:37/03:38, time_cost(all): 6:50:35/18:10, loss=0.2596249282360077, d_time=0.00(0.01), f_time=1.10(1.08), b_time=1.10(1.09), lr=0.000118854992000713
+2022-11-10 06:21:27,576   INFO  epoch: 57/60, acc_iter=23050, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:32/02:44, time_cost(all): 6:51:29/17:14, loss=0.24488025903701782, d_time=0.00(0.01), f_time=1.05(1.08), b_time=1.05(1.09), lr=0.00010732918475134966
+2022-11-10 06:21:56,910   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 06:22:23,178   INFO  epoch: 57/60, acc_iter=23100, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:27/01:50, time_cost(all): 6:52:25/16:23, loss=0.17755311727523804, d_time=0.00(0.01), f_time=1.09(1.08), b_time=1.10(1.09), lr=9.638556235032709e-05
+2022-11-10 06:22:23,224   INFO  
+2022-11-10 06:23:17,494   INFO  epoch: 57/60, acc_iter=23150, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:21/00:55, time_cost(all): 6:53:19/15:28, loss=0.48146486282348633, d_time=0.00(0.01), f_time=1.05(1.08), b_time=1.06(1.09), lr=8.602542697927154e-05
+2022-11-10 06:24:12,067   INFO  epoch: 57/60, acc_iter=23200, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:16/00:01, time_cost(all): 6:54:14/14:34, loss=0.20174771547317505, d_time=0.00(0.01), f_time=1.09(1.08), b_time=1.10(1.09), lr=7.625001139068723e-05
+2022-11-10 06:24:13,664   INFO  epoch: 58/60, acc_iter=23201, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/09:14, time_cost(all): 6:54:15/18:28, loss=0.23587071895599365, d_time=0.29(0.29), f_time=1.09(1.09), b_time=1.38(1.38), lr=7.606047532661052e-05
+2022-11-10 06:25:06,999   INFO  epoch: 58/60, acc_iter=23250, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:54/06:24, time_cost(all): 6:55:09/13:41, loss=0.1751205325126648, d_time=0.00(0.01), f_time=1.10(1.08), b_time=1.11(1.09), lr=6.706047876127352e-05
+2022-11-10 06:25:07,047   INFO  
+2022-11-10 06:26:01,575   INFO  epoch: 58/60, acc_iter=23300, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:49/05:28, time_cost(all): 6:56:03/12:46, loss=0.231180340051651, d_time=0.00(0.01), f_time=1.08(1.09), b_time=1.08(1.09), lr=5.845792255351414e-05
+2022-11-10 06:26:55,777   INFO  epoch: 58/60, acc_iter=23350, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:43/04:33, time_cost(all): 6:56:57/11:49, loss=0.221331387758255, d_time=0.00(0.01), f_time=1.09(1.08), b_time=1.09(1.09), lr=5.0443366385569295e-05
+2022-11-10 06:27:50,037   INFO  epoch: 58/60, acc_iter=23400, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:37/03:38, time_cost(all): 6:57:52/10:54, loss=0.24461373686790466, d_time=0.00(0.01), f_time=1.07(1.08), b_time=1.07(1.09), lr=4.301776390947652e-05
+2022-11-10 06:27:50,084   INFO  
+2022-11-10 06:28:44,468   INFO  epoch: 58/60, acc_iter=23450, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:32/02:44, time_cost(all): 6:58:46/09:59, loss=0.2267666906118393, d_time=0.00(0.01), f_time=1.08(1.08), b_time=1.08(1.09), lr=3.618199869767094e-05
+2022-11-10 06:29:13,886   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 06:29:40,102   INFO  epoch: 58/60, acc_iter=23500, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:27/01:50, time_cost(all): 6:59:42/09:07, loss=0.4443446695804596, d_time=0.00(0.01), f_time=1.09(1.08), b_time=1.09(1.09), lr=2.9936884137853166e-05
+2022-11-10 06:30:34,681   INFO  epoch: 58/60, acc_iter=23550, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:22/00:55, time_cost(all): 7:00:36/08:12, loss=0.2200985699892044, d_time=0.00(0.01), f_time=1.10(1.08), b_time=1.10(1.09), lr=2.4283163336203267e-05
+2022-11-10 06:30:34,728   INFO  
+2022-11-10 06:31:29,224   INFO  epoch: 58/60, acc_iter=23600, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:16/00:01, time_cost(all): 7:01:31/07:18, loss=0.31111276149749756, d_time=0.00(0.01), f_time=1.10(1.08), b_time=1.10(1.09), lr=1.9221509028957922e-05
+2022-11-10 06:31:30,813   INFO  epoch: 59/60, acc_iter=23601, cur_iter=0/400, batch_size=4, time_cost(epoch): 00:01/09:09, time_cost(all): 7:01:32/09:09, loss=0.27392077445983887, d_time=0.27(0.27), f_time=1.10(1.10), b_time=1.37(1.37), lr=1.9126319276176863e-05
+2022-11-10 06:32:24,330   INFO  epoch: 59/60, acc_iter=23650, cur_iter=49/400, batch_size=4, time_cost(epoch): 00:54/06:25, time_cost(all): 7:02:26/06:25, loss=0.16802522540092468, d_time=0.00(0.01), f_time=1.09(1.09), b_time=1.10(1.10), lr=1.4752523502360832e-05
+2022-11-10 06:33:18,723   INFO  epoch: 59/60, acc_iter=23700, cur_iter=99/400, batch_size=4, time_cost(epoch): 01:49/05:28, time_cost(all): 7:03:20/05:28, loss=0.3359595537185669, d_time=0.00(0.01), f_time=1.07(1.09), b_time=1.07(1.09), lr=1.0876738520999623e-05
+2022-11-10 06:33:18,770   INFO  
+2022-11-10 06:34:13,413   INFO  epoch: 59/60, acc_iter=23750, cur_iter=149/400, batch_size=4, time_cost(epoch): 02:43/04:34, time_cost(all): 7:04:15/04:34, loss=0.196654811501503, d_time=0.00(0.01), f_time=1.11(1.09), b_time=1.11(1.09), lr=7.594615264526564e-06
+2022-11-10 06:35:07,788   INFO  epoch: 59/60, acc_iter=23800, cur_iter=199/400, batch_size=4, time_cost(epoch): 03:38/03:39, time_cost(all): 7:05:09/03:39, loss=0.19512894749641418, d_time=0.00(0.01), f_time=1.08(1.09), b_time=1.09(1.09), lr=4.906544272788004e-06
+2022-11-10 06:36:02,092   INFO  epoch: 59/60, acc_iter=23850, cur_iter=249/400, batch_size=4, time_cost(epoch): 04:32/02:44, time_cost(all): 7:06:04/02:44, loss=0.15261968970298767, d_time=0.00(0.01), f_time=1.09(1.09), b_time=1.10(1.09), lr=2.8128453993503354e-06
+2022-11-10 06:36:02,140   INFO  
+2022-11-10 06:36:31,389   INFO  Save latest model to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/latest_model
+2022-11-10 06:36:57,317   INFO  epoch: 59/60, acc_iter=23900, cur_iter=299/400, batch_size=4, time_cost(epoch): 05:27/01:50, time_cost(all): 7:06:59/01:50, loss=0.16996663808822632, d_time=0.00(0.01), f_time=1.11(1.08), b_time=1.12(1.09), lr=1.3137677734413854e-06
+2022-11-10 06:37:51,825   INFO  epoch: 59/60, acc_iter=23950, cur_iter=349/400, batch_size=4, time_cost(epoch): 06:22/00:55, time_cost(all): 7:07:53/00:55, loss=0.28724002838134766, d_time=0.00(0.01), f_time=1.10(1.08), b_time=1.10(1.09), lr=4.094897703077525e-07
+2022-11-10 06:38:46,176   INFO  epoch: 59/60, acc_iter=24000, cur_iter=399/400, batch_size=4, time_cost(epoch): 07:16/00:01, time_cost(all): 7:08:48/00:01, loss=0.29017722606658936, d_time=0.00(0.01), f_time=1.10(1.08), b_time=1.11(1.09), lr=1.0011898998922037e-07
+2022-11-10 06:38:46,223   INFO  
+2022-11-10 06:38:46,407   INFO  **********************End training home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn(default)**********************
+
+
+
+2022-11-10 06:38:46,407   INFO  **********************Start evaluation home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn(default)**********************
+2022-11-10 06:38:46,413   INFO  Loading Custom dataset.
+2022-11-10 06:38:46,425   INFO  Total samples for CUSTOM dataset: 400
+2022-11-10 06:38:46,427   INFO  ==> Loading parameters from checkpoint /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/ckpt/checkpoint_epoch_60.pth to GPU
+2022-11-10 06:38:46,475   INFO  ==> Checkpoint trained from version: pcdet+0.6.0+f221374
+2022-11-10 06:38:46,481   INFO  ==> Done (loaded 319/319)
+2022-11-10 06:38:46,483   INFO  *************** EPOCH 60 EVALUATION *****************
+2022-11-10 06:39:50,999   INFO  *************** Performance of EPOCH 60 *****************
+2022-11-10 06:39:50,999   INFO  Generate label finished(sec_per_example: 0.1613 second).
+2022-11-10 06:39:50,999   INFO  recall_roi_0.3: 0.001537
+2022-11-10 06:39:50,999   INFO  recall_rcnn_0.3: 0.000000
+2022-11-10 06:39:50,999   INFO  recall_roi_0.5: 0.000000
+2022-11-10 06:39:50,999   INFO  recall_rcnn_0.5: 0.000000
+2022-11-10 06:39:50,999   INFO  recall_roi_0.7: 0.000000
+2022-11-10 06:39:50,999   INFO  recall_rcnn_0.7: 0.000000
+2022-11-10 06:39:51,000   INFO  Average predicted number of objects(400 samples): 0.005
+2022-11-10 06:39:56,884   INFO  Car AP@0.70, 0.70, 0.70:
+bbox AP:0.0000, 0.0000, 0.0000
+bev  AP:0.0000, 0.0000, 0.0000
+3d   AP:0.0000, 0.0000, 0.0000
+aos  AP:0.00, 0.00, 0.00
+Car AP_R40@0.70, 0.70, 0.70:
+bbox AP:0.0000, 0.0000, 0.0000
+bev  AP:0.0000, 0.0000, 0.0000
+3d   AP:0.0000, 0.0000, 0.0000
+aos  AP:0.00, 0.00, 0.00
+Car AP@0.70, 0.50, 0.50:
+bbox AP:0.0000, 0.0000, 0.0000
+bev  AP:0.0000, 0.0000, 0.0000
+3d   AP:0.0000, 0.0000, 0.0000
+aos  AP:0.00, 0.00, 0.00
+Car AP_R40@0.70, 0.50, 0.50:
+bbox AP:0.0000, 0.0000, 0.0000
+bev  AP:0.0000, 0.0000, 0.0000
+3d   AP:0.0000, 0.0000, 0.0000
+aos  AP:0.00, 0.00, 0.00
+Pedestrian AP@0.50, 0.50, 0.50:
+bbox AP:0.0000, 0.0000, 0.0000
+bev  AP:0.0000, 0.0000, 0.0000
+3d   AP:0.0000, 0.0000, 0.0000
+aos  AP:0.00, 0.00, 0.00
+Pedestrian AP_R40@0.50, 0.50, 0.50:
+bbox AP:0.0000, 0.0000, 0.0000
+bev  AP:0.0000, 0.0000, 0.0000
+3d   AP:0.0000, 0.0000, 0.0000
+aos  AP:0.00, 0.00, 0.00
+Pedestrian AP@0.50, 0.25, 0.25:
+bbox AP:0.0000, 0.0000, 0.0000
+bev  AP:0.0000, 0.0000, 0.0000
+3d   AP:0.0000, 0.0000, 0.0000
+aos  AP:0.00, 0.00, 0.00
+Pedestrian AP_R40@0.50, 0.25, 0.25:
+bbox AP:0.0000, 0.0000, 0.0000
+bev  AP:0.0000, 0.0000, 0.0000
+3d   AP:0.0000, 0.0000, 0.0000
+aos  AP:0.00, 0.00, 0.00
+Cyclist AP@0.50, 0.50, 0.50:
+bbox AP:0.0000, 0.0000, 0.0000
+bev  AP:0.0000, 0.0000, 0.0000
+3d   AP:0.0000, 0.0000, 0.0000
+aos  AP:0.00, 0.00, 0.00
+Cyclist AP_R40@0.50, 0.50, 0.50:
+bbox AP:0.0000, 0.0000, 0.0000
+bev  AP:0.0000, 0.0000, 0.0000
+3d   AP:0.0000, 0.0000, 0.0000
+aos  AP:0.00, 0.00, 0.00
+Cyclist AP@0.50, 0.25, 0.25:
+bbox AP:0.0000, 0.0000, 0.0000
+bev  AP:0.0000, 0.0000, 0.0000
+3d   AP:0.0000, 0.0000, 0.0000
+aos  AP:0.00, 0.00, 0.00
+Cyclist AP_R40@0.50, 0.25, 0.25:
+bbox AP:0.0000, 0.0000, 0.0000
+bev  AP:0.0000, 0.0000, 0.0000
+3d   AP:0.0000, 0.0000, 0.0000
+aos  AP:0.00, 0.00, 0.00
+
+2022-11-10 06:39:56,885   INFO  Result is save to /home/jh/Desktop/3d/OpenPCDet/output/home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn/default/eval/eval_with_train/epoch_60/val
+2022-11-10 06:39:56,885   INFO  ****************Evaluation done.*****************
+2022-11-10 06:39:56,890   INFO  Epoch 60 has been evaluated
+2022-11-10 06:40:26,920   INFO  **********************End evaluation home/jh/Desktop/3d/OpenPCDet/tools/cfgs/custom_models/pv_rcnn(default)**********************

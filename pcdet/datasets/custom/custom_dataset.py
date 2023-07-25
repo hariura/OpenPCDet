@@ -37,6 +37,7 @@ class CustomDataset(DatasetTemplate):
 
         for info_path in self.dataset_cfg.INFO_PATH[mode]:
             info_path = self.root_path / info_path
+            print(info_path.exists())
             if not info_path.exists():
                 continue
             with open(info_path, 'rb') as f:
@@ -154,11 +155,12 @@ class CustomDataset(DatasetTemplate):
                 annotations['name'] = name
                 annotations['gt_boxes_lidar'] = gt_boxes_lidar[:, :7]
                 info['annos'] = annotations
-
+            
             return info
 
         sample_id_list = sample_id_list if sample_id_list is not None else self.sample_id_list
-
+        
+	
         # create a thread pool to improve the velocity
         with futures.ThreadPoolExecutor(num_workers) as executor:
             infos = executor.map(process_single_scene, sample_id_list)
@@ -244,6 +246,7 @@ def create_custom_infos(dataset_cfg, class_names, data_path, save_path, workers=
     print('------------------------Start to generate data infos------------------------')
 
     dataset.set_split(train_split)
+
     custom_infos_train = dataset.get_infos(
         class_names, num_workers=workers, has_label=True, num_features=num_features
     )
@@ -272,12 +275,13 @@ if __name__ == '__main__':
         import yaml
         from pathlib import Path
         from easydict import EasyDict
-
+	
         dataset_cfg = EasyDict(yaml.safe_load(open(sys.argv[2])))
         ROOT_DIR = (Path(__file__).resolve().parent / '../../../').resolve()
+        print("hi")
         create_custom_infos(
             dataset_cfg=dataset_cfg,
-            class_names=['Vehicle', 'Pedestrian', 'Cyclist'],
+            class_names=['Car', 'Pedestrian', 'Truck'],
             data_path=ROOT_DIR / 'data' / 'custom',
             save_path=ROOT_DIR / 'data' / 'custom',
         )
